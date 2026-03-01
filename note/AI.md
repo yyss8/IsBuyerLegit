@@ -310,3 +310,26 @@ Restore visible slide-up animation for the main heading after a transition-class
 - Kept transform-only motion path (`translate/scale`) and opacity fade logic.
 
 **Status**: Completed and revalidated.
+
+---
+
+## Task: Semantic Coloring + Inline Expandable Warnings (March 1, 2026)
+
+**Objective**: 
+Introduce risk-aware answer styling and contextual warning accordions in the guided check question cards.
+
+**Implementation Details**:
+- Added semantic option metadata (`severity: safe | risky`) to question options.
+- Added warning mapping object per question (`warnings[value] => { level, badge, description }`) to directly bind selected answers to warning content.
+- Injected exact requested warning content:
+  - Account/Feedback: `0 Feedback / New` → `⚠️ MEDIUM WARNING`
+  - Payment/Off-Platform: `Yes, asked to text/email` → `🚨 RED FLAG`
+  - Address/Freight Forwarder: `Yes, it's a warehouse` → `⚠️ MEDIUM WARNING`
+- Updated selected button semantics:
+  - Safe selections: gold/amber active style.
+  - Risky selections: red/orange danger style (`bg-red-900/20`, `border-red-500`).
+- Added inline warning accordion beneath each question:
+  - Smooth `max-height + opacity` transition.
+  - Dark warning container (`bg-[#1A1A1A]`) with severity left border (`border-yellow-500` or `border-red-500`).
+
+**Status**: Completed and integrated.

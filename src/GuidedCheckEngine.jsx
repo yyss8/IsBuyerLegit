@@ -16,24 +16,32 @@ const screens = [
         key: 'feedback',
         label: 'Feedback profile confidence',
         options: [
-          { label: 'High', value: 'high' },
-          { label: 'Low', value: 'low' },
+          { label: '0 Feedback / New', value: 'new', severity: 'risky' },
+          { label: 'Established Feedback', value: 'established', severity: 'safe' },
         ],
+        warnings: {
+          new: {
+            level: 'medium',
+            badge: '⚠️ MEDIUM WARNING',
+            description:
+              "Every user starts as a new user. eBay discourages treating all new accounts as scammers, but we need to look closer at this user's other information to be safe.",
+          },
+        },
       },
       {
         key: 'isRandomUsername',
         label: 'Does the username look random or bot-like?',
         options: [
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
+          { label: 'Yes', value: 'yes', severity: 'risky' },
+          { label: 'No', value: 'no', severity: 'safe' },
         ],
       },
       {
         key: 'nameMismatch',
         label: 'Do buyer name signals look mismatched?',
         options: [
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
+          { label: 'Yes', value: 'yes', severity: 'risky' },
+          { label: 'No', value: 'no', severity: 'safe' },
         ],
       },
     ],
@@ -47,16 +55,24 @@ const screens = [
         key: 'offPlatform',
         label: 'Asked to communicate or pay outside eBay?',
         options: [
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
+          { label: 'Yes, asked to text/email', value: 'yes_text_email', severity: 'risky' },
+          { label: 'No, stayed inside eBay messages', value: 'no_stayed_on_platform', severity: 'safe' },
         ],
+        warnings: {
+          yes_text_email: {
+            level: 'red',
+            badge: '🚨 RED FLAG',
+            description:
+              'eBay strictly prohibits off-platform communication. Scammers frequently use texts to send fake payment confirmation emails. Keep all communications inside eBay messages.',
+          },
+        },
       },
       {
         key: 'fakeEmail',
         label: 'Any suspicious payment-confirmation emails?',
         options: [
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
+          { label: 'Yes', value: 'yes', severity: 'risky' },
+          { label: 'No', value: 'no', severity: 'safe' },
         ],
       },
     ],
@@ -70,24 +86,32 @@ const screens = [
         key: 'isForwarder',
         label: 'Does the destination look like a forwarding address?',
         options: [
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
+          { label: "Yes, it's a warehouse", value: 'yes_warehouse', severity: 'risky' },
+          { label: 'No, looks residential/standard', value: 'no_standard', severity: 'safe' },
         ],
+        warnings: {
+          yes_warehouse: {
+            level: 'medium',
+            badge: '⚠️ MEDIUM WARNING',
+            description:
+              'Freight forwarders are commonly used by international buyers. While totally legitimate, they void some eBay Seller Protections and are frequently targeted by stolen credit cards. Signature confirmation is highly recommended.',
+          },
+        },
       },
       {
         key: 'visualMismatch',
         label: 'Do Street View visuals mismatch the provided details?',
         options: [
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
+          { label: 'Yes', value: 'yes', severity: 'risky' },
+          { label: 'No', value: 'no', severity: 'safe' },
         ],
       },
       {
         key: 'areaCodeMismatch',
         label: 'Does the phone area code mismatch the shipping region?',
         options: [
-          { label: 'Yes', value: 'yes' },
-          { label: 'No', value: 'no' },
+          { label: 'Yes', value: 'yes', severity: 'risky' },
+          { label: 'No', value: 'no', severity: 'safe' },
         ],
       },
     ],
@@ -152,6 +176,22 @@ const GuidedCheckEngine = () => {
     '4. Verdict',
   ];
 
+  const getWarningVisualStyle = (level) => {
+    if (level === 'red') {
+      return {
+        borderColor: 'border-red-500',
+        badgeColor: 'text-red-300',
+        textColor: 'text-[#D1D5DB]',
+      };
+    }
+
+    return {
+      borderColor: 'border-yellow-500',
+      badgeColor: 'text-yellow-300',
+      textColor: 'text-[#D1D5DB]',
+    };
+  };
+
   return (
     <div className="min-h-screen bg-[#FAF6EE] text-[#111111] px-6 py-10 md:py-14 font-sans">
       <style>
@@ -206,6 +246,7 @@ const GuidedCheckEngine = () => {
               <div className="mt-8 space-y-7">
                 {currentConfig.questions.map((question) => {
                   const selectedValue = formData[currentConfig.category][question.key];
+                  const activeWarning = question.warnings?.[selectedValue] || null;
 
                   return (
                     <div key={question.key}>
@@ -213,6 +254,7 @@ const GuidedCheckEngine = () => {
                       <div className="flex flex-wrap gap-3">
                         {question.options.map((option) => {
                           const isSelected = selectedValue === option.value;
+                          const isRiskySelection = option.severity === 'risky';
 
                           return (
                             <button
@@ -222,7 +264,9 @@ const GuidedCheckEngine = () => {
                               }
                               className={`cursor-pointer rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${
                                 isSelected
-                                  ? 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]'
+                                  ? isRiskySelection
+                                    ? 'bg-red-900/20 border-red-500 text-red-300 focus:ring-red-500/50'
+                                    : 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]'
                                   : 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
                               }`}
                             >
@@ -230,6 +274,25 @@ const GuidedCheckEngine = () => {
                             </button>
                           );
                         })}
+                      </div>
+
+                      <div
+                        className={`overflow-hidden transition-all duration-300 ease-out ${
+                          activeWarning ? 'max-h-60 opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
+                        }`}
+                      >
+                        {activeWarning ? (
+                          <div
+                            className={`bg-[#1A1A1A] border-l-4 ${getWarningVisualStyle(activeWarning.level).borderColor} p-4 rounded-r-md`}
+                          >
+                            <p className={`text-sm font-bold ${getWarningVisualStyle(activeWarning.level).badgeColor}`}>
+                              {activeWarning.badge}
+                            </p>
+                            <p className={`text-sm mt-2 leading-relaxed ${getWarningVisualStyle(activeWarning.level).textColor}`}>
+                              {activeWarning.description}
+                            </p>
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   );
