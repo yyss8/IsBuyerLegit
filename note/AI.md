@@ -153,3 +153,21 @@ Rewrite the local-buyer fraud guidance into a clear list format with actionable 
   - `"Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only."`
 
 **Status**: Completed and applied to the local panel.
+
+---
+
+## Task: Wording + Payment Warnings + Clipboard + Return Flow (March 1, 2026)
+
+**Objective**: 
+Update first-question wording, strengthen payment-specific warnings, add clipboard utility, and allow restarting the intro workflow.
+
+**Implementation Details**:
+- Updated first prompt copy to: `"Your buyer is from ebay / local"` (rendered as selectable inline options).
+- Expanded payment warnings in local guidance:
+  - Added Zelle warning: never trust screenshot proof; release only after funds appear in your bank app.
+  - Added large-cash warning: meet at a local bank and deposit before release; counterfeit checks are not fully reliable.
+- Added `Copy to clipboard` action for the example response with temporary `Copied` state feedback.
+- Added `Return` button on the local panel to restart the main heading + first-question animation workflow.
+- Refactored intro timing with `introCycle` so restart fully replays fade-in and move-up sequence.
+
+**Status**: Completed and verified.

@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
 const PlatformRouting = () => {
+  const exampleResponse = 'Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.';
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [isTitleVisible, setIsTitleVisible] = useState(false);
   const [hasMovedUp, setHasMovedUp] = useState(false);
+  const [introCycle, setIntroCycle] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    setIsTitleVisible(false);
+    setHasMovedUp(false);
+
     const fadeInTimer = setTimeout(() => {
       setIsTitleVisible(true);
     }, 80);
@@ -18,11 +24,27 @@ const PlatformRouting = () => {
       clearTimeout(fadeInTimer);
       clearTimeout(moveUpTimer);
     };
-  }, []);
+  }, [introCycle]);
 
   const handleSelect = (platform) => {
     setSelectedPlatform(platform);
-    console.log(`You are an ${platform} buyer | User selected: ${platform}`);
+    console.log(`Your buyer is from ${platform} | User selected: ${platform}`);
+  };
+
+  const handleRestart = () => {
+    setSelectedPlatform(null);
+    setCopied(false);
+    setIntroCycle((current) => current + 1);
+  };
+
+  const handleCopyExample = async () => {
+    try {
+      await navigator.clipboard.writeText(exampleResponse);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch (error) {
+      console.log('Clipboard copy failed:', error);
+    }
   };
 
   return (
@@ -49,17 +71,35 @@ const PlatformRouting = () => {
                   Accept only safe, non-chargeback-friendly payment methods (cash or Zelle).
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
                     <li>For Zelle: use QR code scan or provide your phone number to avoid fake-email payment scams.</li>
+                    <li>NEVER trust a screenshot of a payment. Only hand over the item when the money shows up in your own bank app.</li>
                     <li>For cash: bring a counterfeit detection pen and check bills while the buyer inspects the item.</li>
+                    <li>For large amounts of cash, meet at a local bank and deposit before releasing the item; counterfeit-bill checks are not 100% reliable.</li>
                   </ul>
                 </li>
                 <li>
                   On Facebook Marketplace, reply within two messages to reduce negative-feedback risk and keep responses detailed.
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
                     <li>If buyer intent is unclear within two messages, treat it as a likely non-legit or problematic buyer.</li>
-                    <li>Example response: “Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.”</li>
+                    <li>
+                      <span>Example response: “{exampleResponse}”</span>
+                      <button
+                        onClick={handleCopyExample}
+                        className="cursor-pointer ml-3 rounded-md border border-[#D9CC9A] px-3 py-1 text-sm font-semibold text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40"
+                      >
+                        {copied ? 'Copied' : 'Copy to clipboard'}
+                      </button>
+                    </li>
                   </ul>
                 </li>
               </ul>
+              <div className="mt-8 text-center">
+                <button
+                  onClick={handleRestart}
+                  className="cursor-pointer rounded-lg border border-[#D9CC9A] px-5 py-2 text-base font-semibold text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40"
+                >
+                  Return
+                </button>
+              </div>
             </div>
           ) : (
             <>
@@ -79,7 +119,7 @@ const PlatformRouting = () => {
                   hasMovedUp ? 'opacity-100 delay-300' : 'opacity-0'
                 } text-2xl md:text-3xl font-semibold`}
               >
-                <span>You are an </span>
+                <span>Your buyer is from </span>
                 <button
                   onClick={() => handleSelect('ebay')}
                   className={`cursor-pointer mx-1 px-1 rounded-sm font-extrabold underline decoration-2 underline-offset-4 transition-all duration-300 hover:text-[#B8860B] hover:bg-[#F4E7C0] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${
@@ -97,7 +137,6 @@ const PlatformRouting = () => {
                 >
                   local
                 </button>
-                <span> buyer</span>
               </div>
             </>
           )}
