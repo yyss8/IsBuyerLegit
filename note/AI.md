@@ -544,3 +544,18 @@ Make the local safety content easier to scan by converting dense list text into 
 - Preserved all existing safety guidance content and copy-to-clipboard example behavior.
 
 **Status**: Completed and build-verified.
+
+---
+
+## Task: Freight Forwarder Protection Wording Correction (March 1, 2026)
+
+**Objective**: 
+Correct the freight-forwarder warning text to reference buyer protection logic accurately.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` warning copy for forwarding-address scenario.
+- Corrected statement from seller-protection impact to buyer-protection impact.
+- Clarified condition: applies when buyer explicitly confirms they are using a forwarding address, not merely because they are located near/at a forwarding facility.
+- Retained safety recommendation for signature confirmation.
+
+**Status**: Completed.

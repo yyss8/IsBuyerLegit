@@ -103,7 +103,7 @@ const screens = [
             level: 'medium',
             badge: '⚠️ MEDIUM WARNING',
             description:
-              'Freight forwarders are commonly used by international buyers. While totally legitimate, they void some eBay Seller Protections and are frequently targeted by stolen credit cards. Signature confirmation is highly recommended.',
+              'Freight forwarders are commonly used by international buyers and can be legitimate. Buyer protection can be voided when the buyer explicitly confirms they are using a forwarding address (not simply because they work near or at that location). These addresses are also frequently targeted by stolen credit cards, so signature confirmation is highly recommended.',
           },
         },
       },
