@@ -257,3 +257,22 @@ Connect platform routing so selecting `ebay` enters the guided check workflow di
 - Preserved existing `local` panel behavior and restart flow.
 
 **Status**: Completed and ready for end-to-end routing tests.
+
+---
+
+## Task: Guided Check Styling Alignment + Indexed Sidebar (March 1, 2026)
+
+**Objective**: 
+Align eBay guided flow visuals with the local-panel warm-light style and add left-side indexed navigation for returning to prior steps.
+
+**Implementation Details**:
+- Restyled `GuidedCheckEngine` from dark mode to warm-light panel aesthetic:
+  - App background: `#FAF6EE`
+  - Panel background: `#FFFDF7`
+  - Border system: warm neutral (`#E7DFC9`, `#D8D1BE`)
+  - Accent interactions: gold-tinted (`#D9CC9A`, `#7A5A00`)
+- Added left indexed sidebar (`1. Account`, `2. Payment`, `3. Address`, `4. Verdict`).
+- Added `maxReachedScreen` tracking so sidebar allows navigation only to current/previously reached steps (no skipping ahead).
+- Preserved existing `Back`, `Next`, and `Start Over` logic with transition effects.
+
+**Status**: Completed and integrated.
