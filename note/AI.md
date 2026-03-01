@@ -171,3 +171,18 @@ Update first-question wording, strengthen payment-specific warnings, add clipboa
 - Refactored intro timing with `introCycle` so restart fully replays fade-in and move-up sequence.
 
 **Status**: Completed and verified.
+
+---
+
+## Task: Local Panel Vertical Padding/Clipping Fix (March 1, 2026)
+
+**Objective**: 
+Ensure the local guidance title/content is never clipped at the top of the viewport.
+
+**Implementation Details**:
+- Replaced absolute-centered local panel positioning with normal document flow layout.
+- Added vertical padding around the local panel container (`py-10`, `md:py-16`) to provide breathing room above and below.
+- Kept animated absolute positioning only for the default intro/question state.
+- Preserved existing content, copy-to-clipboard action, and return behavior.
+
+**Status**: Completed and visually aligned to padding requirement.

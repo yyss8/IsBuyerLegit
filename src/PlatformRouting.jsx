@@ -49,10 +49,22 @@ const PlatformRouting = () => {
 
   return (
     <div className="min-h-screen bg-[#FAF6EE] text-[#111111] p-6 font-sans">
-      <div className="mx-auto min-h-screen flex items-center justify-center">
-        <div className="w-full text-center relative h-[60vh]">
+      <div
+        className={`mx-auto min-h-screen w-full ${
+          selectedPlatform === 'local'
+            ? 'flex justify-center py-10 md:py-16'
+            : 'flex items-center justify-center'
+        }`}
+      >
+        <div
+          className={`w-full relative ${
+            selectedPlatform === 'local'
+              ? 'max-w-4xl text-center'
+              : 'text-center h-[60vh]'
+          }`}
+        >
           {selectedPlatform === 'local' ? (
-            <div className="absolute left-1/2 top-1/2 w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[#E7DFC9] bg-[#FFFDF7] p-8 md:p-10 text-left shadow-sm">
+            <div className="mx-auto w-full max-w-3xl rounded-2xl border border-[#E7DFC9] bg-[#FFFDF7] p-8 md:p-10 text-left shadow-sm">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center">
                 A More Detailed Fraud Detection Guide Is In Progress
               </h2>
