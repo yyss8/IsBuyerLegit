@@ -133,7 +133,7 @@ const PlatformRouting = () => {
                 <li>
                   Avoid buyers who cannot follow basic meetup prompts.
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
-                    <li>Ask the buyer to head out only after confirming they are on the way and about [x] minutes from your meetup location (adjust [x] based on distance).</li>
+                    <li>Ask the buyer to update you at two points: first when they start heading out (with an estimated arrival time), and again when they are about [x] minutes away. Only leave to meet once they confirm they are close (adjust [x] based on distance).</li>
                     <li>Stick to the agreed meetup time. Not showing up on time can be suspicious (for example, waiting until it gets dark).</li>
                     <li>If the buyer asks to change locations during the meetup, decline if the new location has no cameras or foot traffic.</li>
                   </ul>

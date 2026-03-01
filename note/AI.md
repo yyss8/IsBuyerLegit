@@ -509,3 +509,18 @@ Add a non-list general caution message between the final checklist section and t
 - Styled as a subtle highlighted panel for emphasis without breaking the minimalist layout.
 
 **Status**: Completed.
+
+---
+
+## Task: Clarify Buyer Check-In Timing Wording (March 1, 2026)
+
+**Objective**: 
+Refine one local meetup bullet to explicitly require two buyer check-ins before seller departure.
+
+**Implementation Details**:
+- Updated wording in local safety section to reflect intended flow:
+  - Buyer confirms when leaving and shares ETA.
+  - Buyer confirms again when approximately `[x]` minutes away.
+  - Seller heads out only after second close-distance confirmation.
+
+**Status**: Completed.
