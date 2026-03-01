@@ -293,3 +293,20 @@ Reduce perceived lag/frame drops in the opening `"Is Your Buyer Legit"` hero ani
 - Slightly tuned move-up trigger timing (`900ms`) for tighter perceived responsiveness.
 
 **Status**: Completed and performance-tuned.
+
+---
+
+## Task: Hero Slide Animation Regression Fix (March 1, 2026)
+
+**Objective**: 
+Restore visible slide-up animation for the main heading after a transition-class regression.
+
+**Implementation Details**:
+- Root issue: arbitrary class `transition-[transform,opacity]` could fail style generation and cause transform to jump instantly.
+- Replaced with explicit, stable Tailwind utilities:
+  - `transition-transform`
+  - `transition-opacity`
+  - existing `duration-800 ease-out` retained.
+- Kept transform-only motion path (`translate/scale`) and opacity fade logic.
+
+**Status**: Completed and revalidated.

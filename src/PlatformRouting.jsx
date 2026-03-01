@@ -129,7 +129,7 @@ const PlatformRouting = () => {
             <>
               <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center pointer-events-none">
                 <div
-                  className={`transform-gpu will-change-transform will-change-opacity transition-[transform,opacity] duration-800 ease-out text-6xl md:text-7xl font-bold tracking-tight ${
+                  className={`transform-gpu will-change-transform will-change-opacity transition-transform transition-opacity duration-800 ease-out text-6xl md:text-7xl font-bold tracking-tight ${
                     hasMovedUp ? '-translate-y-32 md:-translate-y-40 scale-[0.86]' : 'translate-y-0 scale-100'
                   }`}
                   style={{ opacity: isTitleVisible ? 1 : 0 }}
