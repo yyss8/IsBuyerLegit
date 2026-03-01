@@ -105,6 +105,9 @@ const PlatformRouting = () => {
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center">
                 A More Detailed Fraud Detection Guide Is In Progress
               </h2>
+              <p className="mt-3 text-sm md:text-base text-[#6B6B6B] text-center leading-relaxed">
+                Based on the site owner&apos;s experience, follow the general safety guidelines below for local meetups.
+              </p>
               <ul className="mt-6 space-y-4 text-base md:text-lg leading-relaxed text-[#2B2B2B] list-disc pl-6">
                 <li>
                   Do not trust buyers who seem unusually nice and offer to pay before meeting.

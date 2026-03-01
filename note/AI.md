@@ -459,3 +459,19 @@ Reduce duplication between `PlatformRouting` and `GuidedCheckEngine` for legal f
   - Added `getHasAgreedDisclaimer()` helper to avoid repeated localStorage check logic.
 
 **Status**: Completed and build-verified.
+
+---
+
+## Task: Local Guide Intro Subheading Copy Update (March 1, 2026)
+
+**Objective**: 
+Add a supportive explanatory subheading under the local-guide title with corrected grammar.
+
+**Implementation Details**:
+- Updated `src/PlatformRouting.jsx` local panel with new subheading under:
+  - `A More Detailed Fraud Detection Guide Is In Progress`
+- Final copy:
+  - `Based on the site owner's experience, follow the general safety guidelines below for local meetups.`
+- Applied muted styling for hierarchy and readability.
+
+**Status**: Completed.
