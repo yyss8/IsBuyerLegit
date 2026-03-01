@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 
 const initialFormData = {
   account: { feedback: null, isRandomUsername: null, nameMismatch: null },
-  payment: { offPlatform: null, fakeEmail: null },
+  payment: { offPlatform: null, fakeEmail: null, addressChanged: null },
   address: { isForwarder: null, visualMismatch: null, areaCodeMismatch: null },
 };
 
@@ -70,6 +70,14 @@ const screens = [
       {
         key: 'fakeEmail',
         label: 'Any suspicious payment-confirmation emails?',
+        options: [
+          { label: 'Yes', value: 'yes', severity: 'risky' },
+          { label: 'No', value: 'no', severity: 'safe' },
+        ],
+      },
+      {
+        key: 'addressChanged',
+        label: 'After payment, did the buyer ask to change the shipping address?',
         options: [
           { label: 'Yes', value: 'yes', severity: 'risky' },
           { label: 'No', value: 'no', severity: 'safe' },
@@ -376,13 +384,75 @@ const GuidedCheckEngine = () => {
     };
   };
 
+  const verdict = useMemo(() => {
+    const redFlags = [];
+    const warnings = [];
+
+    if (formData.payment.offPlatform === 'yes_text_email') {
+      redFlags.push('⚠️ Buyer requested off-platform communication.');
+    }
+
+    if (formData.payment.addressChanged === 'yes') {
+      redFlags.push('⚠️ Buyer requested a post-payment shipping address change.');
+    }
+
+    if (
+      formData.account.isRandomUsername === 'yes'
+      && formData.account.nameMismatch === 'yes'
+    ) {
+      redFlags.push('⚠️ Bot-like username completely mismatches the shipping name.');
+    }
+
+    if (formData.account.feedback === 'new') {
+      warnings.push('⚠️ Buyer account has 0 feedback or is newly created.');
+    }
+
+    if (formData.address.isForwarder === 'yes_warehouse') {
+      warnings.push('⚠️ Delivery address appears to be a freight forwarder warehouse.');
+    }
+
+    if (redFlags.length > 0) {
+      return {
+        level: 'high',
+        label: 'HIGH RISK',
+        icon: '🔴',
+        textClass: 'text-red-500',
+        bgClass: 'bg-red-900/10',
+        borderClass: 'border-red-500/30',
+        details: [...redFlags, ...warnings],
+      };
+    }
+
+    if (warnings.length > 0) {
+      return {
+        level: 'caution',
+        label: 'PROCEED WITH CAUTION',
+        icon: '🟡',
+        textClass: 'text-yellow-500',
+        bgClass: 'bg-yellow-900/10',
+        borderClass: 'border-yellow-500/30',
+        details: warnings,
+      };
+    }
+
+    return {
+      level: 'safe',
+      label: 'LOOKS SAFE',
+      icon: '🟢',
+      textClass: 'text-green-500',
+      bgClass: 'bg-green-900/10',
+      borderClass: 'border-green-500/30',
+      details: ['✅ No common red flags detected.'],
+    };
+  }, [formData]);
+
   return (
-    <div className="min-h-screen bg-[#FAF6EE] text-[#111111] px-6 py-10 md:py-14 font-sans">
+    <div className="min-h-screen bg-[#FAF6EE] text-[#111111] px-6 py-10 md:py-14 font-sans flex flex-col">
       <style>
         {`@keyframes panelFadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }`}
       </style>
 
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 flex-1 w-full">
         <aside className="md:w-56 md:pt-8">
           <div className="rounded-2xl border border-[#E7DFC9] bg-[#FFFDF7] p-4 md:p-5">
             <p className="text-sm font-semibold text-[#7A7A7A] mb-3">Guided Check</p>
@@ -525,33 +595,60 @@ const GuidedCheckEngine = () => {
                 Summary Dashboard
               </h1>
 
-              <div className="mt-8 rounded-2xl border border-[#E7DFC9] bg-[#FFFEFA] p-5 md:p-6">
-                <p className="text-sm md:text-base text-[#7A7A7A] mb-3">Current `formData` JSON</p>
-                <pre className="overflow-auto text-sm md:text-base leading-relaxed text-[#2B2B2B]">
-                  {JSON.stringify(formData, null, 2)}
-                </pre>
+              <div className={`mt-8 rounded-2xl border p-6 md:p-8 ${verdict.bgClass} ${verdict.borderClass}`}>
+                <p className={`text-3xl md:text-5xl font-black tracking-tight ${verdict.textClass}`}>
+                  {verdict.icon} {verdict.label}
+                </p>
               </div>
 
-              <div className="mt-8 flex items-center justify-between">
+              <div className="mt-5 rounded-2xl border border-[#E7DFC9] bg-[#FFFEFA] p-5 md:p-6">
+                <p className="text-sm md:text-base text-[#7A7A7A] mb-3">
+                  {verdict.level === 'safe' ? 'Result' : 'Triggered Signals'}
+                </p>
+                <ul className="space-y-2">
+                  {verdict.details.map((detail) => (
+                    <li key={detail} className="text-base md:text-lg text-[#2B2B2B] leading-relaxed">
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <button
-                  onClick={handleBack}
-                  className="cursor-pointer rounded-xl px-5 py-3 text-base font-semibold border border-[#D8D1BE] text-[#4A4A4A] transition-all duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
+                  className="cursor-pointer rounded-xl px-5 py-3 text-base font-semibold border border-[#D8D1BE] text-[#4A4A4A] bg-transparent transition-all duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
                 >
-                  Back
+                  ✍️ Share your scam story to warn others
                 </button>
 
-                <button
-                  onClick={handleStartOver}
-                  className="cursor-pointer rounded-xl px-7 py-3 text-base font-bold border-2 border-[#D9CC9A] text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0]"
-                >
-                  Start Over
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={handleBack}
+                    className="cursor-pointer rounded-xl px-5 py-3 text-base font-semibold border border-[#D8D1BE] text-[#4A4A4A] transition-all duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
+                  >
+                    Back
+                  </button>
+
+                  <button
+                    onClick={handleStartOver}
+                    className="cursor-pointer rounded-xl px-7 py-3 text-base font-bold border-2 border-[#D9CC9A] text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0]"
+                  >
+                    Start Over
+                  </button>
+                </div>
               </div>
             </>
           )}
         </div>
         </div>
       </div>
+
+      <footer className="mt-auto py-6 text-center text-xs text-gray-500">
+        © 2026 IsBuyerLegit. Not affiliated with eBay. |{' '}
+        <a href="#" className="underline hover:text-gray-600">
+          Detailed Disclaimer & Terms
+        </a>
+      </footer>
     </div>
   );
 };

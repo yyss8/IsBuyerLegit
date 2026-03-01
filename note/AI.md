@@ -374,3 +374,31 @@ Refactor username mismatch question into a nested follow-up that appears only wh
 - Added smooth reveal transitions for both warning and nested follow-up blocks.
 
 **Status**: Completed and build-verified.
+
+---
+
+## Task: Disclaimer Intercept + Traffic-Light Verdict Dashboard (March 1, 2026)
+
+**Objective**: 
+Add agreement gating before entering eBay flow and replace Step 4 JSON output with a conversion-focused verdict result screen.
+
+**Implementation Details**:
+- Added localStorage disclaimer intercept in `PlatformRouting`:
+  - Reads `agreedDisclaimer` via `useEffect`.
+  - On `eBay` click, blocks guided entry if not agreed.
+  - Shows centered modal with `bg-black/80` overlay and required disclaimer text.
+  - `I Understand & Agree` saves `agreedDisclaimer=true`, closes modal, and routes into guided check.
+- Replaced Step 4 JSON dump in `GuidedCheckEngine` with traffic-light verdict UI:
+  - 🔴 `HIGH RISK` (`text-red-500`, `bg-red-900/10`)
+  - 🟡 `PROCEED WITH CAUTION` (`text-yellow-500`, `bg-yellow-900/10`)
+  - 🟢 `LOOKS SAFE` (`text-green-500`, `bg-green-900/10`)
+- Added explicit risk evaluation rules from `formData`:
+  - High risk: off-platform request OR post-payment address change OR random username + complete mismatch.
+  - Caution: 0 feedback/new account OR freight forwarder warehouse.
+  - Safe: none triggered.
+- Added triggered-signals list (or safe confirmation line).
+- Added CTA button: `✍️ Share your scam story to warn others` plus `Start Over`.
+- Added global footer at page bottom:
+  - `© 2026 IsBuyerLegit. Not affiliated with eBay. | Detailed Disclaimer & Terms`.
+
+**Status**: Completed and integrated.

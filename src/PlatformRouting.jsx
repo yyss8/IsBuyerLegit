@@ -4,10 +4,17 @@ import GuidedCheckEngine from './GuidedCheckEngine';
 const PlatformRouting = () => {
   const exampleResponse = 'Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.';
   const [selectedPlatform, setSelectedPlatform] = useState(null);
+  const [hasAgreedDisclaimer, setHasAgreedDisclaimer] = useState(false);
+  const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
   const [isTitleVisible, setIsTitleVisible] = useState(false);
   const [hasMovedUp, setHasMovedUp] = useState(false);
   const [introCycle, setIntroCycle] = useState(0);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    const agreed = localStorage.getItem('agreedDisclaimer') === 'true';
+    setHasAgreedDisclaimer(agreed);
+  }, []);
 
   useEffect(() => {
     setIsTitleVisible(false);
@@ -34,8 +41,24 @@ const PlatformRouting = () => {
   }, [introCycle]);
 
   const handleSelect = (platform) => {
+    if (platform === 'ebay') {
+      const agreed = localStorage.getItem('agreedDisclaimer') === 'true';
+
+      if (!agreed) {
+        setShowDisclaimerModal(true);
+        return;
+      }
+    }
+
     setSelectedPlatform(platform);
     console.log(`Your buyer is from ${platform} | User selected: ${platform}`);
+  };
+
+  const handleAgreeDisclaimer = () => {
+    localStorage.setItem('agreedDisclaimer', 'true');
+    setHasAgreedDisclaimer(true);
+    setShowDisclaimerModal(false);
+    setSelectedPlatform('ebay');
   };
 
   const handleRestart = () => {
@@ -166,6 +189,24 @@ const PlatformRouting = () => {
           )}
         </div>
       </div>
+
+      {showDisclaimerModal && !hasAgreedDisclaimer ? (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+          <div className="w-full max-w-2xl rounded-2xl border border-[#2A2A2A] bg-[#111111] p-6 md:p-8 text-[#E0E0E0] shadow-xl">
+            <p className="text-base md:text-lg leading-relaxed">
+              Disclaimer: This tool highlights suspicious buyer patterns based on community data. You must agree not to rely solely on this tool for financial decisions. We are not responsible for any financial losses or blocked legitimate sales.
+            </p>
+            <div className="mt-6 flex justify-end">
+              <button
+                onClick={handleAgreeDisclaimer}
+                className="cursor-pointer rounded-xl border-2 border-[#FFC107] px-5 py-3 text-base font-bold text-[#FFC107] transition-all duration-300 hover:bg-[#FFC107] hover:text-[#111111]"
+              >
+                I Understand & Agree
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
