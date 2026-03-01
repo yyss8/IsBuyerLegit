@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import GuidedCheckEngine from './GuidedCheckEngine';
 
 const PlatformRouting = () => {
   const exampleResponse = 'Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.';
@@ -46,6 +47,10 @@ const PlatformRouting = () => {
       console.log('Clipboard copy failed:', error);
     }
   };
+
+  if (selectedPlatform === 'ebay') {
+    return <GuidedCheckEngine />;
+  }
 
   return (
     <div className="min-h-screen bg-[#FAF6EE] text-[#111111] p-6 font-sans">

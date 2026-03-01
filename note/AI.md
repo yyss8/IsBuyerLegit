@@ -242,3 +242,18 @@ Build a category-grouped guided wizard using deeply nested state to support futu
   - Large category typography, pill-style answer buttons, and fade-up panel transition.
 
 **Status**: Completed and ready for UI integration.
+
+---
+
+## Task: eBay Route to Guided Check Engine (March 1, 2026)
+
+**Objective**: 
+Connect platform routing so selecting `ebay` enters the guided check workflow directly.
+
+**Implementation Details**:
+- Updated `PlatformRouting` to import `GuidedCheckEngine`.
+- Added conditional render gate:
+  - If `selectedPlatform === 'ebay'`, return `<GuidedCheckEngine />`.
+- Preserved existing `local` panel behavior and restart flow.
+
+**Status**: Completed and ready for end-to-end routing tests.
