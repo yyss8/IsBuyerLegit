@@ -214,3 +214,31 @@ Create a standalone guided-question component for high-value eBay fraud checks w
   - Large typography, `max-w-3xl mx-auto`, and animated transitions via fade-slide keyframe.
 
 **Status**: Completed and ready for integration or direct use.
+
+---
+
+## Task: Guided Check Engine (Category-Based Architecture) (March 1, 2026)
+
+**Objective**: 
+Build a category-grouped guided wizard using deeply nested state to support future Guided + Express mode sharing.
+
+**Implementation Details**:
+- Added component: `src/GuidedCheckEngine.jsx`.
+- Implemented required nested schema:
+  - `formData.account = { feedback, isRandomUsername, nameMismatch }`
+  - `formData.payment = { offPlatform, fakeEmail }`
+  - `formData.address = { isForwarder, visualMismatch, areaCodeMismatch }`
+- Added `currentScreen` index (`0..3`) with section flow:
+  - Screen 1: eBay Account (3 questions)
+  - Screen 2: Payment (2 questions)
+  - Screen 3: Address (3 questions)
+  - Screen 4: Verdict (JSON state dump)
+- UX controls:
+  - Category panel `Back`/`Next` navigation on screens 1–3.
+  - `Next` is enabled only after all questions in current category are answered.
+  - Verdict includes `Back` and prominent `Start Over` reset.
+- Styling and transitions:
+  - Dark-mode palette (`#111111`, `#E0E0E0`, `#FFC107`).
+  - Large category typography, pill-style answer buttons, and fade-up panel transition.
+
+**Status**: Completed and ready for UI integration.
