@@ -349,3 +349,28 @@ Increase color contrast of selected risky answer buttons to better meet accessib
 - Kept semantic danger intent while improving readability on the light theme.
 
 **Status**: Completed and validated.
+
+---
+
+## Task: Conditional Username Follow-Up in Account Step (March 1, 2026)
+
+**Objective**: 
+Refactor username mismatch question into a nested follow-up that appears only when the random/bot-like username answer is `Yes`.
+
+**Implementation Details**:
+- Converted `nameMismatch` from sibling question to conditional follow-up under:
+  - `Does the username look random or bot-like? (e.g., name-1234 or name_0)`
+- Parent question behavior:
+  - `No` → safe gold state, no warning/follow-up shown.
+  - `Yes` → risky red state, immediate medium warning shown.
+- Added exact medium warning content for parent `Yes` state.
+- Added conditional follow-up question with exact hint text.
+- Follow-up behavior:
+  - `No` → safe gold state.
+  - `Yes` → risky red state + immediate red-flag warning with exact provided content.
+- State integrity:
+  - When parent toggles to `No`, `formData.account.nameMismatch` is automatically cleared (`null`).
+  - Step-completion logic now requires `nameMismatch` only if parent answer is `Yes`.
+- Added smooth reveal transitions for both warning and nested follow-up blocks.
+
+**Status**: Completed and build-verified.

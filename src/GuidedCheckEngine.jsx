@@ -14,7 +14,7 @@ const screens = [
     questions: [
       {
         key: 'feedback',
-        label: 'Feedback profile confidence',
+        label: 'Account Age/Feedback Score?',
         options: [
           { label: '0 Feedback / New', value: 'new', severity: 'risky' },
           { label: 'Established Feedback', value: 'established', severity: 'safe' },
@@ -30,19 +30,19 @@ const screens = [
       },
       {
         key: 'isRandomUsername',
-        label: 'Does the username look random or bot-like?',
+        label: 'Does the username look random or bot-like? (e.g., name-1234 or name_0)',
         options: [
           { label: 'Yes', value: 'yes', severity: 'risky' },
           { label: 'No', value: 'no', severity: 'safe' },
         ],
-      },
-      {
-        key: 'nameMismatch',
-        label: 'Do buyer name signals look mismatched?',
-        options: [
-          { label: 'Yes', value: 'yes', severity: 'risky' },
-          { label: 'No', value: 'no', severity: 'safe' },
-        ],
+        warnings: {
+          yes: {
+            level: 'medium',
+            badge: '⚠️ MEDIUM WARNING',
+            description:
+              "It looks sketchy, but don't panic! eBay automatically generates these usernames (like `name-1234`) when buyers use Guest Checkout or Apple/Google sign-in. By itself, this is normal. However, we need to verify if the generated name matches the shipping details below.",
+          },
+        },
       },
     ],
   },
@@ -118,6 +118,168 @@ const screens = [
   },
 ];
 
+const getOptionClasses = (isSelected, isRiskySelection) => {
+  if (isSelected && isRiskySelection) {
+    return 'bg-[#FEE2E2] border-[#DC2626] text-[#7F1D1D] focus:ring-red-600/40';
+  }
+
+  if (isSelected) {
+    return 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]';
+  }
+
+  return 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]';
+};
+
+const WarningBox = ({ warning, getWarningVisualStyle }) => {
+  if (!warning) {
+    return null;
+  }
+
+  const visualStyle = getWarningVisualStyle(warning.level);
+
+  return (
+    <div className={`bg-[#1A1A1A] border-l-4 ${visualStyle.borderColor} p-4 rounded-r-md`}>
+      <p className={`text-sm font-bold ${visualStyle.badgeColor}`}>{warning.badge}</p>
+      <p className={`text-sm mt-2 leading-relaxed ${visualStyle.textColor}`}>{warning.description}</p>
+    </div>
+  );
+};
+
+const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNestedValue }) => {
+  const feedbackQuestion = accountConfig.questions.find((question) => question.key === 'feedback');
+  const randomUsernameQuestion = accountConfig.questions.find(
+    (question) => question.key === 'isRandomUsername',
+  );
+
+  const feedbackValue = accountData.feedback;
+  const randomUsernameValue = accountData.isRandomUsername;
+  const nameMismatchValue = accountData.nameMismatch;
+
+  const randomUsernameWarning = randomUsernameQuestion?.warnings?.[randomUsernameValue] ?? null;
+  const nameMismatchWarning =
+    nameMismatchValue === 'yes'
+      ? {
+          level: 'red',
+          badge: '🚨 RED FLAG',
+          description:
+            "System-generated usernames from eBay usually follow a consistent pattern based on the buyer's real name or email. A complete mismatch between a bot-like username and the shipping name is a strong indicator of a stolen account or a fraudulently created burner account.",
+        }
+      : null;
+
+  return (
+    <div className="mt-8 space-y-7">
+      <div>
+        <p className="text-lg md:text-xl font-semibold mb-4">{feedbackQuestion.label}</p>
+        <div className="flex flex-wrap gap-3">
+          {feedbackQuestion.options.map((option) => {
+            const isSelected = feedbackValue === option.value;
+
+            return (
+              <button
+                key={option.value}
+                onClick={() => setNestedValue('account', 'feedback', option.value)}
+                className={`cursor-pointer rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                  isSelected,
+                  option.severity === 'risky',
+                )}`}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out ${
+            feedbackQuestion.warnings?.[feedbackValue] ? 'max-h-60 opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
+          }`}
+        >
+          <WarningBox
+            warning={feedbackQuestion.warnings?.[feedbackValue] ?? null}
+            getWarningVisualStyle={getWarningVisualStyle}
+          />
+        </div>
+      </div>
+
+      <div>
+        <p className="text-lg md:text-xl font-semibold mb-4">{randomUsernameQuestion.label}</p>
+        <div className="flex flex-wrap gap-3">
+          {randomUsernameQuestion.options.map((option) => {
+            const isSelected = randomUsernameValue === option.value;
+
+            return (
+              <button
+                key={option.value}
+                onClick={() => setNestedValue('account', 'isRandomUsername', option.value)}
+                className={`cursor-pointer rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                  isSelected,
+                  option.severity === 'risky',
+                )}`}
+              >
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out ${
+            randomUsernameWarning ? 'max-h-72 opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
+          }`}
+        >
+          <WarningBox warning={randomUsernameWarning} getWarningVisualStyle={getWarningVisualStyle} />
+        </div>
+
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-out ${
+            randomUsernameValue === 'yes' ? 'max-h-[420px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'
+          }`}
+        >
+          <div className="pl-2">
+            <p className="text-lg md:text-xl font-semibold mb-2">
+              Does the bot-like username completely mismatch the shipping name?
+            </p>
+            <p className="text-sm text-[#6B6B6B] mb-4">
+              (e.g., Shipping name is 'Alice Johnson' but username is 'js_1234')
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => setNestedValue('account', 'nameMismatch', 'yes')}
+                className={`cursor-pointer rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                  nameMismatchValue === 'yes',
+                  true,
+                )}`}
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setNestedValue('account', 'nameMismatch', 'no')}
+                className={`cursor-pointer rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                  nameMismatchValue === 'no',
+                  false,
+                )}`}
+              >
+                No
+              </button>
+            </div>
+
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-out ${
+                nameMismatchWarning ? 'max-h-60 opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
+              }`}
+            >
+              <WarningBox
+                warning={nameMismatchWarning}
+                getWarningVisualStyle={getWarningVisualStyle}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const GuidedCheckEngine = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [currentScreen, setCurrentScreen] = useState(0);
@@ -126,17 +288,39 @@ const GuidedCheckEngine = () => {
   const currentConfig = screens[currentScreen];
 
   const setNestedValue = (category, field, value) => {
-    setFormData((previous) => ({
-      ...previous,
-      [category]: {
+    setFormData((previous) => {
+      const nextCategoryData = {
         ...previous[category],
         [field]: value,
-      },
-    }));
+      };
+
+      if (category === 'account' && field === 'isRandomUsername' && value === 'no') {
+        nextCategoryData.nameMismatch = null;
+      }
+
+      return {
+        ...previous,
+        [category]: nextCategoryData,
+      };
+    });
   };
 
   const isCurrentScreenComplete = useMemo(() => {
     if (currentScreen > 2) {
+      return true;
+    }
+
+    if (currentScreen === 0) {
+      const { feedback, isRandomUsername, nameMismatch } = formData.account;
+
+      if (feedback === null || isRandomUsername === null) {
+        return false;
+      }
+
+      if (isRandomUsername === 'yes') {
+        return nameMismatch !== null;
+      }
+
       return true;
     }
 
@@ -243,8 +427,16 @@ const GuidedCheckEngine = () => {
                 {currentConfig.title}
               </h1>
 
-              <div className="mt-8 space-y-7">
-                {currentConfig.questions.map((question) => {
+              {currentScreen === 0 ? (
+                <AccountStep
+                  accountData={formData.account}
+                  accountConfig={currentConfig}
+                  getWarningVisualStyle={getWarningVisualStyle}
+                  setNestedValue={setNestedValue}
+                />
+              ) : (
+                <div className="mt-8 space-y-7">
+                  {currentConfig.questions.map((question) => {
                   const selectedValue = formData[currentConfig.category][question.key];
                   const activeWarning = question.warnings?.[selectedValue] || null;
 
@@ -297,7 +489,8 @@ const GuidedCheckEngine = () => {
                     </div>
                   );
                 })}
-              </div>
+                </div>
+              )}
 
               <div className="mt-10 flex items-center justify-between">
                 <button
