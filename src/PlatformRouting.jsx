@@ -13,16 +13,22 @@ const PlatformRouting = () => {
     setIsTitleVisible(false);
     setHasMovedUp(false);
 
-    const fadeInTimer = setTimeout(() => {
-      setIsTitleVisible(true);
-    }, 80);
+    let rafIdOne;
+    let rafIdTwo;
+
+    rafIdOne = window.requestAnimationFrame(() => {
+      rafIdTwo = window.requestAnimationFrame(() => {
+        setIsTitleVisible(true);
+      });
+    });
 
     const moveUpTimer = setTimeout(() => {
       setHasMovedUp(true);
-    }, 1000);
+    }, 900);
 
     return () => {
-      clearTimeout(fadeInTimer);
+      window.cancelAnimationFrame(rafIdOne);
+      window.cancelAnimationFrame(rafIdTwo);
       clearTimeout(moveUpTimer);
     };
   }, [introCycle]);
@@ -121,15 +127,15 @@ const PlatformRouting = () => {
             </div>
           ) : (
             <>
-              <div
-                className={`absolute left-1/2 -translate-x-1/2 transition-all duration-1000 ease-out ${
-                  hasMovedUp
-                    ? 'top-[10%] text-5xl md:text-6xl'
-                    : 'top-1/2 -translate-y-1/2 text-6xl md:text-7xl'
-                } font-bold tracking-tight`}
-                style={{ opacity: isTitleVisible ? 1 : 0 }}
-              >
-                Is Your Buyer Legit
+              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center pointer-events-none">
+                <div
+                  className={`transform-gpu will-change-transform will-change-opacity transition-[transform,opacity] duration-800 ease-out text-6xl md:text-7xl font-bold tracking-tight ${
+                    hasMovedUp ? '-translate-y-32 md:-translate-y-40 scale-[0.86]' : 'translate-y-0 scale-100'
+                  }`}
+                  style={{ opacity: isTitleVisible ? 1 : 0 }}
+                >
+                  Is Your Buyer Legit
+                </div>
               </div>
 
               <div

@@ -276,3 +276,20 @@ Align eBay guided flow visuals with the local-panel warm-light style and add lef
 - Preserved existing `Back`, `Next`, and `Start Over` logic with transition effects.
 
 **Status**: Completed and integrated.
+
+---
+
+## Task: Heading Animation Smoothness Optimization (March 1, 2026)
+
+**Objective**: 
+Reduce perceived lag/frame drops in the opening `"Is Your Buyer Legit"` hero animation.
+
+**Implementation Details**:
+- Replaced layout-heavy animation (`transition-all` on `top` and dynamic text-size shifts) with GPU-friendly animation primitives:
+  - `transform` + `opacity` only
+  - `transform-gpu` and `will-change` hints
+- Updated motion path to keep heading centered in a fixed container and move it upward via translate/scale transforms.
+- Replaced initial fade timer with a double `requestAnimationFrame` start to better align with paint frames.
+- Slightly tuned move-up trigger timing (`900ms`) for tighter perceived responsiveness.
+
+**Status**: Completed and performance-tuned.
