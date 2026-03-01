@@ -58,3 +58,23 @@ Convert the wizard to a robust light mode aesthetic and update copy framing.
   - Replaced inverted backgrounds with subtle elevated `.shadow-sm` and ring borders on hover to maintain elegant interactivity in light mode. 
 
 **Status**: Applied and verified via manual Vite inspection.
+
+---
+
+## Task: Intro Animation + Inline Buyer Prompt (March 1, 2026)
+
+**Objective**: 
+Add a centered hero heading animation on page load, then transition to a smaller routed question beneath it.
+
+**Implementation Details**:
+- **Motion Sequence**:
+  - Introduced a timed state transition using `useEffect` + `setTimeout(1000)`.
+  - Heading `"Is your buyer legit"` fades in while centered, then moves upward and scales down.
+- **Follow-up Prompt**:
+  - Added fade-in text: `"You are a [ebay/local] buyer"` below the moved heading.
+  - Implemented clickable inline options (`ebay` / `local`) tied to `selectedPlatform`.
+- **Interaction Behavior**:
+  - Selection is highlighted with gold accent (`#D4AF37`) and underline treatment.
+  - Existing console logging is retained and updated to reflect inline option choice.
+
+**Status**: Completed and integrated in the `PlatformRouting` flow.
