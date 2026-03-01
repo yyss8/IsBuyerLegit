@@ -402,3 +402,19 @@ Add agreement gating before entering eBay flow and replace Step 4 JSON output wi
   - `© 2026 IsBuyerLegit. Not affiliated with eBay. | Detailed Disclaimer & Terms`.
 
 **Status**: Completed and integrated.
+
+---
+
+## Task: Footer Added to Platform Selection Home Screen (March 1, 2026)
+
+**Objective**: 
+Display legal footer text on the initial home screen where users select `ebay` or `local`.
+
+**Implementation Details**:
+- Updated `PlatformRouting` layout to `flex flex-col` with main content in a `flex-1` container.
+- Added bottom footer on the home screen component:
+  - `© 2026 IsBuyerLegit. Not affiliated with eBay. | Detailed Disclaimer & Terms`
+- Added placeholder anchor for `Detailed Disclaimer & Terms`.
+- Kept selector UI vertically centered while preserving disclaimer modal behavior.
+
+**Status**: Completed and build-ready.

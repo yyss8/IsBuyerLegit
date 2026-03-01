@@ -82,9 +82,9 @@ const PlatformRouting = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF6EE] text-[#111111] p-6 font-sans">
+    <div className="min-h-screen bg-[#FAF6EE] text-[#111111] p-6 font-sans flex flex-col">
       <div
-        className={`mx-auto min-h-screen w-full ${
+        className={`mx-auto w-full flex-1 ${
           selectedPlatform === 'local'
             ? 'flex justify-center py-10 md:py-16'
             : 'flex items-center justify-center'
@@ -189,6 +189,13 @@ const PlatformRouting = () => {
           )}
         </div>
       </div>
+
+      <footer className="mt-auto py-6 text-center text-xs text-gray-500">
+        © 2026 IsBuyerLegit. Not affiliated with eBay. |{' '}
+        <a href="#" className="underline hover:text-gray-600">
+          Detailed Disclaimer & Terms
+        </a>
+      </footer>
 
       {showDisclaimerModal && !hasAgreedDisclaimer ? (
         <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
