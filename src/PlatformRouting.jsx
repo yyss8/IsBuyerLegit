@@ -76,20 +76,21 @@ const PlatformRouting = () => {
                   Meet in a safe, camera-monitored location (bank during business hours, police station).
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
                     <li>Not in a random parking lot.</li>
-                    <li>Not outside a local fast-food spot (for example, Domino&apos;s).</li>
+                    <li>Not outside of your local Domino store.</li>
                   </ul>
                 </li>
                 <li>
                   Accept only safe, non-chargeback-friendly payment methods (cash or Zelle).
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
-                    <li>For Zelle: use QR code scan or provide your phone number to avoid fake-email payment scams.</li>
+                    <li>No check, No Gift Card, Avoid Venmo/Cash App/Paypal.</li>
+                    <li><strong>For Zelle:</strong> use QR code scan or provide your phone number to avoid fake-email payment scams.</li>
                     <li>NEVER trust a screenshot of a payment. Only hand over the item when the money shows up in your own bank app.</li>
-                    <li>For cash: bring a counterfeit detection pen and check bills while the buyer inspects the item.</li>
-                    <li>For large amounts of cash, meet at a local bank and deposit before releasing the item; counterfeit-bill checks are not 100% reliable.</li>
+                    <li><strong>For cash:</strong> bring a counterfeit detection pen and check bills while the buyer inspects the item.</li>
+                    <li>For large amounts of cash: meet at a local bank and deposit before releasing the item; counterfeit-bill checks are not 100% reliable.</li>
                   </ul>
                 </li>
                 <li>
-                  On Facebook Marketplace, reply within two messages to reduce negative-feedback risk and keep responses detailed.
+                  On <strong>Facebook Marketplace</strong>, reply within two messages to reduce negative-feedback risk and keep responses detailed.
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
                     <li>If buyer intent is unclear within two messages, treat it as a likely non-legit or problematic buyer.</li>
                     <li>
