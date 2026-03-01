@@ -5,15 +5,15 @@ const PlatformRouting = () => {
 
   const handleSelect = (platform) => {
     setSelectedPlatform(platform);
-    console.log(`Where is your buyer from? | User selected: ${platform}`);
+    console.log(`Are you an eBay/local seller? | User selected: ${platform}`);
   };
 
   return (
-    <div className="min-h-screen bg-[#111111] text-[#E0E0E0] flex flex-col items-center justify-center p-6 font-sans">
+    <div className="min-h-screen bg-[#F0F0F0] text-[#111111] flex flex-col items-center justify-center p-6 font-sans">
       <div className="max-w-4xl w-full text-center space-y-16">
         {/* Headline */}
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
-          Where is your buyer from?
+          Where do you sell?
         </h1>
         
         {/* Cards Row */}
@@ -22,29 +22,29 @@ const PlatformRouting = () => {
           {/* Card A: eBay */}
           <button
             onClick={() => handleSelect('eBay')}
-            className={`flex-1 w-full max-w-sm p-12 rounded-3xl border-2 transition-all duration-300 transform hover:scale-105 hover:border-[#FFC107] hover:text-[#FFC107] hover:bg-[#1A1A1A] group focus:outline-none focus:ring-4 focus:ring-[#FFC107]/50 ${
+            className={`flex-1 w-full max-w-sm p-12 rounded-3xl border-2 transition-all duration-300 transform hover:scale-105 hover:border-[#D4AF37] hover:text-[#D4AF37] group focus:outline-none focus:ring-4 focus:ring-[#D4AF37]/50 shadow-sm hover:shadow-md ${
               selectedPlatform === 'eBay' 
-                ? 'border-[#FFC107] text-[#FFC107] bg-[#1A1A1A]' 
-                : 'border-[#E0E0E0] text-[#E0E0E0] bg-transparent'
+                ? 'border-[#D4AF37] text-[#D4AF37] bg-white ring-1 ring-[#D4AF37]' 
+                : 'border-[#CCCCCC] text-[#111111] bg-white'
             }`}
           >
             <div className="flex flex-col items-center justify-center h-full">
-              <span className="text-4xl md:text-5xl font-bold">eBay</span>
+              <span className="text-3xl md:text-4xl font-bold">Are you an<br/>eBay seller?</span>
             </div>
           </button>
 
           {/* Card B: Local */}
           <button
             onClick={() => handleSelect('Local')}
-            className={`flex-1 w-full max-w-sm p-12 rounded-3xl border-2 transition-all duration-300 transform hover:scale-105 hover:border-[#FFC107] hover:text-[#FFC107] hover:bg-[#1A1A1A] group focus:outline-none focus:ring-4 focus:ring-[#FFC107]/50 ${
+            className={`flex-1 w-full max-w-sm p-12 rounded-3xl border-2 transition-all duration-300 transform hover:scale-105 hover:border-[#D4AF37] hover:text-[#D4AF37] group focus:outline-none focus:ring-4 focus:ring-[#D4AF37]/50 shadow-sm hover:shadow-md ${
               selectedPlatform === 'Local' 
-                ? 'border-[#FFC107] text-[#FFC107] bg-[#1A1A1A]' 
-                : 'border-[#E0E0E0] text-[#E0E0E0] bg-transparent'
+                ? 'border-[#D4AF37] text-[#D4AF37] bg-white ring-1 ring-[#D4AF37]' 
+                : 'border-[#CCCCCC] text-[#111111] bg-white'
             }`}
           >
-            <div className="flex flex-col items-center justify-center h-full space-y-3">
-              <span className="text-4xl md:text-5xl font-bold">Local</span>
-              <span className="text-base md:text-lg opacity-80 group-hover:opacity-100 transition-opacity font-medium">
+            <div className="flex flex-col items-center justify-center h-full space-y-4">
+              <span className="text-3xl md:text-4xl font-bold leading-tight">Are you a<br/>local seller?</span>
+              <span className="text-sm md:text-base opacity-70 group-hover:opacity-100 transition-opacity font-medium group-hover:text-[#D4AF37]">
                 Facebook Marketplace, OfferUp
               </span>
             </div>

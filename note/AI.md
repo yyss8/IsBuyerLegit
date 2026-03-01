@@ -38,3 +38,23 @@ Setup a self-contained runtime environment and configure all dependencies for ev
   - `npm run preview`: Preview static build outputs.
 
 **Status**: Completed. Setup scripts generated, initialized, and verified.
+
+---
+
+## Task: Light Mode UX & Copy Update (March 1, 2026)
+
+**Objective**: 
+Convert the wizard to a robust light mode aesthetic and update copy framing.
+
+**Implementation Details**:
+- **Aesthetic Shift**: Transitioned from Dark Mode to Light Mode. 
+  - Background: Soft off-white `#F0F0F0` configured centrally in `:root`.
+  - Text: Near black `#111111` for high contrast readability.
+- **Copy Changes**: 
+  - Headline adjusted to "Where do you sell?"
+  - Selection cards refocused sequentially as queries: "Are you an eBay seller?" and "Are you a local seller?"
+- **Accents**: 
+  - Hover states retained "Amex Gold" concept using classical `#D4AF37`. 
+  - Replaced inverted backgrounds with subtle elevated `.shadow-sm` and ring borders on hover to maintain elegant interactivity in light mode. 
+
+**Status**: Applied and verified via manual Vite inspection.
