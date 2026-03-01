@@ -78,3 +78,40 @@ Add a centered hero heading animation on page load, then transition to a smaller
   - Existing console logging is retained and updated to reflect inline option choice.
 
 **Status**: Completed and integrated in the `PlatformRouting` flow.
+
+---
+
+## Task: Title Capitalization + Vertical Center Transition (March 1, 2026)
+
+**Objective**: 
+Refine intro animation behavior so the secondary prompt becomes the visual center after the title moves upward.
+
+**Implementation Details**:
+- Updated title copy to `"Is Your Buyer Legit"` (capitalized words).
+- Removed bracket characters around selectable options in the follow-up sentence.
+- Repositioned animated states:
+  - Title initially appears centered and fades in.
+  - After delay, title moves upward.
+  - `"You are a ebay/local buyer"` now fades in at exact vertical center (`top-1/2` + translate).
+
+**Status**: Completed and aligned to updated motion/copy request.
+
+---
+
+## Task: Warm White + Corrected Move-Up Animation (March 1, 2026)
+
+**Objective**: 
+Refine the intro transition so the headline first fades in centered, then moves up while the buyer question appears at the new visual center.
+
+**Implementation Details**:
+- Reworked animation timing into two phases:
+  - `isTitleVisible`: quick initial fade-in of centered heading.
+  - `hasMovedUp`: delayed (~1s) upward movement of title + question fade-in at center.
+- Updated copy line to `"You are an ebay/local buyer"`.
+- Removed width capping from the main layout container to avoid constraining hero text.
+- Increased vertical separation by moving final heading position higher (`top-[10%]`).
+- Improved option affordance:
+  - Both `ebay` and `local` now look selectable by default (accent color + underline + hover/focus treatment).
+- Shifted base background to warmer white (`#FAF6EE`) from greyer white.
+
+**Status**: Completed and synchronized with styling/interaction request.
