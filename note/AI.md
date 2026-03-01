@@ -524,3 +524,23 @@ Refine one local meetup bullet to explicitly require two buyer check-ins before 
   - Seller heads out only after second close-distance confirmation.
 
 **Status**: Completed.
+
+---
+
+## Task: Local Guide Readability Restructure (March 1, 2026)
+
+**Objective**: 
+Make the local safety content easier to scan by converting dense list text into clearly separated visual sections.
+
+**Implementation Details**:
+- Refactored local guide from one long nested list to multiple mini-sections.
+- Added clear heading bullets per section:
+  - Trust & Payment Intent
+  - Safe Meetup Location
+  - Safe Payment Methods
+  - Buyer Prompt Compliance
+  - Marketplace Message Pattern
+- Each section now uses a subtle bordered card with concise bullets for faster reading.
+- Preserved all existing safety guidance content and copy-to-clipboard example behavior.
+
+**Status**: Completed and build-verified.

@@ -108,42 +108,61 @@ const PlatformRouting = () => {
               <p className="mt-3 text-sm md:text-base text-[#6B6B6B] text-center leading-relaxed">
                 Based on the site owner&apos;s experience, follow the general safety guidelines below for local meetups.
               </p>
-              <ul className="mt-6 space-y-4 text-base md:text-lg leading-relaxed text-[#2B2B2B] list-disc pl-6">
-                <li>
-                  Do not trust buyers who seem unusually nice and offer to pay before meeting.
-                </li>
-                <li>
-                  Meet in a safe, camera-monitored location (bank during business hours, police station).
-                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+              <div className="mt-6 space-y-4 text-[#2B2B2B]">
+                <section className="rounded-lg border border-[#EEE6CF] bg-[#FFFEFA] p-4">
+                  <h3 className="text-base md:text-lg font-bold">• Trust & Payment Intent</h3>
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em] leading-relaxed">
+                    <li>Do not trust buyers who seem unusually nice and offer to pay before meeting.</li>
+                  </ul>
+                </section>
+
+                <section className="rounded-lg border border-[#EEE6CF] bg-[#FFFEFA] p-4">
+                  <h3 className="text-base md:text-lg font-bold">• Safe Meetup Location</h3>
+                  <p className="mt-1 text-[0.95em] leading-relaxed">
+                    Meet in a safe, camera-monitored location (bank during business hours, police station).
+                  </p>
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em] leading-relaxed">
                     <li>Not in a random parking lot.</li>
                     <li>Not outside of your local Domino store.</li>
                     <li>Not at your home for high-value items.</li>
                   </ul>
-                </li>
-                <li>
-                  Accept only safe, non-chargeback-friendly payment methods (cash or Zelle).
-                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+                </section>
+
+                <section className="rounded-lg border border-[#EEE6CF] bg-[#FFFEFA] p-4">
+                  <h3 className="text-base md:text-lg font-bold">• Safe Payment Methods</h3>
+                  <p className="mt-1 text-[0.95em] leading-relaxed">
+                    Accept only safe, non-chargeback-friendly payment methods (cash or Zelle).
+                  </p>
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em] leading-relaxed">
                     <li>No check, No Gift Card, Avoid Venmo/Cash App/Paypal.</li>
                     <li><strong>For Zelle:</strong> use QR code scan or provide your phone number to avoid fake-email payment scams.</li>
                     <li>NEVER trust a screenshot of a payment. Only hand over the item when the money shows up in your own bank app.</li>
-                    <li><strong>For cash:</strong> bring a counterfeit detection pen and check bills while the buyer inspects the item.</li>
+                    <li><strong>For cash:</strong> bring a counterfeit detection pen and ask to check bills while the buyer inspects the item.</li>
                     <li>For large amounts of cash: meet at a local bank and deposit before releasing the item; counterfeit-bill checks are not 100% reliable.</li>
                   </ul>
-                </li>
-                <li>
-                  Avoid buyers who cannot follow basic meetup prompts.
-                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+                </section>
+
+                <section className="rounded-lg border border-[#EEE6CF] bg-[#FFFEFA] p-4">
+                  <h3 className="text-base md:text-lg font-bold">• Buyer Prompt Compliance</h3>
+                  <p className="mt-1 text-[0.95em] leading-relaxed">
+                    Avoid buyers who cannot follow basic meetup prompts.
+                  </p>
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em] leading-relaxed">
                     <li>Ask the buyer to update you at two points: first when they start heading out (with an estimated arrival time), and again when they are about [x] minutes away. Only leave to meet once they confirm they are close (adjust [x] based on distance).</li>
                     <li>Stick to the agreed meetup time. Not showing up on time can be suspicious (for example, waiting until it gets dark).</li>
                     <li>If the buyer asks to change locations during the meetup, decline if the new location has no cameras or foot traffic.</li>
                   </ul>
-                </li>
-                <li>
-                  On <strong>Facebook Marketplace</strong>, reply within two messages to reduce negative-feedback risk and keep responses detailed.
-                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+                </section>
+
+                <section className="rounded-lg border border-[#EEE6CF] bg-[#FFFEFA] p-4">
+                  <h3 className="text-base md:text-lg font-bold">• Marketplace Message Pattern</h3>
+                  <p className="mt-1 text-[0.95em] leading-relaxed">
+                    On <strong>Facebook Marketplace</strong>, reply within two messages to reduce negative-feedback risk and keep responses detailed.
+                  </p>
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em] leading-relaxed">
                     <li>If buyer intent is unclear within two messages, treat it as a likely non-legit or problematic buyer.</li>
                     <li>
-                      <span>Example response: “{exampleResponse}”</span>
+                      <span>Keep your initial responses detailed and clear. Example response: “{exampleResponse}”</span>
                       <button
                         onClick={handleCopyExample}
                         className="cursor-pointer ml-3 rounded-md border border-[#D9CC9A] px-3 py-1 text-sm font-semibold text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40"
@@ -152,8 +171,8 @@ const PlatformRouting = () => {
                       </button>
                     </li>
                   </ul>
-                </li>
-              </ul>
+                </section>
+              </div>
 
               <div className="mt-6 rounded-xl border border-[#E7DFC9] bg-[#FFF9E8] px-4 py-3 text-sm md:text-base text-[#5A4A1A] leading-relaxed">
                 This is a general safety guide, and scam tactics continue to evolve over time. You may complete many deals without strictly following every step above, but a single scam can wipe out profit from dozens of successful transactions. Stay alert and prioritize safety in every meetup.
