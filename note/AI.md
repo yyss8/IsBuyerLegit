@@ -475,3 +475,20 @@ Add a supportive explanatory subheading under the local-guide title with correct
 - Applied muted styling for hierarchy and readability.
 
 **Status**: Completed.
+
+---
+
+## Task: Local Meetup Prompt-Compliance Safety Section (March 1, 2026)
+
+**Objective**: 
+Add a new local safety checklist section focused on buyer behavior and meetup prompt compliance.
+
+**Implementation Details**:
+- Inserted a new section directly below payment-method guidance in the local panel:
+  - `Avoid buyers who cannot follow basic meetup prompts.`
+- Added reworded sub-points with corrected grammar:
+  - Leave only after buyer confirms they are on the way and approximately `[x]` minutes out.
+  - Treat late/no-show behavior as potentially suspicious.
+  - Decline mid-meeting location switches to places without cameras or people.
+
+**Status**: Completed and integrated in local guidance.

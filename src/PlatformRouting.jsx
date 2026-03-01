@@ -130,6 +130,14 @@ const PlatformRouting = () => {
                   </ul>
                 </li>
                 <li>
+                  Avoid buyers who cannot follow basic meetup prompts.
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+                    <li>Ask the buyer to head out only after confirming they are on the way and about [x] minutes from your meetup location (adjust [x] based on distance).</li>
+                    <li>Stick to the agreed meetup time. Not showing up on time can be suspicious (for example, waiting until it gets dark).</li>
+                    <li>If the buyer asks to change locations during the meetup, decline if the new location has no cameras or foot traffic.</li>
+                  </ul>
+                </li>
+                <li>
                   On <strong>Facebook Marketplace</strong>, reply within two messages to reduce negative-feedback risk and keep responses detailed.
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
                     <li>If buyer intent is unclear within two messages, treat it as a likely non-legit or problematic buyer.</li>
