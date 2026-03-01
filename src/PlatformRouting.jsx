@@ -39,12 +39,12 @@ const PlatformRouting = () => {
             <span>You are a </span>
             <span className="font-bold">[</span>
             <button
-              onClick={() => handleSelect('eBay')}
+              onClick={() => handleSelect('ebay')}
               className={`mx-1 font-bold transition-all duration-300 hover:text-[#D4AF37] ${
-                selectedPlatform === 'eBay' ? 'text-[#D4AF37] underline underline-offset-4' : 'text-[#111111]'
+                selectedPlatform === 'ebay' ? 'text-[#D4AF37] underline underline-offset-4' : 'text-[#111111]'
               }`}
             >
-              eBay
+              ebay
             </button>
             <span className="font-bold">/</span>
             <button
