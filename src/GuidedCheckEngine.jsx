@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import TermsModal from './TermsModal';
 
 const initialFormData = {
   account: { feedback: null, isRandomUsername: null, nameMismatch: null },
@@ -292,6 +293,7 @@ const GuidedCheckEngine = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [currentScreen, setCurrentScreen] = useState(0);
   const [maxReachedScreen, setMaxReachedScreen] = useState(0);
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   const currentConfig = screens[currentScreen];
 
@@ -644,11 +646,16 @@ const GuidedCheckEngine = () => {
       </div>
 
       <footer className="mt-auto py-6 text-center text-xs text-gray-500">
-        © 2026 IsBuyerLegit. Not affiliated with eBay. |{' '}
-        <a href="#" className="underline hover:text-gray-600">
+        © 2026 IsBuyerLegit. |{' '}
+        <button
+          onClick={() => setIsTermsOpen(true)}
+          className="cursor-pointer hover:text-[#FFC107] transition-colors underline"
+        >
           Detailed Disclaimer & Terms
-        </a>
+        </button>
       </footer>
+
+      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import GuidedCheckEngine from './GuidedCheckEngine';
+import TermsModal from './TermsModal';
 
 const PlatformRouting = () => {
   const exampleResponse = 'Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.';
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [hasAgreedDisclaimer, setHasAgreedDisclaimer] = useState(false);
   const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isTitleVisible, setIsTitleVisible] = useState(false);
   const [hasMovedUp, setHasMovedUp] = useState(false);
   const [introCycle, setIntroCycle] = useState(0);
@@ -191,11 +193,16 @@ const PlatformRouting = () => {
       </div>
 
       <footer className="mt-auto py-6 text-center text-xs text-gray-500">
-        © 2026 IsBuyerLegit. Not affiliated with eBay. |{' '}
-        <a href="#" className="underline hover:text-gray-600">
+        © 2026 IsBuyerLegit. |{' '}
+        <button
+          onClick={() => setIsTermsOpen(true)}
+          className="cursor-pointer hover:text-[#FFC107] transition-colors underline"
+        >
           Detailed Disclaimer & Terms
-        </a>
+        </button>
       </footer>
+
+      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
 
       {showDisclaimerModal && !hasAgreedDisclaimer ? (
         <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">

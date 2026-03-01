@@ -418,3 +418,24 @@ Display legal footer text on the initial home screen where users select `ebay` o
 - Kept selector UI vertically centered while preserving disclaimer modal behavior.
 
 **Status**: Completed and build-ready.
+
+---
+
+## Task: Global Minimal Footer + Detailed Terms Modal (March 1, 2026)
+
+**Objective**: 
+Replace placeholder legal link behavior with a real, scrollable terms modal and unify the ultra-minimal footer across key screens.
+
+**Implementation Details**:
+- Added reusable component: `src/TermsModal.jsx`.
+  - Overlay: `bg-black/80 backdrop-blur-sm`
+  - Container: `#111111` background, `#E0E0E0` text, `max-w-2xl`, `rounded-xl`
+  - Mobile-friendly scrolling: `max-h-[80vh] overflow-y-auto overscroll-contain`
+  - UX controls: top-right close `✕` and sticky bottom `Close` button
+  - Content: inserted all 4 legal sections (Affiliation, Service Nature, Liability, Privacy)
+- Updated footer in both `PlatformRouting` and `GuidedCheckEngine` to:
+  - `© 2026 IsBuyerLegit. | Detailed Disclaimer & Terms`
+  - clickable subtle link style: `cursor-pointer hover:text-[#FFC107] transition-colors`
+- Added parent-state toggles (`isTermsOpen`) in both components and wired to `TermsModal`.
+
+**Status**: Completed and integrated globally.
