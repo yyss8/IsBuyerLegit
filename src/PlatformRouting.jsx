@@ -117,6 +117,7 @@ const PlatformRouting = () => {
                   <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
                     <li>Not in a random parking lot.</li>
                     <li>Not outside of your local Domino store.</li>
+                    <li>Not at your home for high-value items.</li>
                   </ul>
                 </li>
                 <li>
@@ -153,6 +154,11 @@ const PlatformRouting = () => {
                   </ul>
                 </li>
               </ul>
+
+              <div className="mt-6 rounded-xl border border-[#E7DFC9] bg-[#FFF9E8] px-4 py-3 text-sm md:text-base text-[#5A4A1A] leading-relaxed">
+                This is a general safety guide, and scam tactics continue to evolve over time. You may complete many deals without strictly following every step above, but a single scam can wipe out profit from dozens of successful transactions. Stay alert and prioritize safety in every meetup.
+              </div>
+
               <div className="mt-8 text-center">
                 <button
                   onClick={handleRestart}

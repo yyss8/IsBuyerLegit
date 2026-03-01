@@ -492,3 +492,20 @@ Add a new local safety checklist section focused on buyer behavior and meetup pr
   - Decline mid-meeting location switches to places without cameras or people.
 
 **Status**: Completed and integrated in local guidance.
+
+---
+
+## Task: Standalone General Warning Under Local Guide (March 1, 2026)
+
+**Objective**: 
+Add a non-list general caution message between the final checklist section and the `Return` button.
+
+**Implementation Details**:
+- Inserted standalone warning block in `src/PlatformRouting.jsx` directly below the local checklist and above `Return`.
+- Reworded for clarity and grammar:
+  - Scam methods evolve over time.
+  - One successful scam can erase profits from many clean deals.
+  - Reinforces staying alert and prioritizing safety.
+- Styled as a subtle highlighted panel for emphasis without breaking the minimalist layout.
+
+**Status**: Completed.
