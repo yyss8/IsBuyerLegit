@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import LegalFooter from './LegalFooter';
 
+const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1477767870258876717/QAOb233eKrm6sFU3h5l-ulfa8zs_Aewll1YPH7noh2MQrbvHHWR_II-VFKQ0PR5fghAe';
+
 const initialFormData = {
   account: { feedback: null, isRandomUsername: null, nameMismatch: null },
   payment: { offPlatform: null, fakeEmail: null, addressChanged: null },
@@ -289,10 +291,12 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
   );
 };
 
-const GuidedCheckEngine = () => {
+const GuidedCheckEngine = ({ onReturnToMain }) => {
   const [formData, setFormData] = useState(initialFormData);
   const [currentScreen, setCurrentScreen] = useState(0);
   const [maxReachedScreen, setMaxReachedScreen] = useState(0);
+  const [feedbackStatus, setFeedbackStatus] = useState('idle');
+  const [feedbackText, setFeedbackText] = useState('');
 
   const currentConfig = screens[currentScreen];
 
@@ -347,13 +351,75 @@ const GuidedCheckEngine = () => {
   };
 
   const handleBack = () => {
+    if (currentScreen === 0 && onReturnToMain) {
+      onReturnToMain();
+      return;
+    }
+
     setCurrentScreen((previous) => Math.max(previous - 1, 0));
   };
 
   const handleStartOver = () => {
+    if (onReturnToMain) {
+      onReturnToMain();
+      return;
+    }
+
     setFormData(initialFormData);
     setCurrentScreen(0);
     setMaxReachedScreen(0);
+    setFeedbackStatus('idle');
+    setFeedbackText('');
+  };
+
+  const submitToDiscord = async () => {
+    const feedbackType = feedbackStatus === 'up' ? 'up' : feedbackStatus === 'down' ? 'down' : null;
+
+    if (!feedbackType) {
+      return;
+    }
+
+    setFeedbackStatus('submitting');
+
+    try {
+      const payload = {
+        username: 'IBL Feedback Bot',
+        embeds: [
+          {
+            title: '🚨 New User Feedback',
+            color: feedbackType === 'up' ? 3066993 : 15158332,
+            fields: [
+              {
+                name: 'Rating',
+                value: feedbackType === 'up' ? '👍 Useful' : '👎 Not Useful',
+                inline: true,
+              },
+              {
+                name: 'Comments',
+                value: feedbackText.trim() || 'No comment provided.',
+              },
+            ],
+            footer: { text: 'IsBuyerLegit.com Dashboard' },
+          },
+        ],
+      };
+
+      const response = await fetch(DISCORD_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Discord webhook failed with status ${response.status}`);
+      }
+
+      setFeedbackStatus('submitted');
+      setFeedbackText('');
+    } catch (error) {
+      console.error('Failed to submit feedback:', error);
+      setFeedbackStatus(feedbackType);
+    }
   };
 
   const handleSidebarSelect = (targetScreen) => {
@@ -566,10 +632,9 @@ const GuidedCheckEngine = () => {
               <div className="mt-10 flex items-center justify-between">
                 <button
                   onClick={handleBack}
-                  disabled={currentScreen === 0}
                   className={`rounded-xl px-5 py-3 text-base font-semibold transition-all duration-300 ${
                     currentScreen === 0
-                      ? 'cursor-not-allowed border border-[#E8E2D2] text-[#B7B7B7]'
+                      ? 'cursor-pointer border border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
                       : 'cursor-pointer border border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
                   }`}
                 >
@@ -615,13 +680,70 @@ const GuidedCheckEngine = () => {
                 </ul>
               </div>
 
-              <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <button
-                  className="cursor-pointer rounded-xl px-5 py-3 text-base font-semibold border border-[#D8D1BE] text-[#4A4A4A] bg-transparent transition-all duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
-                >
-                  ✍️ Share your scam story to warn others
-                </button>
+              <div className="mt-6 border border-[#E0E0E0]/20 rounded-lg p-4">
+                {feedbackStatus === 'submitted' ? (
+                  <p className="text-sm text-gray-400">✅ Thanks for your feedback!</p>
+                ) : (
+                  <>
+                    <p className="text-sm text-gray-400">Was this assessment useful?</p>
 
+                    <div className="mt-3 flex items-center gap-2">
+                      <button
+                        onClick={() => setFeedbackStatus('up')}
+                        disabled={feedbackStatus === 'submitting'}
+                        className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-semibold transition-all duration-300 ${
+                          feedbackStatus === 'up'
+                            ? 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]'
+                            : 'border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:bg-[#FBF2D6]'
+                        } ${feedbackStatus === 'submitting' ? 'opacity-60 cursor-not-allowed' : ''}`}
+                      >
+                        👍 Yes
+                      </button>
+                      <button
+                        onClick={() => setFeedbackStatus('down')}
+                        disabled={feedbackStatus === 'submitting'}
+                        className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-semibold transition-all duration-300 ${
+                          feedbackStatus === 'down'
+                            ? 'border-[#DC2626] bg-[#FEE2E2] text-[#7F1D1D]'
+                            : 'border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:bg-[#FBF2D6]'
+                        } ${feedbackStatus === 'submitting' ? 'opacity-60 cursor-not-allowed' : ''}`}
+                      >
+                        👎 No
+                      </button>
+                    </div>
+
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-out ${
+                        feedbackStatus === 'up' || feedbackStatus === 'down' || feedbackStatus === 'submitting'
+                          ? 'max-h-72 opacity-100 mt-3'
+                          : 'max-h-0 opacity-0 mt-0'
+                      }`}
+                    >
+                      <textarea
+                        value={feedbackText}
+                        onChange={(event) => setFeedbackText(event.target.value)}
+                        placeholder="Any specific feedback or missing red flags? (Optional)"
+                        rows={3}
+                        className="w-full rounded-md border border-[#D8D1BE] bg-[#FFFEFA] px-3 py-2 text-sm text-[#2B2B2B] placeholder:text-[#9AA0A6] focus:outline-none focus:ring-2 focus:ring-[#D9CC9A]"
+                      />
+
+                      <button
+                        onClick={submitToDiscord}
+                        disabled={feedbackStatus === 'submitting'}
+                        className={`mt-3 rounded-md border px-4 py-2 text-sm font-semibold transition-all duration-300 ${
+                          feedbackStatus === 'submitting'
+                            ? 'cursor-not-allowed border-[#E8E2D2] text-[#9AA0A6] bg-[#F8F5EB]'
+                            : 'cursor-pointer border-[#D9CC9A] text-[#7A5A00] hover:bg-[#F4E7C0]'
+                        }`}
+                      >
+                        {feedbackStatus === 'submitting' ? 'Submitting...' : 'Submit Feedback'}
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handleBack}

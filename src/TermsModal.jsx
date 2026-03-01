@@ -9,7 +9,7 @@ const TermsModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="w-full max-w-2xl bg-[#111111] text-[#E0E0E0] rounded-xl border border-[#2A2A2A] shadow-2xl max-h-[80vh] overflow-y-auto overscroll-contain [scrollbar-gutter:stable]">
         <div className="sticky top-0 z-10 bg-[#111111]/95 backdrop-blur-sm border-b border-[#2A2A2A] px-5 py-4 flex items-center justify-between">
-          <h2 className="text-lg md:text-xl font-bold">Detailed Disclaimer & Terms</h2>
+          <h2 className="text-lg md:text-xl font-bold">Disclaimer & Terms</h2>
           <button
             onClick={onClose}
             className="cursor-pointer rounded-md border border-[#3A3A3A] px-3 py-1 text-sm font-semibold hover:border-[#FFC107] hover:text-[#FFC107] transition-colors"

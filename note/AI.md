@@ -377,6 +377,32 @@ Refactor username mismatch question into a nested follow-up that appears only wh
 
 ---
 
+## Task: Verdict Feedback Widget + Discord Webhook Integration (March 1, 2026)
+
+**Objective**: 
+Replace Step 4 share button with a lightweight usefulness feedback widget that submits directly to Discord via webhook.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` with new state:
+  - `feedbackStatus`: `idle | up | down | submitting | submitted`
+  - `feedbackText`: string
+- Replaced share CTA with staged feedback flow:
+  - Idle: `Was this assessment useful?` + `👍 Yes` / `👎 No`
+  - Up/Down: reveals textarea + `Submit Feedback`
+  - Submitting: button shows loading state
+  - Submitted: `✅ Thanks for your feedback!`
+- Added async `submitToDiscord()` using `fetch` POST to provided Discord webhook.
+  - Sends embed payload with dynamic color and rating field.
+  - Includes optional comment or fallback text.
+  - Uses try/catch and sets `submitted` only on success.
+- Added subtle widget container styling:
+  - `border border-[#E0E0E0]/20 rounded-lg p-4 mt-6`
+  - muted text tone (`text-gray-400`)
+
+**Status**: Completed and integrated.
+
+---
+
 ## Task: Disclaimer Intercept + Traffic-Light Verdict Dashboard (March 1, 2026)
 
 **Objective**: 
@@ -559,3 +585,22 @@ Correct the freight-forwarder warning text to reference buyer protection logic a
 - Retained safety recommendation for signature confirmation.
 
 **Status**: Completed.
+
+---
+
+## Task: Guided Check Return-To-Main Navigation (March 1, 2026)
+
+**Objective**: 
+Ensure guided-flow exit actions return to the main platform selector, not just reset inside the eBay flow.
+
+**Implementation Details**:
+- Updated `src/PlatformRouting.jsx` to pass an `onReturnToMain` callback into `GuidedCheckEngine`.
+- Updated `src/GuidedCheckEngine.jsx` to accept `onReturnToMain` prop.
+- Changed Step 1 `Back` behavior:
+  - when on the first guided screen, `Back` now returns to the main selector via callback.
+- Changed verdict `Start Over` behavior:
+  - if callback is available, `Start Over` now returns to the main selector.
+  - fallback local reset behavior is preserved for standalone usage.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.

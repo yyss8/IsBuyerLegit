@@ -70,6 +70,12 @@ const PlatformRouting = () => {
     setIntroCycle((current) => current + 1);
   };
 
+  const handleReturnToMainFromGuided = () => {
+    setSelectedPlatform(null);
+    setCopied(false);
+    setIntroCycle((current) => current + 1);
+  };
+
   const handleCopyExample = async () => {
     try {
       await navigator.clipboard.writeText(exampleResponse);
@@ -81,7 +87,7 @@ const PlatformRouting = () => {
   };
 
   if (selectedPlatform === 'ebay') {
-    return <GuidedCheckEngine />;
+    return <GuidedCheckEngine onReturnToMain={handleReturnToMainFromGuided} />;
   }
 
   return (
