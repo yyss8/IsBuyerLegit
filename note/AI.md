@@ -115,3 +115,21 @@ Refine the intro transition so the headline first fades in centered, then moves 
 - Shifted base background to warmer white (`#FAF6EE`) from greyer white.
 
 **Status**: Completed and synchronized with styling/interaction request.
+
+---
+
+## Task: Local Option Replacement Panel + Pointer Affordance (March 1, 2026)
+
+**Objective**: 
+Make options explicitly pointer-selectable and replace the intro/questions with a guidance panel when `local` is selected.
+
+**Implementation Details**:
+- Added explicit `cursor-pointer` styling on inline option buttons.
+- Added conditional rendering flow:
+  - Default: animated hero + `"You are an ebay/local buyer"` selector.
+  - On `local` click: replaces both heading and first question with a dedicated panel.
+- Added replacement panel content:
+  - Title: `"A More Detailed Fraud Detection Guideline Is In Progress"` (grammar corrected).
+  - General prevention guidance paragraph covering identity verification, in-app records, payment caution, public meetup safety, and release-after-confirmation behavior.
+
+**Status**: Completed and integrated.
