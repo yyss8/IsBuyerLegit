@@ -186,3 +186,31 @@ Ensure the local guidance title/content is never clipped at the top of the viewp
 - Preserved existing content, copy-to-clipboard action, and return behavior.
 
 **Status**: Completed and visually aligned to padding requirement.
+
+---
+
+## Task: Ebay Guided Check (Step-by-Step) Component (March 1, 2026)
+
+**Objective**: 
+Create a standalone guided-question component for high-value eBay fraud checks with a future-ready shared state structure.
+
+**Implementation Details**:
+- Added new component file: `src/EbayGuidedCheck.jsx`.
+- State architecture follows single-object requirement:
+  - `formData = { feedback, offPlatform, streetView, addressChanged }`
+  - `currentStep` numeric flow controller (1 → 5).
+- Implemented Typeform-style single-question flow:
+  - Step 1: Feedback score
+  - Step 2: Off-platform request
+  - Step 3: Google Street View check
+  - Step 4: Address change request
+  - Step 5: Verdict summary dashboard
+- Behavior controls:
+  - Auto-advance on option click.
+  - Subtle `← Back` button on steps 2–4.
+  - Prominent `Start Over` button on step 5 resetting both `formData` and `currentStep`.
+- Styling:
+  - Dark-mode palette `#111111` / `#E0E0E0` with `#FFC107` hover/accent.
+  - Large typography, `max-w-3xl mx-auto`, and animated transitions via fade-slide keyframe.
+
+**Status**: Completed and ready for integration or direct use.
