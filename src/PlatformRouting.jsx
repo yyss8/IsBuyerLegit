@@ -32,11 +32,34 @@ const PlatformRouting = () => {
           {selectedPlatform === 'local' ? (
             <div className="absolute left-1/2 top-1/2 w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[#E7DFC9] bg-[#FFFDF7] p-8 md:p-10 text-left shadow-sm">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center">
-                A More Detailed Fraud Detection Guideline Is In Progress
+                A More Detailed Fraud Detection Guide Is In Progress
               </h2>
-              <p className="mt-6 text-lg leading-relaxed text-[#2B2B2B]">
-                For now, protect yourself by verifying identity before meeting, insisting on in-app messaging and payment records, avoiding off-platform payment requests, meeting in public locations with surveillance, and never releasing high-value items until payment is fully confirmed and irreversible.
-              </p>
+              <ul className="mt-6 space-y-4 text-base md:text-lg leading-relaxed text-[#2B2B2B] list-disc pl-6">
+                <li>
+                  Do not trust buyers who seem unusually nice and offer to pay before meeting.
+                </li>
+                <li>
+                  Meet in a safe, camera-monitored location (bank during business hours, police station).
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+                    <li>Not in a random parking lot.</li>
+                    <li>Not outside a local fast-food spot (for example, Domino&apos;s).</li>
+                  </ul>
+                </li>
+                <li>
+                  Accept only safe, non-chargeback-friendly payment methods (cash or Zelle).
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+                    <li>For Zelle: use QR code scan or provide your phone number to avoid fake-email payment scams.</li>
+                    <li>For cash: bring a counterfeit detection pen and check bills while the buyer inspects the item.</li>
+                  </ul>
+                </li>
+                <li>
+                  On Facebook Marketplace, reply within two messages to reduce negative-feedback risk and keep responses detailed.
+                  <ul className="mt-2 list-disc pl-6 space-y-1 text-[0.95em]">
+                    <li>If buyer intent is unclear within two messages, treat it as a likely non-legit or problematic buyer.</li>
+                    <li>Example response: “Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.”</li>
+                  </ul>
+                </li>
+              </ul>
             </div>
           ) : (
             <>

@@ -133,3 +133,23 @@ Make options explicitly pointer-selectable and replace the intro/questions with 
   - General prevention guidance paragraph covering identity verification, in-app records, payment caution, public meetup safety, and release-after-confirmation behavior.
 
 **Status**: Completed and integrated.
+
+---
+
+## Task: Local Guidance Reworded Into Bullet Checklist (March 1, 2026)
+
+**Objective**: 
+Rewrite the local-buyer fraud guidance into a clear list format with actionable sub-points.
+
+**Implementation Details**:
+- Updated local panel title grammar to: `"A More Detailed Fraud Detection Guide Is In Progress"`.
+- Replaced paragraph-style guidance with structured bullet points covering:
+  - Prepayment trust warning.
+  - Safe meetup locations with camera coverage.
+  - Safe payment methods (`cash` / `Zelle`) and anti-fraud specifics.
+  - Facebook Marketplace response-speed/detail best practices.
+- Added nested sub-lists for explicit "not recommended" locations and payment-specific anti-scam steps.
+- Added polished example response:
+  - `"Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only."`
+
+**Status**: Completed and applied to the local panel.
