@@ -265,7 +265,7 @@ const GuidedCheckEngine = () => {
                               className={`cursor-pointer rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${
                                 isSelected
                                   ? isRiskySelection
-                                    ? 'bg-red-900/20 border-red-500 text-red-300 focus:ring-red-500/50'
+                                    ? 'bg-[#FEE2E2] border-[#DC2626] text-[#7F1D1D] focus:ring-red-600/40'
                                     : 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]'
                                   : 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
                               }`}

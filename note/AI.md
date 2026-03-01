@@ -333,3 +333,19 @@ Introduce risk-aware answer styling and contextual warning accordions in the gui
   - Dark warning container (`bg-[#1A1A1A]`) with severity left border (`border-yellow-500` or `border-red-500`).
 
 **Status**: Completed and integrated.
+
+---
+
+## Task: Risk Button Contrast Accessibility Fix (March 1, 2026)
+
+**Objective**: 
+Increase color contrast of selected risky answer buttons to better meet accessibility expectations.
+
+**Implementation Details**:
+- Updated risky selected state in `GuidedCheckEngine` from low-contrast style:
+  - old: `bg-red-900/20 border-red-500 text-red-300`
+- To higher-contrast style:
+  - new: `bg-[#FEE2E2] border-[#DC2626] text-[#7F1D1D]`
+- Kept semantic danger intent while improving readability on the light theme.
+
+**Status**: Completed and validated.
