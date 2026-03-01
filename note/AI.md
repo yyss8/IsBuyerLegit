@@ -439,3 +439,23 @@ Replace placeholder legal link behavior with a real, scrollable terms modal and 
 - Added parent-state toggles (`isTermsOpen`) in both components and wired to `TermsModal`.
 
 **Status**: Completed and integrated globally.
+
+---
+
+## Task: DRY Cleanup for Shared Legal UI (March 1, 2026)
+
+**Objective**: 
+Reduce duplication between `PlatformRouting` and `GuidedCheckEngine` for legal footer + terms modal behavior.
+
+**Implementation Details**:
+- Added reusable component: `src/LegalFooter.jsx`.
+  - Encapsulates `isTermsOpen` state.
+  - Renders shared footer text/link and mounts `TermsModal`.
+- Refactored both pages to use `LegalFooter`:
+  - `src/PlatformRouting.jsx`
+  - `src/GuidedCheckEngine.jsx`
+- Removed duplicate `TermsModal` imports and repeated footer/modal markup from both files.
+- Minor cleanup in `PlatformRouting`:
+  - Added `getHasAgreedDisclaimer()` helper to avoid repeated localStorage check logic.
+
+**Status**: Completed and build-verified.

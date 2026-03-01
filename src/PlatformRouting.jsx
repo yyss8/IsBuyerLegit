@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import GuidedCheckEngine from './GuidedCheckEngine';
-import TermsModal from './TermsModal';
+import LegalFooter from './LegalFooter';
+
+const getHasAgreedDisclaimer = () => localStorage.getItem('agreedDisclaimer') === 'true';
 
 const PlatformRouting = () => {
   const exampleResponse = 'Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.';
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [hasAgreedDisclaimer, setHasAgreedDisclaimer] = useState(false);
   const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
-  const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isTitleVisible, setIsTitleVisible] = useState(false);
   const [hasMovedUp, setHasMovedUp] = useState(false);
   const [introCycle, setIntroCycle] = useState(0);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const agreed = localStorage.getItem('agreedDisclaimer') === 'true';
+    const agreed = getHasAgreedDisclaimer();
     setHasAgreedDisclaimer(agreed);
   }, []);
 
@@ -44,7 +45,7 @@ const PlatformRouting = () => {
 
   const handleSelect = (platform) => {
     if (platform === 'ebay') {
-      const agreed = localStorage.getItem('agreedDisclaimer') === 'true';
+      const agreed = getHasAgreedDisclaimer();
 
       if (!agreed) {
         setShowDisclaimerModal(true);
@@ -192,17 +193,7 @@ const PlatformRouting = () => {
         </div>
       </div>
 
-      <footer className="mt-auto py-6 text-center text-xs text-gray-500">
-        © 2026 IsBuyerLegit. |{' '}
-        <button
-          onClick={() => setIsTermsOpen(true)}
-          className="cursor-pointer hover:text-[#FFC107] transition-colors underline"
-        >
-          Detailed Disclaimer & Terms
-        </button>
-      </footer>
-
-      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
+      <LegalFooter />
 
       {showDisclaimerModal && !hasAgreedDisclaimer ? (
         <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
