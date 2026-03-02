@@ -940,3 +940,93 @@ Improve mobile readability by preventing warning-text clipping and making answer
 - Build verification completed successfully with `npm run build`.
 
 **Status**: Completed and build-verified.
+
+---
+
+## Task: Bilingual Site Language Toggle (English/Chinese) (March 1, 2026)
+
+**Objective**: 
+Add global language switching with English default, controlled from footer, and localize major user-facing copy to natural Chinese.
+
+**Implementation Details**:
+- Added global language infrastructure:
+  - new file: `src/i18n.jsx`
+  - includes `LanguageProvider`, `useLanguage`, persisted `siteLanguage` in `localStorage`
+  - default language is English (`en`)
+- Wrapped app root with `LanguageProvider` in `src/main.jsx`.
+- Updated `src/LegalFooter.jsx`:
+  - added footer language dropdown between brand text and terms link
+  - options: English / 中文
+  - terms link label localized
+- Updated `src/TermsModal.jsx` to render modal title, section headers, and legal text through translation helper.
+- Updated `src/PlatformRouting.jsx` to localize landing, disclaimer modal, and local safety-guide content (including copy button labels and bilingual example response).
+- Updated `src/GuidedCheckEngine.jsx` to localize major guided-flow and verdict UI copy, warnings/badges/buttons, case-study modal labels, and feedback widget text.
+- Added broad Chinese translation dictionary entries in `src/i18n.jsx` covering key labels, warnings, verdict copy, and legal content.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Chinese Localization Naturalization Pass (March 1, 2026)
+
+**Objective**: 
+Refine Chinese copy to sound native and contextual (less literal machine-style translation), while preserving product/platform terms commonly used in English.
+
+**Implementation Details**:
+- Updated `src/i18n.jsx` with a focused language-quality pass across existing keys.
+- Reworded many high-visibility UI strings to more natural Mandarin phrasing (e.g., warning badges, CTA labels, step titles, verdict labels, helper text).
+- Adjusted wording style to reduce direct word-by-word translation and improve readability in Chinese product context.
+- Example refinement applied:
+  - `Get written confirmation before shipping`
+  - from: `发货前拿到书面确认`
+  - to: `发货前先让对方在站内明确确认`
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Full Translation Gap Audit + Dynamic Copy Coverage (March 1, 2026)
+
+**Objective**: 
+Thoroughly review all files and close remaining translation gaps, including non-literal dynamic content not caught by basic `t('...')` key scans.
+
+**Implementation Details**:
+- Audited all `src/*.jsx` files for:
+  - visible hardcoded strings not wrapped in `t(...)`
+  - wrapped keys missing in `zhMap`
+  - dynamic verdict/case-study strings rendered via variables
+- Updated `src/GuidedCheckEngine.jsx`:
+  - localized risk badge text rendering (`🚩 RED FLAG` / `⚠️ MEDIUM WARNING`) via `t(...)`
+  - localized copied forwarder message content via translation map (`handleCopyForwarderMessage`)
+- Expanded `src/i18n.jsx` coverage for dynamic content:
+  - added case-study source labels (`eBay Community Discussion`, `Seller's Personal Blog Post`)
+  - added full Chinese mappings for case-study summaries/stories
+  - added missing verdict-description translations used by dynamic flag definitions
+- Resolved a duplicate translation-key collision to keep intended localized wording effective.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Step 1 Conditional Follow-Up Flow Adjustment (March 1, 2026)
+
+**Objective**: 
+Make the random/bot-like username question appear only when `0 Feedback / New` is selected, while keeping name-mismatch as its nested follow-up.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` Step 1 flow in `AccountStep`:
+  - `Does the username look random or bot-like?` now renders only when `feedback === 'new'`
+  - `Does the bot-like username match the shipping name?` remains nested under random-username answer `yes`
+- Updated completion gating (`isCurrentScreenComplete`):
+  - `isRandomUsername` required only when `feedback === 'new'`
+  - `nameMismatch` required only when `feedback === 'new' && isRandomUsername === 'yes'`
+- Updated state reset logic (`setNestedValue`):
+  - when feedback changes to `established`, clears `registrationAge`, `isRandomUsername`, and `nameMismatch`
+  - keeps existing behavior of clearing `nameMismatch` when random-username is switched to `no`
+- During implementation, fixed a temporary JSX corruption introduced by patch context drift and restored full verdict/rendering block integrity.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.

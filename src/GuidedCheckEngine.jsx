@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import LegalFooter from './LegalFooter';
+import { useLanguage } from './i18n.jsx';
 
 const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1477767870258876717/QAOb233eKrm6sFU3h5l-ulfa8zs_Aewll1YPH7noh2MQrbvHHWR_II-VFKQ0PR5fghAe';
 
@@ -241,7 +242,7 @@ const getOptionClasses = (isSelected, isRiskySelection) => {
   return 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]';
 };
 
-const WarningBox = ({ warning, getWarningVisualStyle }) => {
+const WarningBox = ({ warning, getWarningVisualStyle, t }) => {
   if (!warning) {
     return null;
   }
@@ -250,42 +251,42 @@ const WarningBox = ({ warning, getWarningVisualStyle }) => {
 
   return (
     <div className={`bg-[#1A1A1A] border-l-4 ${visualStyle.borderColor} p-4 rounded-r-md`}>
-      <p className={`text-sm font-bold ${visualStyle.badgeColor}`}>{warning.badge}</p>
-      <p className={`text-sm mt-2 leading-relaxed ${visualStyle.textColor}`}>{warning.description}</p>
+      <p className={`text-sm font-bold ${visualStyle.badgeColor}`}>{t(warning.badge)}</p>
+      <p className={`text-sm mt-2 leading-relaxed ${visualStyle.textColor}`}>{t(warning.description)}</p>
     </div>
   );
 };
 
-const WebSourceCard = ({ summary, url, linkLabel }) => {
+const WebSourceCard = ({ summary, url, linkLabel, t }) => {
   return (
     <article className="rounded-xl border border-[#E5E5E0] bg-[#F7F7F5] p-4 md:p-5">
-      <p className="text-xs font-semibold tracking-wide text-[#8A8A86]">🔗 Verified Source</p>
-      <p className="mt-2 text-sm md:text-base leading-relaxed text-[#2F2F2F]">{summary}</p>
+      <p className="text-xs font-semibold tracking-wide text-[#8A8A86]">{t('🔗 Verified Source')}</p>
+      <p className="mt-2 text-sm md:text-base leading-relaxed text-[#2F2F2F]">{t(summary)}</p>
       <a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#5E5E5E] underline decoration-1 underline-offset-2 transition-colors duration-300 hover:text-[#2F2F2F]"
       >
-        🔗 Source: {linkLabel}
+        {t('🔗 Source:')} {t(linkLabel)}
         <span aria-hidden="true">↗</span>
       </a>
     </article>
   );
 };
 
-const OwnerCard = ({ story }) => {
+const OwnerCard = ({ story, t }) => {
   return (
     <article className="relative rounded-xl border border-[#E9D9A8] bg-[#FFFBF0] p-4 md:p-5">
       <p className="absolute right-4 top-3 text-xs md:text-sm font-bold tracking-wide text-[#A27400]">
-        🛡️ OWNER'S PICK
+        {t("🛡️ OWNER'S PICK")}
       </p>
-      <p className="mt-7 text-sm md:text-base leading-relaxed text-[#3C3624] italic font-serif">{story}</p>
+      <p className="mt-7 text-sm md:text-base leading-relaxed text-[#3C3624] italic font-serif">{t(story)}</p>
     </article>
   );
 };
 
-const CaseStudiesModal = ({ isOpen, onClose, flagKey, flagTitle }) => {
+const CaseStudiesModal = ({ isOpen, onClose, flagKey, flagTitle, t }) => {
   const orderedEntries = getOrderedCaseStudies(flagKey);
 
   useEffect(() => {
@@ -320,11 +321,11 @@ const CaseStudiesModal = ({ isOpen, onClose, flagKey, flagTitle }) => {
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-center justify-between border-b border-[#E7DFC9] px-5 py-4">
-          <p className="text-base md:text-lg font-bold text-[#2F2F2F]">Case Studies: {flagTitle}</p>
+          <p className="text-base md:text-lg font-bold text-[#2F2F2F]">{t('Case Studies:')} {t(flagTitle)}</p>
           <button
             onClick={onClose}
             className="cursor-pointer rounded-md border border-[#D8D1BE] px-3 py-1 text-sm font-semibold text-[#4A4A4A] hover:border-[#D9CC9A] hover:text-[#7A5A00]"
-            aria-label="Close case studies"
+            aria-label={t('Close')}
           >
             ✕
           </button>
@@ -333,7 +334,7 @@ const CaseStudiesModal = ({ isOpen, onClose, flagKey, flagTitle }) => {
         <div className="max-h-[70vh] overflow-y-auto p-5 space-y-3">
           {orderedEntries.map((entry, index) => {
             if (entry.category === 'CATEGORY_OWNER' && entry.badge) {
-              return <OwnerCard key={`owner-${index}`} story={entry.story} />;
+              return <OwnerCard key={`owner-${index}`} story={entry.story} t={t} />;
             }
 
             if (entry.category === 'CATEGORY_WEB') {
@@ -343,6 +344,7 @@ const CaseStudiesModal = ({ isOpen, onClose, flagKey, flagTitle }) => {
                   summary={entry.summary}
                   url={entry.url}
                   linkLabel={entry.linkLabel}
+                  t={t}
                 />
               );
             }
@@ -355,11 +357,11 @@ const CaseStudiesModal = ({ isOpen, onClose, flagKey, flagTitle }) => {
   );
 };
 
-const RiskLevelBadge = ({ level }) => {
+const RiskLevelBadge = ({ level, t }) => {
   if (level === 'high') {
     return (
       <div className="mt-8 rounded-2xl border border-[#F5C2C2] bg-[#FFF1F1] p-6 md:p-8">
-        <p className="text-3xl md:text-5xl font-black tracking-tight text-[#C53030]">🔴 HIGH RISK</p>
+        <p className="text-3xl md:text-5xl font-black tracking-tight text-[#C53030]">{t('🔴 HIGH RISK')}</p>
       </div>
     );
   }
@@ -367,19 +369,19 @@ const RiskLevelBadge = ({ level }) => {
   if (level === 'caution') {
     return (
       <div className="mt-8 rounded-2xl border border-[#F1D6A8] bg-[#FFF8E8] p-6 md:p-8">
-        <p className="text-3xl md:text-5xl font-black tracking-tight text-[#92400E]">🟡 PROCEED WITH CAUTION</p>
+        <p className="text-3xl md:text-5xl font-black tracking-tight text-[#92400E]">{t('🟡 PROCEED WITH CAUTION')}</p>
       </div>
     );
   }
 
   return (
     <div className="mt-8 rounded-2xl border border-[#B8E0C6] bg-[#EEFDF3] p-6 md:p-8">
-      <p className="text-3xl md:text-5xl font-black tracking-tight text-[#276749]">🟢 LOOKS SAFE</p>
+      <p className="text-3xl md:text-5xl font-black tracking-tight text-[#276749]">{t('🟢 LOOKS SAFE')}</p>
     </div>
   );
 };
 
-const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNestedValue }) => {
+const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNestedValue, t }) => {
   const feedbackQuestion = accountConfig.questions.find((question) => question.key === 'feedback');
   const randomUsernameQuestion = accountConfig.questions.find(
     (question) => question.key === 'isRandomUsername',
@@ -426,7 +428,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
   return (
     <div className="mt-8 space-y-7">
       <div>
-        <p className="text-lg md:text-xl font-semibold mb-4">{feedbackQuestion.label}</p>
+        <p className="text-lg md:text-xl font-semibold mb-4">{t(feedbackQuestion.label)}</p>
         <div className="flex flex-wrap gap-3">
           {feedbackQuestion.options.map((option) => {
             const isSelected = feedbackValue === option.value;
@@ -440,7 +442,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
                   option.severity === 'risky',
                 )}`}
               >
-                {option.label}
+                {t(option.label)}
               </button>
             );
           })}
@@ -454,6 +456,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
           <WarningBox
             warning={feedbackQuestion.warnings?.[feedbackValue] ?? null}
             getWarningVisualStyle={getWarningVisualStyle}
+            t={t}
           />
         </div>
 
@@ -463,7 +466,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
           }`}
         >
           <div className="pl-2">
-            <p className="text-lg md:text-xl font-semibold mb-4">{registrationQuestion.label}</p>
+            <p className="text-lg md:text-xl font-semibold mb-4">{t(registrationQuestion.label)}</p>
             <div className="flex flex-wrap gap-3">
               {registrationQuestion.options.map((option) => {
                 const isSelected = registrationAgeValue === option.value;
@@ -477,7 +480,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
                       option.severity === 'risky',
                     )}`}
                   >
-                    {option.label}
+                    {t(option.label)}
                   </button>
                 );
               })}
@@ -493,83 +496,91 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
               <WarningBox
                 warning={registrationQuestion.warnings?.[registrationAgeValue] ?? null}
                 getWarningVisualStyle={getWarningVisualStyle}
+                t={t}
               />
             </div>
           </div>
         </div>
       </div>
 
-      <div>
-        <p className="text-lg md:text-xl font-semibold mb-4">{randomUsernameQuestion.label}</p>
-        <div className="flex flex-wrap gap-3">
-          {randomUsernameQuestion.options.map((option) => {
-            const isSelected = randomUsernameValue === option.value;
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-out ${
+          feedbackValue === 'new' ? 'max-h-[2000px] opacity-100 mt-0' : 'max-h-0 opacity-0 mt-0'
+        }`}
+      >
+        <div>
+          <p className="text-lg md:text-xl font-semibold mb-4">{t(randomUsernameQuestion.label)}</p>
+          <div className="flex flex-wrap gap-3">
+            {randomUsernameQuestion.options.map((option) => {
+              const isSelected = randomUsernameValue === option.value;
 
-            return (
-              <button
-                key={option.value}
-                onClick={() => setNestedValue('account', 'isRandomUsername', option.value)}
-                className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
-                  isSelected,
-                  option.severity === 'risky',
-                )}`}
+              return (
+                <button
+                  key={option.value}
+                  onClick={() => setNestedValue('account', 'isRandomUsername', option.value)}
+                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                    isSelected,
+                    option.severity === 'risky',
+                  )}`}
+                >
+                  {t(option.label)}
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-out ${
+              randomUsernameWarning ? 'max-h-[1200px] opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
+            }`}
+          >
+            <WarningBox warning={randomUsernameWarning} getWarningVisualStyle={getWarningVisualStyle} t={t} />
+          </div>
+
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-out ${
+              randomUsernameValue === 'yes' ? 'max-h-[1200px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'
+            }`}
+          >
+            <div className="pl-2">
+              <p className="text-lg md:text-xl font-semibold mb-2">
+                {t('Does the bot-like username match the shipping name?')}
+              </p>
+              <p className="text-sm text-[#6B6B6B] mb-4">
+                {t("(e.g., Shipping name is 'Alice Johnson' but username is 'js_1234')")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => setNestedValue('account', 'nameMismatch', 'no')}
+                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                    nameMismatchValue === 'no',
+                    false,
+                  )}`}
+                >
+                  {t('Yes')}
+                </button>
+                <button
+                  onClick={() => setNestedValue('account', 'nameMismatch', 'yes')}
+                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                    nameMismatchValue === 'yes',
+                    true,
+                  )}`}
+                >
+                  {t('No, completely different')}
+                </button>
+              </div>
+
+              <div
+                className={`overflow-hidden transition-all duration-300 ease-out ${
+                  nameMismatchWarning ? 'max-h-[1200px] opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
+                }`}
               >
-                {option.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-out ${
-            randomUsernameWarning ? 'max-h-[1200px] opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
-          }`}
-        >
-          <WarningBox warning={randomUsernameWarning} getWarningVisualStyle={getWarningVisualStyle} />
-        </div>
-
-        <div
-          className={`overflow-hidden transition-all duration-300 ease-out ${
-            randomUsernameValue === 'yes' ? 'max-h-[1200px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'
-          }`}
-        >
-          <div className="pl-2">
-            <p className="text-lg md:text-xl font-semibold mb-2">
-              Does the bot-like username match the shipping name?
-            </p>
-            <p className="text-sm text-[#6B6B6B] mb-4">
-              (e.g., Shipping name is 'Alice Johnson' but username is 'js_1234')
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => setNestedValue('account', 'nameMismatch', 'no')}
-                className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
-                  nameMismatchValue === 'no',
-                  false,
-                )}`}
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => setNestedValue('account', 'nameMismatch', 'yes')}
-                className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
-                  nameMismatchValue === 'yes',
-                  true,
-                )}`}
-              >
-                No, completely different
-              </button>
-            </div>
-
-            <div
-              className={`overflow-hidden transition-all duration-300 ease-out ${
-                nameMismatchWarning ? 'max-h-[1200px] opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'
-              }`}
-            >
-              <WarningBox
-                warning={nameMismatchWarning}
-                getWarningVisualStyle={getWarningVisualStyle}
-              />
+                <WarningBox
+                  warning={nameMismatchWarning}
+                  getWarningVisualStyle={getWarningVisualStyle}
+                  t={t}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -579,6 +590,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
 };
 
 const GuidedCheckEngine = ({ onReturnToMain }) => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState(initialFormData);
   const [currentScreen, setCurrentScreen] = useState(0);
   const [maxReachedScreen, setMaxReachedScreen] = useState(0);
@@ -603,6 +615,8 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
 
       if (category === 'account' && field === 'feedback' && value === 'established') {
         nextCategoryData.registrationAge = null;
+        nextCategoryData.isRandomUsername = null;
+        nextCategoryData.nameMismatch = null;
       }
 
       return {
@@ -625,7 +639,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
         nameMismatch,
       } = formData.account;
 
-      if (feedback === null || isRandomUsername === null) {
+      if (feedback === null) {
         return false;
       }
 
@@ -633,7 +647,11 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
         return false;
       }
 
-      if (isRandomUsername === 'yes') {
+      if (feedback === 'new' && isRandomUsername === null) {
+        return false;
+      }
+
+      if (feedback === 'new' && isRandomUsername === 'yes') {
         return nameMismatch !== null;
       }
 
@@ -689,20 +707,20 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
         username: 'IBL Feedback Bot',
         embeds: [
           {
-            title: '🚨 New User Feedback',
+            title: t('🚨 New User Feedback'),
             color: feedbackType === 'up' ? 3066993 : 15158332,
             fields: [
               {
-                name: 'Rating',
-                value: feedbackType === 'up' ? '👍 Useful' : '👎 Not Useful',
+                name: t('Rating'),
+                value: feedbackType === 'up' ? t('👍 Useful') : t('👎 Not Useful'),
                 inline: true,
               },
               {
-                name: 'Comments',
-                value: feedbackText.trim() || 'No comment provided.',
+                name: t('Comments'),
+                value: feedbackText.trim() || t('No comment provided.'),
               },
             ],
-            footer: { text: 'IsBuyerLegit.com Dashboard' },
+            footer: { text: t('IsBuyerLegit.com Dashboard') },
           },
         ],
       };
@@ -747,7 +765,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
   };
 
   const handleCopyForwarderMessage = async () => {
-    const suggestedMessage = "Hi, we noticed your shipping address appears to be a freight forwarding service. Could you please confirm whether you are using a freight forwarder so we can process your order correctly? Thank you.";
+    const suggestedMessage = t('Hi, we noticed your shipping address appears to be a freight forwarding service. Could you please confirm whether you are using a freight forwarder so we can process your order correctly? Thank you.');
 
     try {
       await navigator.clipboard.writeText(suggestedMessage);
@@ -914,7 +932,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 flex-1 w-full">
         <aside className="md:w-56 md:pt-8">
           <div className="rounded-2xl border border-[#E7DFC9] bg-[#FFFDF7] p-4 md:p-5">
-            <p className="text-sm font-semibold text-[#7A7A7A] mb-3">Guided Check</p>
+            <p className="text-sm font-semibold text-[#7A7A7A] mb-3">{t('Guided Check')}</p>
             <div className="space-y-2">
               {sidebarSteps.map((label, index) => {
                 const isActive = currentScreen === index;
@@ -933,7 +951,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                           : 'cursor-not-allowed border border-transparent text-[#B7B7B7]'
                     }`}
                   >
-                    {label}
+                    {t(label)}
                   </button>
                 );
               })}
@@ -950,10 +968,10 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
           {currentScreen <= 2 ? (
             <>
               <p className="text-sm md:text-base text-[#7A7A7A] tracking-wide">
-                {currentConfig.stepLabel}
+                {t(currentConfig.stepLabel)}
               </p>
               <h1 className="mt-2 text-4xl md:text-5xl font-bold tracking-tight text-[#111111]">
-                {currentConfig.title}
+                {t(currentConfig.title)}
               </h1>
 
               {currentScreen === 0 ? (
@@ -962,13 +980,14 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                   accountConfig={currentConfig}
                   getWarningVisualStyle={getWarningVisualStyle}
                   setNestedValue={setNestedValue}
+                  t={t}
                 />
               ) : (
                 <div className="mt-8 space-y-7">
                   {currentScreen === 2 ? (
                     <div className="rounded-xl border border-[#E7DFC9] bg-[#FFFEFA] p-4 md:p-5">
                       <p className="text-sm md:text-base text-[#5B5B5B]">
-                        We recommend verifying the address visually before proceeding.
+                        {t('We recommend verifying the address visually before proceeding.')}
                       </p>
                       <div className="mt-3 flex flex-wrap items-center gap-2">
                         <a
@@ -977,7 +996,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center rounded-md border border-[#D8D1BE] px-3 py-1.5 text-xs md:text-sm font-semibold text-[#6A6A6A] transition-colors duration-300 hover:border-[#CFC7B4] hover:text-[#4E4E4E]"
                         >
-                          🗺 Google Maps
+                          {t('🗺 Google Maps')}
                         </a>
                         <a
                           href="https://www.zillow.com"
@@ -985,7 +1004,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                           rel="noopener noreferrer"
                           className="inline-flex items-center rounded-md border border-[#D8D1BE] px-3 py-1.5 text-xs md:text-sm font-semibold text-[#6A6A6A] transition-colors duration-300 hover:border-[#CFC7B4] hover:text-[#4E4E4E]"
                         >
-                          🏠 Zillow
+                          {t('🏠 Zillow')}
                         </a>
                       </div>
                     </div>
@@ -997,7 +1016,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
 
                   return (
                     <div key={question.key}>
-                      <p className="text-lg md:text-xl font-semibold mb-4">{question.label}</p>
+                      <p className="text-lg md:text-xl font-semibold mb-4">{t(question.label)}</p>
                       <div className="flex flex-wrap gap-3">
                         {question.options.map((option) => {
                           const isSelected = selectedValue === option.value;
@@ -1017,7 +1036,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                                   : 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
                               }`}
                             >
-                              {option.label}
+                              {t(option.label)}
                             </button>
                           );
                         })}
@@ -1033,10 +1052,10 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                             className={`bg-[#1A1A1A] border-l-4 ${getWarningVisualStyle(activeWarning.level).borderColor} p-4 rounded-r-md`}
                           >
                             <p className={`text-sm font-bold ${getWarningVisualStyle(activeWarning.level).badgeColor}`}>
-                              {activeWarning.badge}
+                              {t(activeWarning.badge)}
                             </p>
                             <p className={`text-sm mt-2 leading-relaxed ${getWarningVisualStyle(activeWarning.level).textColor}`}>
-                              {activeWarning.description}
+                              {t(activeWarning.description)}
                             </p>
                           </div>
                         ) : null}
@@ -1056,7 +1075,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                       : 'cursor-pointer border border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
                   }`}
                 >
-                  Back
+                  {t('Back')}
                 </button>
 
                 <button
@@ -1068,23 +1087,23 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                       : 'cursor-not-allowed border-2 border-[#E8E2D2] text-[#B7B7B7]'
                   }`}
                 >
-                  Next
+                  {t('Next')}
                 </button>
               </div>
             </>
           ) : (
             <>
-              <p className="text-sm md:text-base text-[#7A7A7A] tracking-wide">Step 4: The Verdict</p>
+              <p className="text-sm md:text-base text-[#7A7A7A] tracking-wide">{t('Step 4: The Verdict')}</p>
               <h1 className="mt-2 text-4xl md:text-5xl font-bold tracking-tight text-[#111111]">
-                Summary Dashboard
+                {t('Summary Dashboard')}
               </h1>
 
-              <RiskLevelBadge level={verdict.level} />
+              <RiskLevelBadge level={verdict.level} t={t} />
 
               {verdict.level === 'safe' ? (
                 <div className="mt-5 rounded-2xl border border-[#E7DFC9] bg-[#FFFEFA] p-5 md:p-6">
                   <p className="text-base md:text-lg text-[#2B2B2B] leading-relaxed">
-                    ✅ No common red flags detected.
+                    {t('✅ No common red flags detected.')}
                   </p>
                 </div>
               ) : (
@@ -1112,9 +1131,9 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                                   isRed ? 'bg-[#FFF5F5] text-[#C53030]' : 'bg-[#FFFBEB] text-[#92400E]'
                                 }`}
                               >
-                                {isRed ? '🚩 RED FLAG' : '⚠️ MEDIUM WARNING'}
+                                {isRed ? t('🚩 RED FLAG') : t('⚠️ MEDIUM WARNING')}
                               </span>
-                              <p className="mt-2 text-base md:text-lg font-bold text-[#2B2B2B]">{flag.title}</p>
+                              <p className="mt-2 text-base md:text-lg font-bold text-[#2B2B2B]">{t(flag.title)}</p>
                             </div>
                             <span className="text-lg font-bold text-[#6B6B6B]" aria-hidden="true">
                               {isExpanded ? '▲' : '▼'}
@@ -1125,20 +1144,20 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                         {isExpanded ? (
                           <div className="mt-4 border-t border-[#EFE9D8] pt-4">
                             <p className="text-sm md:text-base leading-relaxed text-[#3A3A3A]">
-                              {flag.description}
+                              {t(flag.description)}
                             </p>
 
                             {flag.key === 'is_forwarder' ? (
                               <div className="mt-4 rounded-xl border border-l-4 border-l-[#3B82F6] border-[#BFDBFE] bg-[#F0F7FF] p-4 md:p-5">
-                                <p className="text-sm font-bold tracking-wide text-[#1D4ED8]">💡 SUGGESTED ACTION</p>
-                                <p className="mt-2 text-base font-bold text-[#1E3A8A]">Get written confirmation before shipping</p>
+                                <p className="text-sm font-bold tracking-wide text-[#1D4ED8]">{t('💡 SUGGESTED ACTION')}</p>
+                                <p className="mt-2 text-base font-bold text-[#1E3A8A]">{t('Get written confirmation before shipping')}</p>
                                 <p className="mt-2 text-sm md:text-base leading-relaxed text-[#1E3A8A]">
-                                  If the address looks like a freight forwarder, message the buyer on eBay before shipping to confirm. Their reply creates the paper trail needed to void buyer protection if a dispute is opened later.
+                                  {t('If the address looks like a freight forwarder, message the buyer on eBay before shipping to confirm. Their reply creates the paper trail needed to void buyer protection if a dispute is opened later.')}
                                 </p>
 
                                 <div className="mt-3 rounded-lg border border-[#93C5FD] bg-[#EFF6FF] p-3">
                                   <p className="text-sm md:text-base leading-relaxed text-[#1E3A8A]">
-                                    Hi, we noticed your shipping address appears to be a freight forwarding service. Could you please confirm whether you are using a freight forwarder so we can process your order correctly? Thank you.
+                                    {t('Hi, we noticed your shipping address appears to be a freight forwarding service. Could you please confirm whether you are using a freight forwarder so we can process your order correctly? Thank you.')}
                                   </p>
                                 </div>
 
@@ -1147,7 +1166,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                                     onClick={handleCopyForwarderMessage}
                                     className="cursor-pointer rounded-md border border-[#D9CC9A] px-3 py-1 text-sm font-semibold text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40"
                                   >
-                                    {copiedForwarderMessage ? 'Copied' : 'Copy Message'}
+                                    {copiedForwarderMessage ? t('Copied') : t('Copy Message')}
                                   </button>
                                 </div>
                               </div>
@@ -1161,7 +1180,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                                 }}
                                 className="mt-3 cursor-pointer rounded-md border border-[#D8D1BE] px-3 py-1.5 text-sm font-semibold text-[#4A4A4A] transition-colors duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
                               >
-                                📋 View Case Studies
+                                {t('📋 View Case Studies')}
                               </button>
                             ) : null}
                           </div>
@@ -1174,10 +1193,10 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
 
               <div className="mt-6 border border-[#E0E0E0]/20 rounded-lg p-4">
                 {feedbackStatus === 'submitted' ? (
-                  <p className="text-sm text-gray-400">✅ Thanks for your feedback!</p>
+                  <p className="text-sm text-gray-400">{t('✅ Thanks for your feedback!')}</p>
                 ) : (
                   <>
-                    <p className="text-sm text-gray-400">Was this assessment useful?</p>
+                    <p className="text-sm text-gray-400">{t('Was this assessment useful?')}</p>
 
                     <div className="mt-3 flex items-center gap-2">
                       <button
@@ -1189,7 +1208,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                             : 'border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:bg-[#FBF2D6]'
                         } ${feedbackStatus === 'submitting' ? 'opacity-60 cursor-not-allowed' : ''}`}
                       >
-                        👍 Yes
+                        {t('👍 Yes')}
                       </button>
                       <button
                         onClick={() => setFeedbackStatus('down')}
@@ -1200,7 +1219,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                             : 'border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:bg-[#FBF2D6]'
                         } ${feedbackStatus === 'submitting' ? 'opacity-60 cursor-not-allowed' : ''}`}
                       >
-                        👎 No
+                        {t('👎 No')}
                       </button>
                     </div>
 
@@ -1214,7 +1233,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                       <textarea
                         value={feedbackText}
                         onChange={(event) => setFeedbackText(event.target.value)}
-                        placeholder="Any specific feedback or missing red flags? (Optional)"
+                        placeholder={t('Any specific feedback or missing red flags? (Optional)')}
                         rows={3}
                         className="w-full rounded-md border border-[#D8D1BE] bg-[#FFFEFA] px-3 py-2 text-sm text-[#2B2B2B] placeholder:text-[#9AA0A6] focus:outline-none focus:ring-2 focus:ring-[#D9CC9A]"
                       />
@@ -1228,7 +1247,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                             : 'cursor-pointer border-[#D9CC9A] text-[#7A5A00] hover:bg-[#F4E7C0]'
                         }`}
                       >
-                        {feedbackStatus === 'submitting' ? 'Submitting...' : 'Submit Feedback'}
+                        {feedbackStatus === 'submitting' ? t('Submitting...') : t('Submit Feedback')}
                       </button>
                     </div>
                   </>
@@ -1241,14 +1260,14 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                     onClick={handleBack}
                     className="cursor-pointer rounded-xl px-5 py-3 text-base font-semibold border border-[#D8D1BE] text-[#4A4A4A] transition-all duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
                   >
-                    Back
+                    {t('Back')}
                   </button>
 
                   <button
                     onClick={handleStartOver}
                     className="cursor-pointer rounded-xl px-7 py-3 text-base font-bold border-2 border-[#D9CC9A] text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0]"
                   >
-                    Start Over
+                    {t('Start Over')}
                   </button>
                 </div>
               </div>
@@ -1258,6 +1277,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                 onClose={closeCaseStudiesModal}
                 flagKey={activeCaseStudyModal?.flagKey}
                 flagTitle={activeCaseStudyModal?.flagTitle}
+                t={t}
               />
             </>
           )}

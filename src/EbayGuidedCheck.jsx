@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from './i18n.jsx';
 
 const initialFormData = {
   feedback: null,
@@ -49,6 +50,7 @@ const stepConfig = {
 };
 
 const EbayGuidedCheck = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState(initialFormData);
   const [currentStep, setCurrentStep] = useState(1);
 
@@ -82,25 +84,25 @@ const EbayGuidedCheck = () => {
         >
           <div className="flex items-center justify-between mb-8">
             <p className="text-sm md:text-base tracking-wide text-[#BDBDBD]">
-              Step {currentStep} of 5
+              {t('Step')} {currentStep} {t('of 5')}
             </p>
             {currentStep >= 2 && currentStep <= 4 ? (
               <button
                 onClick={handleBack}
                 className="cursor-pointer text-sm md:text-base text-[#BDBDBD] hover:text-[#FFC107] transition-colors duration-300"
               >
-                ← Back
+                ← {t('Back')}
               </button>
             ) : (
-              <span className="text-sm md:text-base text-transparent">← Back</span>
+              <span className="text-sm md:text-base text-transparent">← {t('Back')}</span>
             )}
           </div>
 
           {currentStep <= 4 ? (
             <>
-              <p className="text-base md:text-lg text-[#BDBDBD] mb-3">{step.category}</p>
+              <p className="text-base md:text-lg text-[#BDBDBD] mb-3">{t(step.category)}</p>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-10">
-                {step.question}
+                {t(step.question)}
               </h1>
 
               <div className="space-y-4">
@@ -117,7 +119,7 @@ const EbayGuidedCheck = () => {
                           : 'border-[#E0E0E0] text-[#E0E0E0] bg-transparent'
                       }`}
                     >
-                      {option.label}
+                      {t(option.label)}
                     </button>
                   );
                 })}
@@ -125,27 +127,27 @@ const EbayGuidedCheck = () => {
             </>
           ) : (
             <>
-              <p className="text-base md:text-lg text-[#BDBDBD] mb-3">The Verdict</p>
+              <p className="text-base md:text-lg text-[#BDBDBD] mb-3">{t('The Verdict')}</p>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-10">
-                Guided Check Summary
+                {t('Guided Check Summary')}
               </h1>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <div className="rounded-2xl border border-[#2A2A2A] bg-[#171717] p-5">
-                  <p className="text-sm text-[#9A9A9A]">Feedback</p>
-                  <p className="text-xl font-semibold mt-1">{formData.feedback ?? 'Not answered'}</p>
+                  <p className="text-sm text-[#9A9A9A]">{t('Feedback')}</p>
+                  <p className="text-xl font-semibold mt-1">{formData.feedback ? t(formData.feedback) : t('Not answered')}</p>
                 </div>
                 <div className="rounded-2xl border border-[#2A2A2A] bg-[#171717] p-5">
-                  <p className="text-sm text-[#9A9A9A]">Off-Platform Request</p>
-                  <p className="text-xl font-semibold mt-1">{formData.offPlatform ?? 'Not answered'}</p>
+                  <p className="text-sm text-[#9A9A9A]">{t('Off-Platform Request')}</p>
+                  <p className="text-xl font-semibold mt-1">{formData.offPlatform ? t(formData.offPlatform) : t('Not answered')}</p>
                 </div>
                 <div className="rounded-2xl border border-[#2A2A2A] bg-[#171717] p-5">
-                  <p className="text-sm text-[#9A9A9A]">Street View Check</p>
-                  <p className="text-xl font-semibold mt-1">{formData.streetView ?? 'Not answered'}</p>
+                  <p className="text-sm text-[#9A9A9A]">{t('Street View Check')}</p>
+                  <p className="text-xl font-semibold mt-1">{formData.streetView ? t(formData.streetView) : t('Not answered')}</p>
                 </div>
                 <div className="rounded-2xl border border-[#2A2A2A] bg-[#171717] p-5">
-                  <p className="text-sm text-[#9A9A9A]">Address Change Request</p>
-                  <p className="text-xl font-semibold mt-1">{formData.addressChanged ?? 'Not answered'}</p>
+                  <p className="text-sm text-[#9A9A9A]">{t('Address Change Request')}</p>
+                  <p className="text-xl font-semibold mt-1">{formData.addressChanged ? t(formData.addressChanged) : t('Not answered')}</p>
                 </div>
               </div>
 
@@ -153,7 +155,7 @@ const EbayGuidedCheck = () => {
                 onClick={handleStartOver}
                 className="cursor-pointer inline-flex items-center justify-center rounded-2xl border-2 border-[#FFC107] px-8 py-4 text-xl font-bold text-[#FFC107] hover:bg-[#FFC107] hover:text-[#111111] transition-all duration-300"
               >
-                Start Over
+                {t('Start Over')}
               </button>
             </>
           )}
