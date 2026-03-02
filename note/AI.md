@@ -604,3 +604,339 @@ Ensure guided-flow exit actions return to the main platform selector, not just r
 - Build verification completed successfully with `npm run build`.
 
 **Status**: Completed and build-verified.
+
+---
+
+## Task: Verified 0-Feedback Case Study Refactor (March 1, 2026)
+
+**Objective**: 
+Replace placeholder/invented case-study content with verified real data for the `0 Feedback / New` risk signal and improve source-vs-owner presentation.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` with hardcoded `caseStudies['0_feedback']` data exactly as provided.
+- Added card components:
+  - `WebSourceCard` for `CATEGORY_WEB` (`summary`, `url`, `linkLabel`)
+  - `OwnerCard` for `CATEGORY_OWNER` (`story`, `badge: true`)
+- Added `CaseStudiesSection` with a minimal `View Case Studies` expand/collapse control.
+- Enforced rendering safeguards:
+  - no fallback/generated examples
+  - returns `null` when `caseStudies[flagKey]` is missing or empty
+- Enforced card ordering so `CATEGORY_OWNER` is always shown first, followed by `CATEGORY_WEB` cards.
+- Added required link safety attributes to external links:
+  - `target="_blank" rel="noopener noreferrer"`
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Step 1 Registration-Age Follow-Up for 0 Feedback (March 1, 2026)
+
+**Objective**: 
+Add a conditional registration-age question under `0 Feedback / New` in Step 1 and surface the highest-risk registration pattern in the verdict summary.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` account schema:
+  - `registrationAge: 'recent' | 'older' | null`
+- Added Step 1 conditional follow-up shown only when `feedback === 'new'`:
+  - Question: `When did this account register?`
+  - Options:
+    - `Today or within 7 days` (`recent`) → `🚨 RED FLAG`
+    - `More than 7 days ago` (`older`) → `⚠️ MEDIUM WARNING`
+  - Alerts reuse existing warning component/styling (`WarningBox`).
+- Preserved existing username/random-name and name-mismatch logic/flow unchanged.
+- Updated Step 1 completion gating:
+  - `registrationAge` is required only when `feedback` is `new`.
+- Updated nested state behavior:
+  - when feedback changes to `established`, `registrationAge` is reset to `null`.
+- Updated verdict generation:
+  - adds separate red-flag entry when `feedback === 'new' && registrationAge === 'recent'`:
+    - label: `Same-day or brand new account`
+    - description: `Account registered today or within the past 7 days. Combined with 0 feedback, this is the highest-risk buyer profile on eBay.`
+    - includes `0_feedback` case studies toggle on verdict card.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Name Mismatch + Triangulation Case Study Integration (March 1, 2026)
+
+**Objective**: 
+Integrate verified `name_mismatch` case studies and replace the simple mismatch verdict line with the full stolen-card/triangulation risk description.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` with hardcoded `caseStudies.name_mismatch` data:
+  - `CATEGORY_OWNER` story (badge true)
+  - two `CATEGORY_WEB` sources (triangulation thread + fake-name GPU thread)
+- Preserved owner-first rendering order via existing case-study ordering logic.
+- Updated verdict red-flag generation for `isRandomUsername === 'yes' && nameMismatch === 'yes'`:
+  - changed from short string to structured detail with:
+    - label: `System-generated username and shipping-name mismatch`
+    - full multi-paragraph risk description (stolen-card + triangulation + chargeback protection risk)
+    - case study linkage: `caseStudiesFlagKey: 'name_mismatch'`
+- Kept triangulation explanation on verdict page (not as a mid-flow alert).
+- Reuse strategy for owner story duplication:
+  - anchored under `name_mismatch` verdict case studies so owner story appears once under the most relevant flag context.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Verdict UI Refactor + Case Study Modal Migration (March 1, 2026)
+
+**Objective**: 
+Remove case studies from guided-question steps and redesign Step 4 summary into collapsible, severity-coded flag cards with modal-based case study viewing.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` Step 1–3 rendering:
+  - removed inline case-study display from guided flow pages.
+  - preserved question text, answer options, and existing warning alert boxes.
+- Added reusable case-study modal system:
+  - new `CaseStudiesModal` component with `max-w-[600px]` centered layout.
+  - supports close via `X`, backdrop click, and `Escape` key.
+  - scrollable body for overflow.
+- Added verdict risk badge component:
+  - `RiskLevelBadge` with three states:
+    - `🔴 HIGH RISK`
+    - `🟡 PROCEED WITH CAUTION`
+    - `🟢 LOOKS SAFE`
+- Reworked Step 4 triggered-signals section:
+  - each triggered flag now renders as a collapsed card by default.
+  - full-card click toggles expand/collapse.
+  - severity visuals:
+    - RED FLAG: left border `#E53E3E`, badge `#FFF5F5` / `#C53030`
+    - MEDIUM WARNING: left border `#D97706`, badge `#FFFBEB` / `#92400E`
+  - expanded content shows short description and `📋 View Case Studies` button (when data exists).
+- Mapped verdict flags to standardized titles/descriptions for:
+  - `0_feedback`, `registration_age`, `name_mismatch`, `is_forwarder`, `visual_mismatch`, `area_code_mismatch`, `off_platform`, `fake_email`
+  - retained existing `address_changed` risk handling as a separate red flag.
+- Kept case-study datasets intact and reused via modal display only on Step 4.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Step 1 New-User Alert Behavior Adjustment (March 1, 2026)
+
+**Objective**: 
+Remove interstitial warning on `0 Feedback / New` selection and use one shared medium warning message on the registration-age follow-up options.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` Step 1 feedback question:
+  - removed `warnings.new` so selecting `0 Feedback / New` shows no alert.
+  - `Established Feedback` remains with no alert.
+- Updated Step 1 registration-age follow-up warning mapping:
+  - `recent` and `older` now both show the same `⚠️ MEDIUM WARNING` message:
+    - `Every user starts as a new user. eBay discourages treating all new accounts as scammers, but we need to look closer at this user's other information to be safe.`
+- Preserved form state values (`registrationAge: recent | older`) and downstream verdict logic unchanged.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Address-Change Red Flag Alert + Case Study Integration (March 1, 2026)
+
+**Objective**: 
+Add explicit Step 2 red-flag guidance for post-payment address-change requests and connect this flag to dedicated verdict copy + case studies.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` Step 2 payment question `addressChanged`:
+  - added `warnings.yes` with `🚨 RED FLAG` and exact required seller-protection warning text.
+  - `No` selection remains with no alert.
+- Extended `caseStudies` data with new `address_change` key and two `CATEGORY_WEB` entries exactly as provided.
+- Updated verdict flag entry for `address_changed`:
+  - title: `Buyer requested post-payment shipping address change`
+  - description: exact required text about seller-protection void and repurchase requirement.
+  - linked verdict card to case-study modal via `caseStudiesFlagKey: 'address_change'`.
+- Preserved Step 1 and Step 3 logic unchanged.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Summary Flag Visibility Check for Address-Change Selection (March 1, 2026)
+
+**Objective**: 
+Ensure `After payment, did the buyer ask to change the shipping address? = Yes` consistently appears as a verdict flag on Step 4.
+
+**Implementation Details**:
+- Re-verified end-to-end mapping from Step 2 `addressChanged` selection to verdict flag generation.
+- Added robust trigger guard in `src/GuidedCheckEngine.jsx` verdict logic:
+  - treats `'yes'`, `'true'`, and `true` as affirmative values for `addressChanged`.
+- Updated flag title copy for clearer recognition on summary list:
+  - `After payment, buyer requested shipping address change`.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Match-vs-Mismatch Question Clarity Refactor (March 1, 2026)
+
+**Objective**: 
+Reduce user confusion by rephrasing mismatch-style prompts into match-style questions while preserving existing risk evaluation logic.
+
+**Implementation Details**:
+- Updated Step 3 question copy in `src/GuidedCheckEngine.jsx`:
+  - `Do Street View visuals match the provided details?`
+  - `Does the phone area code match the shipping region?`
+- Updated Step 3 option labels for clearer intent (`Yes, they match` / `No, they do not match`, etc.).
+- Preserved downstream logic by remapping option values to existing schema semantics:
+  - safe match responses map to value `no`
+  - risky mismatch responses map to value `yes`
+- Updated Step 1 nested username follow-up wording:
+  - from mismatch phrasing to `Does the bot-like username match the shipping name?`
+- Remapped Yes/No button value bindings in that follow-up so:
+  - `Yes` remains safe (`nameMismatch = 'no'`)
+  - `No, completely different` remains risky (`nameMismatch = 'yes'`)
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Step 3 Address Validation Helper Links + Street-View Prompt Update (March 1, 2026)
+
+**Objective**: 
+Improve Address Validation usability by adding quick external verification links and clearer neighborhood-consistency wording.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` Step 3 UI (Address screen only):
+  - Added subtitle: `We recommend verifying the address visually before proceeding.`
+  - Added two side-by-side external link buttons:
+    - `🗺 Google Maps` → `https://www.google.com/maps`
+    - `🏠 Zillow` → `https://www.zillow.com`
+  - Both use `target="_blank" rel="noopener noreferrer"`.
+- Reworded Street View question label:
+  - from `Do Street View visuals match the provided details?`
+  - to `Does the neighborhood look consistent with the value of your item?`
+- Added warning copy for mismatch selection (`No, they do not match` mapped to existing risky value):
+  - `A neighborhood that doesn't match the value of your item can indicate a fabricated or misused address — for example, a high-value item shipping to an empty lot, a commercial building listed as residential, or an area inconsistent with the purchase. Weigh this alongside other flags on the verdict page.`
+- Preserved all existing formData keys and logic paths.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Verdict Combination Rule Refactor (March 1, 2026)
+
+**Objective**: 
+Downgrade `Same-day or brand new account` to a medium warning and make `HIGH RISK` trigger only when recent-new-account and forwarder-address conditions are both true.
+
+**Implementation Details**:
+- Refactored verdict computation in `src/GuidedCheckEngine.jsx` to rule-based structure for easier future combinations:
+  - introduced `conditions` object (normalized boolean predicates)
+  - introduced `flagDefinitions` array (`when` + flag metadata)
+  - introduced `highRiskRules` array for composite severity logic
+- Updated `registration_age` flag severity from `red` to `medium`.
+- Added/activated high-risk composite rule:
+  - `recent_registration_with_forwarder` => `conditions.isRecentRegistration && conditions.isForwarderAddress`
+- Updated summary level logic:
+  - `HIGH RISK` only when any `highRiskRules` match
+  - otherwise `PROCEED WITH CAUTION` if any flags are triggered
+  - otherwise `LOOKS SAFE`
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Freight-Forwarder Flag Policy + Action Block Update (March 1, 2026)
+
+**Objective**: 
+Correct `is_forwarder` policy messaging, replace related case studies, and add a practical owner suggestion workflow in the verdict card.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` Step 3 mid-flow warning (`yes_warehouse`) to the new policy text emphasizing written buyer confirmation in eBay messages.
+- Replaced/added `caseStudies.is_forwarder` data with two provided `CATEGORY_WEB` sources.
+- Updated verdict `is_forwarder` flag description to the exact provided wording.
+- Linked `is_forwarder` verdict card to case studies via `caseStudiesFlagKey: 'is_forwarder'`.
+- Added new blue `💡 SUGGESTED ACTION` block inside expanded `is_forwarder` verdict card:
+  - heading: `Get written confirmation before shipping`
+  - body text: provided action guidance
+  - styled suggested-message box with provided template message
+  - `Copy Message` button with clipboard behavior and temporary `Copied` state
+- Preserved formData keys and all unrelated step/flag logic.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Step 3 Street View Prompt Reword + Alert Copy Update (March 1, 2026)
+
+**Objective**: 
+Adjust Step 3 Street View prompt language to simpler legitimacy wording and replace its medium-warning message text.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` Street View question label:
+  - from `Does the neighborhood look consistent with the value of your item?`
+  - to `Does this neighborhood look legitimate?`
+- Replaced the warning description for risky selection (`No, they do not match`) with the provided text.
+- Kept warning level as `⚠️ MEDIUM WARNING`.
+- Kept formData keys and question logic unchanged.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Street-View Selection and Summary Risk Alignment (March 1, 2026)
+
+**Objective**: 
+Ensure the new Step 3 legitimacy wording maps cleanly to summary-page label/severity and avoids mismatch-style phrasing.
+
+**Implementation Details**:
+- Updated Step 3 `visualMismatch` option labels in `src/GuidedCheckEngine.jsx`:
+  - `Yes, it looks legitimate` (safe path)
+  - `No, it does not look legitimate` (risky path)
+- Updated Step 4 verdict flag for `visual_mismatch` to match the new framing:
+  - title: `Neighborhood does not look legitimate`
+  - severity: changed from `red` to `medium` to align with the updated warning posture
+  - description revised to the same caution-oriented tone as Step 3 guidance.
+- Preserved existing formData key/value logic (`visualMismatch` with `yes` as risky condition).
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Summary Severity Precedence Fix (March 1, 2026)
+
+**Objective**: 
+Ensure verdict severity matches flag types: any red flag must produce `HIGH RISK`, while medium-only sets produce `PROCEED WITH CAUTION` unless explicit combination rules also mark high risk.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` verdict-level evaluation:
+  - added `hasRedFlag = triggeredFlags.some(flag => flag.severity === 'red')`
+  - kept existing `highRiskRules` combination framework
+  - final precedence now:
+    - `HIGH RISK` if `hasRedFlag` OR any high-risk combination rule matches
+    - `PROCEED WITH CAUTION` if flags exist but no high condition
+    - `LOOKS SAFE` if no flags
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
+
+---
+
+## Task: Mobile Layout Polish for Guided Flow (March 1, 2026)
+
+**Objective**: 
+Improve mobile readability by preventing warning-text clipping and making answer buttons align consistently.
+
+**Implementation Details**:
+- Updated `src/GuidedCheckEngine.jsx` answer button sizing:
+  - added `w-full sm:w-auto` to option buttons so they are full-width on mobile and auto-width on larger screens.
+- Updated animated warning containers to prevent mobile text clipping:
+  - expanded open-state max-height values from small fixed sizes (`max-h-60`/`max-h-72`/`max-h-[420px]`) to `max-h-[1200px]` where needed.
+- Applied changes across Step 1 nested alerts and Step 2/3 warning blocks.
+- Build verification completed successfully with `npm run build`.
+
+**Status**: Completed and build-verified.
