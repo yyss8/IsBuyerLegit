@@ -2,8 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import LegalFooter from './LegalFooter';
 import { useLanguage } from './i18n.jsx';
 
-const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1477767870258876717/QAOb233eKrm6sFU3h5l-ulfa8zs_Aewll1YPH7noh2MQrbvHHWR_II-VFKQ0PR5fghAe';
-
 const initialFormData = {
   account: { feedback: null, registrationAge: null, isRandomUsername: null, nameMismatch: null },
   payment: { offPlatform: null, fakeEmail: null, addressChanged: null },
@@ -594,8 +592,6 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
   const [formData, setFormData] = useState(initialFormData);
   const [currentScreen, setCurrentScreen] = useState(0);
   const [maxReachedScreen, setMaxReachedScreen] = useState(0);
-  const [feedbackStatus, setFeedbackStatus] = useState('idle');
-  const [feedbackText, setFeedbackText] = useState('');
   const [copiedForwarderMessage, setCopiedForwarderMessage] = useState(false);
   const [expandedFlagCards, setExpandedFlagCards] = useState({});
   const [activeCaseStudyModal, setActiveCaseStudyModal] = useState(null);
@@ -689,58 +685,6 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
     setFormData(initialFormData);
     setCurrentScreen(0);
     setMaxReachedScreen(0);
-    setFeedbackStatus('idle');
-    setFeedbackText('');
-  };
-
-  const submitToDiscord = async () => {
-    const feedbackType = feedbackStatus === 'up' ? 'up' : feedbackStatus === 'down' ? 'down' : null;
-
-    if (!feedbackType) {
-      return;
-    }
-
-    setFeedbackStatus('submitting');
-
-    try {
-      const payload = {
-        username: 'IBL Feedback Bot',
-        embeds: [
-          {
-            title: t('🚨 New User Feedback'),
-            color: feedbackType === 'up' ? 3066993 : 15158332,
-            fields: [
-              {
-                name: t('Rating'),
-                value: feedbackType === 'up' ? t('👍 Useful') : t('👎 Not Useful'),
-                inline: true,
-              },
-              {
-                name: t('Comments'),
-                value: feedbackText.trim() || t('No comment provided.'),
-              },
-            ],
-            footer: { text: t('IsBuyerLegit.com Dashboard') },
-          },
-        ],
-      };
-
-      const response = await fetch(DISCORD_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Discord webhook failed with status ${response.status}`);
-      }
-
-      setFeedbackStatus('submitted');
-      setFeedbackText('');
-    } catch (error) {
-      console.error('Failed to submit feedback:', error);
-      setFeedbackStatus(feedbackType);
-    }
   };
 
   const handleSidebarSelect = (targetScreen) => {
@@ -1190,69 +1134,6 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                   })}
                 </div>
               )}
-
-              <div className="mt-6 border border-[#E0E0E0]/20 rounded-lg p-4">
-                {feedbackStatus === 'submitted' ? (
-                  <p className="text-sm text-gray-400">{t('✅ Thanks for your feedback!')}</p>
-                ) : (
-                  <>
-                    <p className="text-sm text-gray-400">{t('Was this assessment useful?')}</p>
-
-                    <div className="mt-3 flex items-center gap-2">
-                      <button
-                        onClick={() => setFeedbackStatus('up')}
-                        disabled={feedbackStatus === 'submitting'}
-                        className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-semibold transition-all duration-300 ${
-                          feedbackStatus === 'up'
-                            ? 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]'
-                            : 'border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:bg-[#FBF2D6]'
-                        } ${feedbackStatus === 'submitting' ? 'opacity-60 cursor-not-allowed' : ''}`}
-                      >
-                        {t('👍 Yes')}
-                      </button>
-                      <button
-                        onClick={() => setFeedbackStatus('down')}
-                        disabled={feedbackStatus === 'submitting'}
-                        className={`cursor-pointer rounded-md border px-3 py-1.5 text-sm font-semibold transition-all duration-300 ${
-                          feedbackStatus === 'down'
-                            ? 'border-[#DC2626] bg-[#FEE2E2] text-[#7F1D1D]'
-                            : 'border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:bg-[#FBF2D6]'
-                        } ${feedbackStatus === 'submitting' ? 'opacity-60 cursor-not-allowed' : ''}`}
-                      >
-                        {t('👎 No')}
-                      </button>
-                    </div>
-
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ease-out ${
-                        feedbackStatus === 'up' || feedbackStatus === 'down' || feedbackStatus === 'submitting'
-                          ? 'max-h-72 opacity-100 mt-3'
-                          : 'max-h-0 opacity-0 mt-0'
-                      }`}
-                    >
-                      <textarea
-                        value={feedbackText}
-                        onChange={(event) => setFeedbackText(event.target.value)}
-                        placeholder={t('Any specific feedback or missing red flags? (Optional)')}
-                        rows={3}
-                        className="w-full rounded-md border border-[#D8D1BE] bg-[#FFFEFA] px-3 py-2 text-sm text-[#2B2B2B] placeholder:text-[#9AA0A6] focus:outline-none focus:ring-2 focus:ring-[#D9CC9A]"
-                      />
-
-                      <button
-                        onClick={submitToDiscord}
-                        disabled={feedbackStatus === 'submitting'}
-                        className={`mt-3 rounded-md border px-4 py-2 text-sm font-semibold transition-all duration-300 ${
-                          feedbackStatus === 'submitting'
-                            ? 'cursor-not-allowed border-[#E8E2D2] text-[#9AA0A6] bg-[#F8F5EB]'
-                            : 'cursor-pointer border-[#D9CC9A] text-[#7A5A00] hover:bg-[#F4E7C0]'
-                        }`}
-                      >
-                        {feedbackStatus === 'submitting' ? t('Submitting...') : t('Submit Feedback')}
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
 
               <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">
                 <div className="flex items-center gap-3">

@@ -198,7 +198,7 @@ Create a standalone guided-question component for high-value eBay fraud checks w
 - Added new component file: `src/EbayGuidedCheck.jsx`.
 - State architecture follows single-object requirement:
   - `formData = { feedback, offPlatform, streetView, addressChanged }`
-  - `currentStep` numeric flow controller (1 → 5).
+  - `currentStep` numeric flow controller (1 �?5).
 - Implemented Typeform-style single-question flow:
   - Step 1: Feedback score
   - Step 2: Off-platform request
@@ -207,7 +207,7 @@ Create a standalone guided-question component for high-value eBay fraud checks w
   - Step 5: Verdict summary dashboard
 - Behavior controls:
   - Auto-advance on option click.
-  - Subtle `← Back` button on steps 2–4.
+  - Subtle `�?Back` button on steps 2�?.
   - Prominent `Start Over` button on step 5 resetting both `formData` and `currentStep`.
 - Styling:
   - Dark-mode palette `#111111` / `#E0E0E0` with `#FFC107` hover/accent.
@@ -234,7 +234,7 @@ Build a category-grouped guided wizard using deeply nested state to support futu
   - Screen 3: Address (3 questions)
   - Screen 4: Verdict (JSON state dump)
 - UX controls:
-  - Category panel `Back`/`Next` navigation on screens 1–3.
+  - Category panel `Back`/`Next` navigation on screens 1�?.
   - `Next` is enabled only after all questions in current category are answered.
   - Verdict includes `Back` and prominent `Start Over` reset.
 - Styling and transitions:
@@ -322,9 +322,9 @@ Introduce risk-aware answer styling and contextual warning accordions in the gui
 - Added semantic option metadata (`severity: safe | risky`) to question options.
 - Added warning mapping object per question (`warnings[value] => { level, badge, description }`) to directly bind selected answers to warning content.
 - Injected exact requested warning content:
-  - Account/Feedback: `0 Feedback / New` → `⚠️ MEDIUM WARNING`
-  - Payment/Off-Platform: `Yes, asked to text/email` → `🚨 RED FLAG`
-  - Address/Freight Forwarder: `Yes, it's a warehouse` → `⚠️ MEDIUM WARNING`
+  - Account/Feedback: `0 Feedback / New` �?`⚠️ MEDIUM WARNING`
+  - Payment/Off-Platform: `Yes, asked to text/email` �?`🚨 RED FLAG`
+  - Address/Freight Forwarder: `Yes, it's a warehouse` �?`⚠️ MEDIUM WARNING`
 - Updated selected button semantics:
   - Safe selections: gold/amber active style.
   - Risky selections: red/orange danger style (`bg-red-900/20`, `border-red-500`).
@@ -361,45 +361,19 @@ Refactor username mismatch question into a nested follow-up that appears only wh
 - Converted `nameMismatch` from sibling question to conditional follow-up under:
   - `Does the username look random or bot-like? (e.g., name-1234 or name_0)`
 - Parent question behavior:
-  - `No` → safe gold state, no warning/follow-up shown.
-  - `Yes` → risky red state, immediate medium warning shown.
+  - `No` �?safe gold state, no warning/follow-up shown.
+  - `Yes` �?risky red state, immediate medium warning shown.
 - Added exact medium warning content for parent `Yes` state.
 - Added conditional follow-up question with exact hint text.
 - Follow-up behavior:
-  - `No` → safe gold state.
-  - `Yes` → risky red state + immediate red-flag warning with exact provided content.
+  - `No` �?safe gold state.
+  - `Yes` �?risky red state + immediate red-flag warning with exact provided content.
 - State integrity:
   - When parent toggles to `No`, `formData.account.nameMismatch` is automatically cleared (`null`).
   - Step-completion logic now requires `nameMismatch` only if parent answer is `Yes`.
 - Added smooth reveal transitions for both warning and nested follow-up blocks.
 
 **Status**: Completed and build-verified.
-
----
-
-## Task: Verdict Feedback Widget + Discord Webhook Integration (March 1, 2026)
-
-**Objective**: 
-Replace Step 4 share button with a lightweight usefulness feedback widget that submits directly to Discord via webhook.
-
-**Implementation Details**:
-- Updated `src/GuidedCheckEngine.jsx` with new state:
-  - `feedbackStatus`: `idle | up | down | submitting | submitted`
-  - `feedbackText`: string
-- Replaced share CTA with staged feedback flow:
-  - Idle: `Was this assessment useful?` + `👍 Yes` / `👎 No`
-  - Up/Down: reveals textarea + `Submit Feedback`
-  - Submitting: button shows loading state
-  - Submitted: `✅ Thanks for your feedback!`
-- Added async `submitToDiscord()` using `fetch` POST to provided Discord webhook.
-  - Sends embed payload with dynamic color and rating field.
-  - Includes optional comment or fallback text.
-  - Uses try/catch and sets `submitted` only on success.
-- Added subtle widget container styling:
-  - `border border-[#E0E0E0]/20 rounded-lg p-4 mt-6`
-  - muted text tone (`text-gray-400`)
-
-**Status**: Completed and integrated.
 
 ---
 
@@ -641,8 +615,8 @@ Add a conditional registration-age question under `0 Feedback / New` in Step 1 a
 - Added Step 1 conditional follow-up shown only when `feedback === 'new'`:
   - Question: `When did this account register?`
   - Options:
-    - `Today or within 7 days` (`recent`) → `🚨 RED FLAG`
-    - `More than 7 days ago` (`older`) → `⚠️ MEDIUM WARNING`
+    - `Today or within 7 days` (`recent`) �?`🚨 RED FLAG`
+    - `More than 7 days ago` (`older`) �?`⚠️ MEDIUM WARNING`
   - Alerts reuse existing warning component/styling (`WarningBox`).
 - Preserved existing username/random-name and name-mismatch logic/flow unchanged.
 - Updated Step 1 completion gating:
@@ -690,7 +664,7 @@ Integrate verified `name_mismatch` case studies and replace the simple mismatch 
 Remove case studies from guided-question steps and redesign Step 4 summary into collapsible, severity-coded flag cards with modal-based case study viewing.
 
 **Implementation Details**:
-- Updated `src/GuidedCheckEngine.jsx` Step 1–3 rendering:
+- Updated `src/GuidedCheckEngine.jsx` Step 1�? rendering:
   - removed inline case-study display from guided flow pages.
   - preserved question text, answer options, and existing warning alert boxes.
 - Added reusable case-study modal system:
@@ -809,14 +783,14 @@ Improve Address Validation usability by adding quick external verification links
 - Updated `src/GuidedCheckEngine.jsx` Step 3 UI (Address screen only):
   - Added subtitle: `We recommend verifying the address visually before proceeding.`
   - Added two side-by-side external link buttons:
-    - `🗺 Google Maps` → `https://www.google.com/maps`
-    - `🏠 Zillow` → `https://www.zillow.com`
+    - `🗺 Google Maps` �?`https://www.google.com/maps`
+    - `🏠 Zillow` �?`https://www.zillow.com`
   - Both use `target="_blank" rel="noopener noreferrer"`.
 - Reworded Street View question label:
   - from `Do Street View visuals match the provided details?`
   - to `Does the neighborhood look consistent with the value of your item?`
 - Added warning copy for mismatch selection (`No, they do not match` mapped to existing risky value):
-  - `A neighborhood that doesn't match the value of your item can indicate a fabricated or misused address — for example, a high-value item shipping to an empty lot, a commercial building listed as residential, or an area inconsistent with the purchase. Weigh this alongside other flags on the verdict page.`
+  - `A neighborhood that doesn't match the value of your item can indicate a fabricated or misused address �?for example, a high-value item shipping to an empty lot, a commercial building listed as residential, or an area inconsistent with the purchase. Weigh this alongside other flags on the verdict page.`
 - Preserved all existing formData keys and logic paths.
 - Build verification completed successfully with `npm run build`.
 
