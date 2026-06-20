@@ -3,21 +3,72 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
       <p>&copy; 2026 IsBuyerLegit.</p>
       <div class="flex flex-wrap items-center gap-3">
-        <details class="relative">
-          <summary class="cursor-pointer underline underline-offset-4 hover:text-[var(--ink)]">
-            Disclaimer & Terms
-          </summary>
-          <div class="mt-3 max-w-2xl rounded-lg border border-[var(--rule)] bg-[var(--surface)] p-4 leading-relaxed text-[var(--ink)] shadow-sm sm:absolute sm:right-0 sm:z-20 sm:w-[520px]">
-            <p class="font-semibold">Independent educational tool.</p>
-            <p class="mt-2">
-              IsBuyerLegit is not affiliated with, endorsed by, or sponsored by eBay Inc., Meta Platforms, Inc.,
-              OfferUp, Craigslist, PayPal, or other marketplaces or payment providers. Risk verdicts are heuristic
-              guidance, not financial, legal, or business advice. You remain responsible for your own transaction
-              decisions.
-            </p>
-          </div>
-        </details>
+        <button
+          type="button"
+          class="cursor-pointer underline underline-offset-4 hover:text-[var(--ink)]"
+          aria-haspopup="dialog"
+          aria-controls="static-terms-dialog"
+          data-open-terms
+        >
+          Disclaimer & Terms
+        </button>
       </div>
     </div>
   </div>
 </footer>
+
+<dialog
+  id="static-terms-dialog"
+  class="fixed left-1/2 top-1/2 m-0 w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 border border-[var(--rule)] bg-[var(--surface)] p-0 text-[var(--ink)] shadow-xl backdrop:bg-black/60"
+  aria-labelledby="static-terms-title"
+  data-terms-dialog
+>
+  <div class="max-h-[80vh] overflow-y-auto">
+    <div class="sticky top-0 flex items-center justify-between gap-4 border-b border-[var(--rule)] bg-[var(--surface)] px-5 py-4">
+      <h2 id="static-terms-title" class="display-font text-xl font-bold">Disclaimer & Terms</h2>
+      <form method="dialog">
+        <button
+          type="submit"
+          class="cursor-pointer border border-[var(--rule)] px-3 py-1 text-sm font-bold text-[var(--ink)] hover:border-[var(--ink-soft)] hover:text-[var(--ink-soft)]"
+          aria-label="Close disclaimer and terms"
+        >
+          Close
+        </button>
+      </form>
+    </div>
+    <div class="space-y-4 px-5 py-5 leading-relaxed">
+      <div>
+        <p class="font-semibold">Independent educational tool.</p>
+        <p class="mt-2">
+          IsBuyerLegit is not affiliated with, endorsed by, or sponsored by eBay Inc., Meta Platforms, Inc.,
+          OfferUp, Craigslist, PayPal, or other marketplaces or payment providers. Risk verdicts are heuristic
+          guidance, not financial, legal, or business advice. You remain responsible for your own transaction
+          decisions.
+        </p>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script is:inline>
+  (() => {
+    const termsDialog = document.querySelector('[data-terms-dialog]');
+    const openTermsButton = document.querySelector('[data-open-terms]');
+
+    if (!termsDialog || !openTermsButton) {
+      return;
+    }
+
+    openTermsButton.addEventListener('click', () => {
+      if (typeof termsDialog.showModal === 'function') {
+        termsDialog.showModal();
+      }
+    });
+
+    termsDialog.addEventListener('click', (event) => {
+      if (event.target === termsDialog) {
+        termsDialog.close();
+      }
+    });
+  })();
+</script>
