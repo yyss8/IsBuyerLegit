@@ -39,13 +39,27 @@ const jsonLd = structuredData ? JSON.stringify(structuredData) : null;
 <meta name="twitter:image" content={imageUrl} />
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPZ6MC36RX"></script>
 <script is:inline>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  (() => {
+    const productionHosts = new Set(['isbuyerlegit.com', 'www.isbuyerlegit.com']);
 
-  gtag('config', 'G-HPZ6MC36RX');
+    if (!productionHosts.has(window.location.hostname)) {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HPZ6MC36RX';
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function gtag() {
+      window.dataLayer.push(arguments);
+    };
+
+    window.gtag('js', new Date());
+    window.gtag('config', 'G-HPZ6MC36RX');
+  })();
 </script>
 
 {jsonLd ? <script type="application/ld+json" set:html={jsonLd} /> : null}

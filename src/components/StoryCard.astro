@@ -3,8 +3,9 @@ interface StoryData {
   title: string;
   description: string;
   type: string;
-  platform: 'ebay' | 'local';
-  outcome: 'scammed' | 'safe';
+  platform: 'ebay' | 'local' | 'direct';
+  outcome: 'scammed' | 'safe' | 'declined';
+  outcomeLabel?: string;
   date: Date;
 }
 
@@ -14,10 +15,17 @@ interface Props {
 }
 
 const { href, story } = Astro.props;
-const outcomeClass = story.outcome === 'scammed'
-  ? 'border-[var(--danger)] text-[var(--danger)]'
-  : 'border-[var(--safe)] text-[var(--safe)]';
-const outcomeLabel = story.outcome === 'scammed' ? 'Scammed' : 'Avoided loss';
+const outcomeClass = {
+  scammed: 'border-[var(--danger)] text-[var(--danger)]',
+  safe: 'border-[var(--safe)] text-[var(--safe)]',
+  declined: 'border-[var(--rule)] text-[var(--ink-soft)]',
+}[story.outcome];
+const defaultOutcomeLabels = {
+  scammed: 'Scammed',
+  safe: 'Avoided loss',
+  declined: 'Declined',
+};
+const outcomeLabel = story.outcomeLabel ?? defaultOutcomeLabels[story.outcome];
 ---
 
 <article class="group relative h-full border border-[var(--rule)] bg-[var(--surface)] p-5 transition hover:-translate-y-0.5 hover:border-[var(--ink-soft)]">

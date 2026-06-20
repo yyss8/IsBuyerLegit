@@ -416,10 +416,10 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
   const nameMismatchWarning =
     nameMismatchValue === 'yes'
       ? {
-          level: 'red',
-          badge: '🚨 RED FLAG',
+          level: 'medium',
+          badge: '⚠️ MEDIUM WARNING',
           description:
-            "System-generated usernames from eBay usually follow a consistent pattern based on the buyer's real name or email. A complete mismatch between a bot-like username and the shipping name is a strong indicator of a stolen account or a fraudulently created burner account.",
+            "A name or recipient mismatch is a caution signal, not proof of fraud. Gifts, family purchases, work addresses, and recent moves can all explain it. It becomes more serious when it stacks with another warning, especially a post-payment address change, a freight-forwarder address, off-platform pressure, or a buyer who will not respond.",
         }
       : null;
 
@@ -783,10 +783,10 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
       {
         key: 'name_mismatch',
         when: conditions.hasNameMismatch,
-        severity: 'red',
+        severity: 'medium',
         title: "System-generated username doesn't match shipping name",
         description:
-          'A large mismatch points to two fraud patterns: (1) Stolen credit card — the fraudster uses someone else\'s payment info and ships to their own address. (2) Triangulation scam — the fraudster sells your item on another platform using a stolen card, then opens an "item not received" case on eBay to get a second refund. eBay seller protection does NOT cover chargebacks filed by the real cardholder, even if tracking shows delivery.',
+          'A name or recipient mismatch is a caution signal, not proof of fraud. Gifts, family purchases, work addresses, and recent moves can all explain it. It becomes more serious when it stacks with another warning, especially a post-payment address change, a freight-forwarder address, off-platform pressure, or a buyer who will not respond.',
         caseStudiesFlagKey: 'name_mismatch',
       },
       {
@@ -849,6 +849,18 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
       {
         key: 'recent_registration_with_forwarder',
         when: conditions.isRecentRegistration && conditions.isForwarderAddress,
+      },
+      {
+        key: 'name_mismatch_with_forwarder',
+        when: conditions.hasNameMismatch && conditions.isForwarderAddress,
+      },
+      {
+        key: 'name_mismatch_with_address_change',
+        when: conditions.hasNameMismatch && conditions.hasAddressChanged,
+      },
+      {
+        key: 'name_mismatch_with_off_platform',
+        when: conditions.hasNameMismatch && conditions.hasOffPlatformRequest,
       },
     ];
 

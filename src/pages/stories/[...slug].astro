@@ -34,9 +34,17 @@ const structuredData = {
   mainEntityOfPage: `https://isbuyerlegit.com${storyPath}`,
 };
 
-const outcomeClass = story.data.outcome === 'scammed'
-  ? 'border-[var(--danger)] text-[var(--danger)]'
-  : 'border-[var(--safe)] text-[var(--safe)]';
+const outcomeClass = {
+  scammed: 'border-[var(--danger)] text-[var(--danger)]',
+  safe: 'border-[var(--safe)] text-[var(--safe)]',
+  declined: 'border-[var(--rule)] text-[var(--ink-soft)]',
+}[story.data.outcome];
+const defaultOutcomeLabels = {
+  scammed: 'Scammed',
+  safe: 'Avoided loss',
+  declined: 'Declined',
+};
+const outcomeLabel = story.data.outcomeLabel ?? defaultOutcomeLabels[story.data.outcome];
 const whatToDoParagraphs = story.data.whatToDo
   .split(/\n{2,}/)
   .map((paragraph) => paragraph.trim())
@@ -60,7 +68,7 @@ const whatToDoParagraphs = story.data.whatToDo
         {story.data.type}
       </span>
       <span class={`rounded-full border px-2.5 py-1 text-xs font-bold uppercase tracking-wide ${outcomeClass}`}>
-        {story.data.outcome === 'scammed' ? 'Scammed' : 'Avoided loss'}
+        {outcomeLabel}
       </span>
     </div>
     <h1 class="display-font mt-5 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
@@ -85,7 +93,7 @@ const whatToDoParagraphs = story.data.whatToDo
       <div class="mt-6">
         <ul class="mt-4 grid gap-3 sm:grid-cols-2">
           {story.data.redFlags.map((flag, index) => (
-            <li class={`border-l-4 bg-white/5 px-4 py-3 ${story.data.outcome === 'scammed' || index === 0 ? 'border-l-[var(--danger)]' : 'border-l-[var(--caution)]'}`}>
+            <li class={`border-l-4 bg-white/5 px-4 py-3 ${story.data.outcome === 'declined' ? 'border-l-[var(--caution)]' : story.data.outcome === 'scammed' || index === 0 ? 'border-l-[var(--danger)]' : 'border-l-[var(--caution)]'}`}>
               {flag}
             </li>
           ))}
