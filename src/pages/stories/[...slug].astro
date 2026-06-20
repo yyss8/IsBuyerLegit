@@ -111,5 +111,27 @@ const whatToDoParagraphs = story.data.whatToDo
         Not sure about your own buyer? Run the 60-second check.
       </a>
     </section>
+
+    <section class="mt-8 border border-[var(--rule)] bg-[var(--surface)] p-6">
+      <h2 class="display-font text-2xl font-bold">Sources</h2>
+      <ul class="mt-4 space-y-3 leading-7 text-[var(--muted)]">
+        {story.data.sources.map((source) => (
+          <li>
+            {source.url ? (
+              <a
+                class="font-semibold text-[var(--ink)] underline underline-offset-4 hover:text-[var(--ink-soft)]"
+                href={source.url}
+                target="_blank"
+                rel="noopener"
+              >
+                {source.title}
+              </a>
+            ) : (
+              <span>{source.title}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
   </main>
 </BaseLayout>

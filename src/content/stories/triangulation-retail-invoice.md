@@ -2,14 +2,19 @@
 title: The retail-store invoice that exposed a triangulation scam
 description: A package arrived from a real retailer with someone else's card on the invoice.
 type: Triangulation / stolen card
+category: Triangulation / stolen card
 platform: ebay
 outcome: scammed
+result: scammed
 date: 2026-02-25
 redFlags:
   - Package came from a retailer instead of the seller
   - Invoice showed another person's payment card
   - Buyer address was used as the retail shipping destination
   - Seller identity did not match the shipment source
+sources:
+  - title: eBay Community discussion
+    url: https://community.ebay.com/t5/Buying/Drop-shipping-Scam-Possibly-seller-uses-stolen-credit-card-to/td-p/32147649
 draft: false
 whatToDo: >-
   When order identities do not line up, assume the payment path may be dirty. For sellers, mismatched buyer names,

@@ -2,14 +2,18 @@
 title: The $1,200 order with a generated username and mismatched shipping name
 description: A new account placed a high-value order with a username, recipient name, phone area code, and address that did not line up.
 type: Name mismatch / burner account
+category: Name mismatch / burner account
 platform: ebay
 outcome: safe
+result: avoided
 date: 2026-02-26
 redFlags:
   - Newly registered account
   - System-generated username
   - Username did not match the recipient name
   - Phone area code and shipping state did not line up
+sources:
+  - title: The site owner's own experience
 draft: false
 whatToDo: >-
   If a high-value order comes from a new account and the identity signals do not line up, cancel before shipping.

@@ -2,14 +2,19 @@
 title: Two same-day zero-feedback buyers on high-value collectibles
 description: Two expensive collectibles sold back-to-back to brand-new accounts with matching username patterns.
 type: Zero-feedback account pattern
+category: Zero-feedback account pattern
 platform: ebay
 outcome: safe
+result: avoided
 date: 2026-02-28
 redFlags:
   - Two brand-new buyer accounts
   - Zero feedback on both accounts
   - Same-day purchases on high-value items
   - Matching username pattern and nearby towns
+sources:
+  - title: eBay Community discussion
+    url: https://community.ebay.com/t5/Selling/Potential-0-feedback-buyer-scam/td-p/31424532
 draft: false
 whatToDo: >-
   One zero-feedback buyer is not automatically a scam. Two same-day accounts with the same naming pattern, nearby addresses,

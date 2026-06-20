@@ -7,6 +7,9 @@ const title = 'Real marketplace scam stories, broken down';
 const description = 'Read real marketplace scam cases with the red flags marked, the outcome explained, and the practical next step made clear.';
 const stories = (await getCollection('stories', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const categories = Array.from(new Set(stories.map((story) => story.data.category))).sort((a, b) =>
+  a.localeCompare(b),
+);
 ---
 
 <BaseLayout title={title} description={description} canonical="/stories/" active="stories">
@@ -19,10 +22,185 @@ const stories = (await getCollection('stories', ({ data }) => !data.draft))
       Real cases with the red flags marked, the outcome explained, and the practical next step made clear.
     </p>
 
-    <div class="mt-10 grid gap-4 md:grid-cols-3">
+    <section class="mt-10 border-y border-[var(--rule)] py-5" aria-label="Story filters">
+      <div class="grid gap-4 md:grid-cols-[1fr_220px]">
+        <label class="block text-sm font-bold text-[var(--ink)]" for="story-category-filter">
+          Category
+          <select
+            id="story-category-filter"
+            class="mt-2 w-full border border-[var(--rule)] bg-[var(--surface)] px-3 py-2 text-base font-normal text-[var(--ink)]"
+            data-story-category-filter
+          >
+            <option value="">All categories</option>
+            {categories.map((category) => <option value={category}>{category}</option>)}
+          </select>
+        </label>
+
+        <label class="block text-sm font-bold text-[var(--ink)]" for="story-result-filter">
+          Result
+          <select
+            id="story-result-filter"
+            class="mt-2 w-full border border-[var(--rule)] bg-[var(--surface)] px-3 py-2 text-base font-normal text-[var(--ink)]"
+            data-story-result-filter
+          >
+            <option value="">All results</option>
+            <option value="scammed">Scammed</option>
+            <option value="avoided">Avoided</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <p class="mt-6 text-sm font-semibold text-[var(--muted)]" aria-live="polite" data-story-count>
+      Showing all {stories.length} stories.
+    </p>
+
+    <div class="mt-6 grid gap-4 md:grid-cols-3" data-story-grid>
       {stories.map((story) => (
-        <StoryCard href={`/stories/${story.id.replace(/\.mdx?$/, '')}/`} story={story.data} />
+        <div
+          class="h-full"
+          data-story-card
+          data-category={story.data.category}
+          data-result={story.data.result}
+        >
+          <StoryCard href={`/stories/${story.id.replace(/\.mdx?$/, '')}/`} story={story.data} />
+        </div>
       ))}
     </div>
+
+    <p class="mt-8 hidden border border-[var(--rule)] bg-[var(--surface)] p-5 text-[var(--muted)]" data-story-empty>
+      No stories match those filters.
+    </p>
+
+    <nav class="mt-8 flex flex-wrap items-center gap-2" aria-label="Story pages" data-story-pagination></nav>
+
+    <script is:inline>
+      (() => {
+        const pageSize = 12;
+        const cards = Array.from(document.querySelectorAll('[data-story-card]'));
+        const categoryFilter = document.querySelector('[data-story-category-filter]');
+        const resultFilter = document.querySelector('[data-story-result-filter]');
+        const count = document.querySelector('[data-story-count]');
+        const empty = document.querySelector('[data-story-empty]');
+        const pagination = document.querySelector('[data-story-pagination]');
+
+        if (!cards.length || !categoryFilter || !resultFilter || !count || !empty || !pagination) {
+          return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        let currentPage = Number(params.get('page')) || 1;
+
+        if (params.has('category')) {
+          categoryFilter.value = params.get('category');
+        }
+
+        if (params.has('result')) {
+          resultFilter.value = params.get('result');
+        }
+
+        const makeButton = (label, page, isActive = false, isDisabled = false) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.textContent = label;
+          button.disabled = isDisabled;
+          button.className = [
+            'border px-3 py-2 text-sm font-bold',
+            isActive
+              ? 'border-[var(--ink)] bg-[var(--ink)] text-[var(--paper)]'
+              : 'border-[var(--rule)] text-[var(--ink)] hover:border-[var(--ink-soft)] hover:text-[var(--ink-soft)]',
+            isDisabled ? 'cursor-not-allowed opacity-45' : 'cursor-pointer',
+          ].join(' ');
+
+          if (isActive) {
+            button.setAttribute('aria-current', 'page');
+          }
+
+          button.addEventListener('click', () => {
+            currentPage = page;
+            renderStories();
+          });
+
+          return button;
+        };
+
+        const updateUrl = () => {
+          const nextParams = new URLSearchParams();
+
+          if (categoryFilter.value) {
+            nextParams.set('category', categoryFilter.value);
+          }
+
+          if (resultFilter.value) {
+            nextParams.set('result', resultFilter.value);
+          }
+
+          if (currentPage > 1) {
+            nextParams.set('page', String(currentPage));
+          }
+
+          const query = nextParams.toString();
+          const nextUrl = query ? `${window.location.pathname}?${query}` : window.location.pathname;
+          window.history.replaceState(null, '', nextUrl);
+        };
+
+        function renderStories() {
+          const category = categoryFilter.value;
+          const result = resultFilter.value;
+          const filteredCards = cards.filter((card) => {
+            const matchesCategory = !category || card.dataset.category === category;
+            const matchesResult = !result || card.dataset.result === result;
+            return matchesCategory && matchesResult;
+          });
+          const pageCount = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+
+          currentPage = Math.min(Math.max(currentPage, 1), pageCount);
+
+          const start = (currentPage - 1) * pageSize;
+          const end = start + pageSize;
+
+          cards.forEach((card) => {
+            card.hidden = true;
+          });
+
+          filteredCards.slice(start, end).forEach((card) => {
+            card.hidden = false;
+          });
+
+          empty.hidden = filteredCards.length !== 0;
+          empty.classList.toggle('hidden', filteredCards.length !== 0);
+
+          count.textContent = filteredCards.length === 1
+            ? 'Showing 1 story.'
+            : `Showing ${filteredCards.length} stories.`;
+
+          pagination.innerHTML = '';
+
+          if (filteredCards.length > pageSize) {
+            pagination.appendChild(makeButton('Prev', currentPage - 1, false, currentPage === 1));
+
+            for (let page = 1; page <= pageCount; page += 1) {
+              pagination.appendChild(makeButton(String(page), page, page === currentPage));
+            }
+
+            pagination.appendChild(makeButton('Next', currentPage + 1, false, currentPage === pageCount));
+          }
+
+          updateUrl();
+        }
+
+        categoryFilter.addEventListener('change', () => {
+          currentPage = 1;
+          renderStories();
+        });
+
+        resultFilter.addEventListener('change', () => {
+          currentPage = 1;
+          renderStories();
+        });
+
+        renderStories();
+      })();
+    </script>
   </main>
 </BaseLayout>

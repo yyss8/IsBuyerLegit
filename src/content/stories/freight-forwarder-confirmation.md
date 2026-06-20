@@ -2,14 +2,19 @@
 title: The forwarder policy lesson sellers miss before shipping
 description: A forwarding address alone may not be enough unless the buyer confirms the forwarder use in eBay messages.
 type: Freight forwarder
+category: Freight forwarder
 platform: ebay
 outcome: safe
+result: avoided
 date: 2026-02-20
 redFlags:
   - Freight-forwarder address
   - Buyer protection depends on written confirmation
   - Address alone may not prove forwarder use
   - Dispute evidence needs a message trail
+sources:
+  - title: eBay Community discussion
+    url: https://community.ebay.com/t5/Selling/eBay-Policy-Change-Seller-Protection-Change-when-Buyer-uses-a/td-p/30295666
 draft: false
 whatToDo: >-
   Before shipping to a suspected forwarder, message the buyer on eBay and ask them to confirm that the address is a freight forwarder.

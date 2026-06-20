@@ -6,7 +6,8 @@ import StoryCard from '../components/StoryCard.astro';
 const title = 'Is your buyer legit? Free scam check for marketplace sellers';
 const description = 'Get a 60-second risk verdict on a suspicious marketplace buyer before you ship, with plain seller-focused guidance on what to verify next.';
 const stories = (await getCollection('stories', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 12);
 
 const structuredData = [
   {

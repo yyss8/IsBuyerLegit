@@ -2,14 +2,19 @@
 title: The zero-feedback shoe buyer whose username looked like feedback
 description: A designer-shoe order almost shipped before the seller noticed the account was brand new.
 type: Zero-feedback account pattern
+category: Zero-feedback account pattern
 platform: ebay
 outcome: safe
+result: avoided
 date: 2026-02-27
 redFlags:
   - Zero real feedback
   - Account created the same day
   - Username made the account look more established
   - Oddly altered shipping address text
+sources:
+  - title: Seller personal blog post
+    url: https://betweennapsontheporch.net/how-i-almost-got-scammed-as-a-seller-on-ebay/
 draft: false
 whatToDo: >-
   Do not read the username as the feedback score. Click through to the buyer profile, check when the account was created,

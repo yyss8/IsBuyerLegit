@@ -2,14 +2,19 @@
 title: The $500 camera address change from Hawaii to Delaware
 description: After payment, the buyer asked the seller to ship a camera to a different state and a commercial-looking address.
 type: Address change after payment
+category: Address change after payment
 platform: ebay
 outcome: safe
+result: avoided
 date: 2026-02-23
 redFlags:
   - Address change after payment
   - New address in a different state
   - Commercial or industrial destination
   - Emotional explanation that could not be verified
+sources:
+  - title: eBay Community discussion
+    url: https://community.ebay.com/t5/Selling/Different-Change-address-scam/td-p/33385850
 draft: false
 whatToDo: >-
   Never ship to an address that is not on the eBay order. If the buyer made a real mistake, cancel and let them repurchase
