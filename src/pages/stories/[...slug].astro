@@ -37,6 +37,10 @@ const structuredData = {
 const outcomeClass = story.data.outcome === 'scammed'
   ? 'border-[var(--danger)] text-[var(--danger)]'
   : 'border-[var(--safe)] text-[var(--safe)]';
+const whatToDoParagraphs = story.data.whatToDo
+  .split(/\n{2,}/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
 ---
 
 <BaseLayout
@@ -90,7 +94,9 @@ const outcomeClass = story.data.outcome === 'scammed'
 
       <div class="mt-8 border-t border-white/20 pt-8">
         <h2 class="display-font text-3xl font-bold">What to do</h2>
-        <p class="mt-3 leading-8 text-[#EFE9DD]">{story.data.whatToDo}</p>
+        <div class="mt-3 space-y-4 leading-8 text-[#EFE9DD]">
+          {whatToDoParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
       </div>
 
       <a class="mt-8 inline-flex border border-[var(--paper)] px-5 py-3 text-sm font-bold text-[var(--paper)] hover:bg-[var(--paper)] hover:text-[var(--ink)]" href="/check/">
