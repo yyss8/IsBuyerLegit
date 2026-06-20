@@ -112,6 +112,29 @@ const whatToDoParagraphs = story.data.whatToDo
       </a>
     </section>
 
+    <section class="mt-8 border border-[var(--rule)] bg-[var(--surface)] p-5" aria-label="Save or share this story">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm font-semibold text-[var(--muted)]">Save this for the next time a buyer feels off.</p>
+        <div class="flex flex-wrap gap-3">
+          <button
+            class="hidden border border-[var(--ink)] px-4 py-2 text-sm font-bold text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--paper)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+            type="button"
+            data-story-share
+          >
+            Share
+          </button>
+          <button
+            class="border border-[var(--ink)] bg-[var(--ink)] px-4 py-2 text-sm font-bold text-[var(--paper)] hover:bg-transparent hover:text-[var(--ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ink)]"
+            type="button"
+            data-story-copy
+          >
+            Copy link
+          </button>
+        </div>
+      </div>
+      <p class="mt-3 min-h-5 text-sm font-semibold text-[var(--muted)]" aria-live="polite" data-story-share-status></p>
+    </section>
+
     <section class="mt-8 border border-[var(--rule)] bg-[var(--surface)] p-6">
       <h2 class="display-font text-2xl font-bold">Sources</h2>
       <ul class="mt-4 space-y-3 leading-7 text-[var(--muted)]">
@@ -133,5 +156,75 @@ const whatToDoParagraphs = story.data.whatToDo
         ))}
       </ul>
     </section>
+
+    <script is:inline>
+      (() => {
+        const shareButton = document.querySelector('[data-story-share]');
+        const copyButton = document.querySelector('[data-story-copy]');
+        const status = document.querySelector('[data-story-share-status]');
+
+        if (!copyButton || !status) {
+          return;
+        }
+
+        const setStatus = (message) => {
+          status.textContent = message;
+
+          if (message) {
+            window.setTimeout(() => {
+              if (status.textContent === message) {
+                status.textContent = '';
+              }
+            }, 2400);
+          }
+        };
+
+        const copyCurrentUrl = async () => {
+          const url = window.location.href;
+
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(url);
+            return;
+          }
+
+          const textArea = document.createElement('textarea');
+          textArea.value = url;
+          textArea.setAttribute('readonly', '');
+          textArea.style.position = 'fixed';
+          textArea.style.top = '-1000px';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          textArea.remove();
+        };
+
+        if (shareButton && navigator.share) {
+          shareButton.classList.remove('hidden');
+          shareButton.addEventListener('click', async () => {
+            try {
+              await navigator.share({
+                title: document.title,
+                url: window.location.href,
+              });
+            } catch (error) {
+              if (error instanceof DOMException && error.name === 'AbortError') {
+                return;
+              }
+
+              setStatus('Share is not available here.');
+            }
+          });
+        }
+
+        copyButton.addEventListener('click', async () => {
+          try {
+            await copyCurrentUrl();
+            setStatus('Copied.');
+          } catch {
+            setStatus('Copy failed.');
+          }
+        });
+      })();
+    </script>
   </main>
 </BaseLayout>
