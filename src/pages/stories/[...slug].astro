@@ -1,0 +1,101 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const stories = await getCollection('stories', ({ data }) => !data.draft);
+
+  return stories.map((story) => ({
+    params: { slug: story.id.replace(/\.mdx?$/, '') },
+    props: { story },
+  }));
+}
+
+const { story } = Astro.props;
+const { Content } = await render(story);
+const storyPath = `/stories/${story.id.replace(/\.mdx?$/, '')}/`;
+const datePublished = story.data.date.toISOString();
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: story.data.title,
+  description: story.data.description,
+  datePublished,
+  author: {
+    '@type': 'Organization',
+    name: 'IsBuyerLegit',
+    url: 'https://isbuyerlegit.com/',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'IsBuyerLegit',
+    url: 'https://isbuyerlegit.com/',
+  },
+  mainEntityOfPage: `https://isbuyerlegit.com${storyPath}`,
+};
+
+const outcomeClass = story.data.outcome === 'scammed'
+  ? 'border-[var(--danger)] text-[var(--danger)]'
+  : 'border-[var(--safe)] text-[var(--safe)]';
+---
+
+<BaseLayout
+  title={story.data.title}
+  description={story.data.description}
+  canonical={storyPath}
+  active="stories"
+  type="article"
+  structuredData={structuredData}
+>
+  <main class="mx-auto max-w-4xl px-5 py-14 md:px-8">
+    <a class="text-sm font-bold text-[var(--muted)] underline underline-offset-4 hover:text-[var(--ink)]" href="/stories/">
+      Back to stories
+    </a>
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <span class="rounded-full border border-[var(--rule)] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
+        {story.data.type}
+      </span>
+      <span class={`rounded-full border px-2.5 py-1 text-xs font-bold uppercase tracking-wide ${outcomeClass}`}>
+        {story.data.outcome === 'scammed' ? 'Scammed' : 'Avoided loss'}
+      </span>
+    </div>
+    <h1 class="display-font mt-5 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+      {story.data.title}
+    </h1>
+    <p class="mt-5 text-lg leading-8 text-[var(--muted)]">{story.data.description}</p>
+
+    <section class="mt-12 border border-[var(--rule)] bg-[var(--surface)] p-6">
+      <h2 class="display-font text-3xl font-bold">What happened</h2>
+      <div class="prose prose-neutral mt-6 max-w-none prose-p:text-[var(--ink)] prose-p:leading-8">
+        <Content />
+      </div>
+    </section>
+
+    <section class="mt-8 border border-[var(--rule)] bg-[var(--ink)] p-6 text-[var(--paper)]">
+      <div>
+        <h2 class="display-font text-3xl font-bold">The red flags</h2>
+        <p class="mt-3 leading-7 text-[#EFE9DD]">
+          The signals below are the ones that mattered in this case.
+        </p>
+      </div>
+      <div class="mt-6">
+        <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+          {story.data.redFlags.map((flag, index) => (
+            <li class={`border-l-4 bg-white/5 px-4 py-3 ${story.data.outcome === 'scammed' || index === 0 ? 'border-l-[var(--danger)]' : 'border-l-[var(--caution)]'}`}>
+              {flag}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="mt-8 border-t border-white/20 pt-8">
+        <h2 class="display-font text-3xl font-bold">What to do</h2>
+        <p class="mt-3 leading-8 text-[#EFE9DD]">{story.data.whatToDo}</p>
+      </div>
+
+      <a class="mt-8 inline-flex border border-[var(--paper)] px-5 py-3 text-sm font-bold text-[var(--paper)] hover:bg-[var(--paper)] hover:text-[var(--ink)]" href="/check/">
+        Not sure about your own buyer? Run the 60-second check.
+      </a>
+    </section>
+  </main>
+</BaseLayout>

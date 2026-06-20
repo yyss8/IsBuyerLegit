@@ -1,0 +1,21 @@
+---
+const { active = '' } = Astro.props;
+---
+
+<header class="border-b border-[var(--rule)] bg-[var(--paper)]/95">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 md:px-8">
+    <a
+      href="/"
+      class="display-font text-lg font-bold tracking-tight text-[var(--ink)]"
+      aria-label="IsBuyerLegit home"
+    >
+      IsBuyerLegit
+    </a>
+
+    <nav class="flex items-center gap-4 text-sm font-semibold text-[var(--muted)] sm:gap-5" aria-label="Primary">
+      <a class={active === 'stories' ? 'text-[var(--ink)]' : 'hover:text-[var(--ink)]'} href="/stories/">Stories</a>
+      <a class={active === 'local' ? 'text-[var(--ink)]' : 'hover:text-[var(--ink)]'} href="/local/">Local safety</a>
+      <a class="rounded-full border border-[var(--ink)] px-3 py-1.5 text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--paper)]" href="/check/">Run check</a>
+    </nav>
+  </div>
+</header>

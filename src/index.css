@@ -1,6 +1,74 @@
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/space-grotesk/latin-500.css";
+@import "@fontsource/space-grotesk/latin-600.css";
+@import "@fontsource/space-grotesk/latin-700.css";
 @import "tailwindcss";
 
 :root {
-  background-color: #FAF6EE;
-  color: #111111;
+  --paper: #EFE9DD;
+  --ink: #1C1813;
+  --ink-soft: #6B6358;
+  --rule: #D8CFBF;
+  --danger: #B23A2E;
+  --caution: #C8841C;
+  --safe: #3F7A52;
+  --surface: #F8F3EA;
+  --muted: var(--ink-soft);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+h1,
+h2,
+h3,
+.display-font {
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+}
+
+a,
+button,
+select,
+textarea {
+  font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(28, 24, 19, 0.14);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
 }

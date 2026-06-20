@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Page not found | IsBuyerLegit';
+const description = 'The page you requested could not be found. Start a buyer risk check or read real marketplace scam stories.';
+---
+
+<BaseLayout title={title} description={description} canonical="/404/">
+  <main class="mx-auto max-w-3xl px-5 py-20 text-center md:px-8">
+    <p class="text-sm font-bold uppercase tracking-[0.22em] text-[var(--ink-soft)]">404</p>
+    <h1 class="display-font mt-4 text-4xl font-bold leading-tight md:text-6xl">This page is not here.</h1>
+    <p class="mt-5 text-lg leading-8 text-[var(--muted)]">
+      The buyer check and story library are still available.
+    </p>
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+      <a class="border border-[var(--ink)] bg-[var(--ink)] px-5 py-3 text-sm font-bold text-[var(--paper)] hover:bg-transparent hover:text-[var(--ink)]" href="/check/">
+        Run the buyer check
+      </a>
+      <a class="border border-[var(--rule)] px-5 py-3 text-sm font-bold text-[var(--ink)] hover:border-[var(--ink-soft)] hover:text-[var(--ink-soft)]" href="/stories/">
+        Read stories
+      </a>
+    </div>
+  </main>
+</BaseLayout>

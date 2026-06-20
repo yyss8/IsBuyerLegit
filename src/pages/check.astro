@@ -1,0 +1,23 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import WizardIsland from '../WizardIsland.jsx';
+import '../index.css';
+
+const title = 'Run a 60-second marketplace buyer risk check';
+const description = 'Answer a few questions about an eBay buyer and get a plain risk verdict before you ship.';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <BaseHead title={title} description={description} canonical="/check/" />
+  </head>
+  <body>
+    <main>
+      <h1 class="sr-only">Run a 60-second marketplace buyer risk check</h1>
+      <WizardIsland client:only="react" />
+    </main>
+  </body>
+</html>

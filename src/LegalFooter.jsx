@@ -9,11 +9,11 @@ const LegalFooter = () => {
   return (
     <>
       <footer className="mt-auto py-6 text-center text-xs text-gray-500">
-        © 2026 IsBuyerLegit. {' '}
+        &copy; 2026 IsBuyerLegit. {' '}
         <select
           value={language}
           onChange={(event) => setLanguage(event.target.value)}
-          className="mx-1 rounded border border-[#D8D1BE] bg-[#FFFEFA] px-2 py-0.5 text-xs text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#D9CC9A]"
+          className="mx-1 rounded border border-[#D8CFBF] bg-[#FFFEFA] px-2 py-0.5 text-xs text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#1C1813]/30"
           aria-label={t('Language')}
         >
           <option value="en">{t('English')}</option>
@@ -22,7 +22,7 @@ const LegalFooter = () => {
         |{' '}
         <button
           onClick={() => setIsTermsOpen(true)}
-          className="cursor-pointer hover:text-[#FFC107] transition-colors underline"
+          className="cursor-pointer underline transition-colors hover:text-[#111111]"
         >
           {t('Disclaimer & Terms')}
         </button>

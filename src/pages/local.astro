@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Local marketplace meetup safety guide for sellers';
+const description = 'A plain safety checklist for local marketplace sellers covering meetup location, payment methods, buyer compliance, and message patterns.';
+---
+
+<BaseLayout title={title} description={description} canonical="/local/" active="local">
+  <main class="mx-auto max-w-4xl px-5 py-14 md:px-8">
+    <p class="text-sm font-bold uppercase tracking-[0.22em] text-[var(--ink-soft)]">Local buyer safety</p>
+    <h1 class="display-font mt-4 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+      A practical safety guide for local marketplace meetups.
+    </h1>
+    <p class="mt-6 text-lg leading-8 text-[var(--muted)]">
+      Based on the site owner's experience, follow the general safety guidelines below for local meetups.
+      The goal is not to make every deal feel dangerous; it is to avoid the small number of deals that can erase a lot of profit.
+    </p>
+
+    <div class="mt-10 space-y-6">
+      <section class="border border-[var(--rule)] bg-[var(--surface)] p-5">
+        <h2 class="display-font text-2xl font-bold">Trust & payment intent</h2>
+        <p class="mt-3 leading-7 text-[var(--muted)]">
+          Do not trust buyers who seem unusually nice and offer to pay before meeting. Over-eager payment can be a setup for a fake-confirmation screenshot or email.
+        </p>
+      </section>
+
+      <section class="border border-[var(--rule)] bg-[var(--surface)] p-5">
+        <h2 class="display-font text-2xl font-bold">Safe meetup location</h2>
+        <p class="mt-3 leading-7 text-[var(--muted)]">
+          Meet in a safe, camera-monitored location such as a bank during business hours or a police station.
+        </p>
+        <ul class="mt-4 list-disc space-y-2 pl-6 leading-7 text-[var(--muted)]">
+          <li>Not in a random parking lot.</li>
+          <li>Not outside a random store.</li>
+          <li>Not at your home for high-value items.</li>
+        </ul>
+      </section>
+
+      <section class="border border-[var(--rule)] bg-[var(--surface)] p-5">
+        <h2 class="display-font text-2xl font-bold">Safe payment methods</h2>
+        <p class="mt-3 leading-7 text-[var(--muted)]">
+          Accept only safer, non-chargeback-friendly payment methods such as cash or Zelle. Avoid checks, gift cards, Venmo, Cash App, and PayPal for higher-risk in-person deals.
+        </p>
+        <ul class="mt-4 list-disc space-y-2 pl-6 leading-7 text-[var(--muted)]">
+          <li>For Zelle, use QR code scan or provide your phone number to reduce fake-email payment scams.</li>
+          <li>Never trust a payment screenshot. Only hand over the item when the money shows up in your own bank app.</li>
+          <li>For cash, bring a counterfeit detection pen and check bills while the buyer inspects the item.</li>
+          <li>For large amounts of cash, meet at a local bank and deposit before releasing the item; counterfeit-bill checks are not perfect.</li>
+        </ul>
+      </section>
+
+      <section class="border border-[var(--rule)] bg-[var(--surface)] p-5">
+        <h2 class="display-font text-2xl font-bold">Buyer prompt compliance</h2>
+        <p class="mt-3 leading-7 text-[var(--muted)]">
+          Avoid buyers who cannot follow basic meetup prompts. Ask the buyer to update you when they start heading out and again when they are close. Only leave once they confirm they are nearby.
+        </p>
+      </section>
+
+      <section class="border border-[var(--rule)] bg-[var(--surface)] p-5">
+        <h2 class="display-font text-2xl font-bold">Marketplace message pattern</h2>
+        <p class="mt-3 leading-7 text-[var(--muted)]">
+          On Facebook Marketplace, reply within two messages to reduce negative-feedback risk and keep responses detailed. If buyer intent is unclear within two messages, treat it as a likely non-legit or problematic buyer.
+        </p>
+        <div class="mt-4 border border-[var(--rule)] bg-white/50 p-4 text-[var(--ink)]">
+          <p class="text-sm font-bold uppercase tracking-wide text-[var(--muted)]">Example response</p>
+          <p class="mt-2 leading-7">
+            Yes, the item is available. I can meet at my local precinct from [time] to [time]. I accept cash or Zelle only.
+          </p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</BaseLayout>

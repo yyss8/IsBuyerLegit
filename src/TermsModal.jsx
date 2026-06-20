@@ -15,7 +15,7 @@ const TermsModal = ({ isOpen, onClose }) => {
           <h2 className="text-lg md:text-xl font-bold">{t('Disclaimer & Terms')}</h2>
           <button
             onClick={onClose}
-            className="cursor-pointer rounded-md border border-[#3A3A3A] px-3 py-1 text-sm font-semibold hover:border-[#FFC107] hover:text-[#FFC107] transition-colors"
+            className="cursor-pointer rounded-md border border-[#3A3A3A] px-3 py-1 text-sm font-semibold transition-colors hover:border-[#EFE9DD] hover:text-[#EFE9DD]"
             aria-label={t('Close terms modal')}
           >
             ✕
@@ -58,7 +58,7 @@ const TermsModal = ({ isOpen, onClose }) => {
         <div className="sticky bottom-0 bg-[#111111]/95 backdrop-blur-sm border-t border-[#2A2A2A] p-4 flex justify-end">
           <button
             onClick={onClose}
-            className="cursor-pointer rounded-lg border-2 border-[#FFC107] px-5 py-2 text-sm font-bold text-[#FFC107] hover:bg-[#FFC107] hover:text-[#111111] transition-colors"
+            className="cursor-pointer rounded-lg border-2 border-[#EFE9DD] px-5 py-2 text-sm font-bold text-[#EFE9DD] transition-colors hover:bg-[#EFE9DD] hover:text-[#111111]"
           >
             {t('Close')}
           </button>

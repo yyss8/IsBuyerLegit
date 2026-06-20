@@ -234,10 +234,10 @@ const getOptionClasses = (isSelected, isRiskySelection) => {
   }
 
   if (isSelected) {
-    return 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]';
+    return 'border-[#D8CFBF] bg-[#EFE9DD] text-[#1C1813]';
   }
 
-  return 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]';
+  return 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D8CFBF] hover:text-[#1C1813] hover:bg-[#F8F3EA]';
 };
 
 const WarningBox = ({ warning, getWarningVisualStyle, t }) => {
@@ -275,11 +275,11 @@ const WebSourceCard = ({ summary, url, linkLabel, t }) => {
 
 const OwnerCard = ({ story, t }) => {
   return (
-    <article className="relative rounded-xl border border-[#E9D9A8] bg-[#FFFBF0] p-4 md:p-5">
-      <p className="absolute right-4 top-3 text-xs md:text-sm font-bold tracking-wide text-[#A27400]">
+    <article className="relative rounded-xl border border-[#D8CFBF] bg-[#F8F3EA] p-4 md:p-5">
+      <p className="absolute right-4 top-3 text-xs md:text-sm font-bold tracking-wide text-[#6B6358]">
         {t("🛡️ OWNER'S PICK")}
       </p>
-      <p className="mt-7 text-sm md:text-base leading-relaxed text-[#3C3624] italic font-serif">{t(story)}</p>
+      <p className="mt-7 text-sm md:text-base leading-relaxed text-[#1C1813] italic font-serif">{t(story)}</p>
     </article>
   );
 };
@@ -322,7 +322,7 @@ const CaseStudiesModal = ({ isOpen, onClose, flagKey, flagTitle, t }) => {
           <p className="text-base md:text-lg font-bold text-[#2F2F2F]">{t('Case Studies:')} {t(flagTitle)}</p>
           <button
             onClick={onClose}
-            className="cursor-pointer rounded-md border border-[#D8D1BE] px-3 py-1 text-sm font-semibold text-[#4A4A4A] hover:border-[#D9CC9A] hover:text-[#7A5A00]"
+            className="cursor-pointer rounded-md border border-[#D8D1BE] px-3 py-1 text-sm font-semibold text-[#4A4A4A] hover:border-[#D8CFBF] hover:text-[#1C1813]"
             aria-label={t('Close')}
           >
             ✕
@@ -435,7 +435,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
               <button
                 key={option.value}
                 onClick={() => setNestedValue('account', 'feedback', option.value)}
-                className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#1C1813]/40 ${getOptionClasses(
                   isSelected,
                   option.severity === 'risky',
                 )}`}
@@ -473,7 +473,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
                   <button
                     key={option.value}
                     onClick={() => setNestedValue('account', 'registrationAge', option.value)}
-                    className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                    className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#1C1813]/40 ${getOptionClasses(
                       isSelected,
                       option.severity === 'risky',
                     )}`}
@@ -516,7 +516,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
                 <button
                   key={option.value}
                   onClick={() => setNestedValue('account', 'isRandomUsername', option.value)}
-                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#1C1813]/40 ${getOptionClasses(
                     isSelected,
                     option.severity === 'risky',
                   )}`}
@@ -550,7 +550,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => setNestedValue('account', 'nameMismatch', 'no')}
-                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#1C1813]/40 ${getOptionClasses(
                     nameMismatchValue === 'no',
                     false,
                   )}`}
@@ -559,7 +559,7 @@ const AccountStep = ({ accountData, accountConfig, getWarningVisualStyle, setNes
                 </button>
                 <button
                   onClick={() => setNestedValue('account', 'nameMismatch', 'yes')}
-                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${getOptionClasses(
+                  className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#1C1813]/40 ${getOptionClasses(
                     nameMismatchValue === 'yes',
                     true,
                   )}`}
@@ -889,9 +889,9 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                     disabled={!isAccessible}
                     className={`w-full text-left rounded-xl px-3 py-2 text-sm md:text-base font-semibold transition-all duration-300 ${
                       isActive
-                        ? 'border border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]'
+                        ? 'border border-[#D8CFBF] bg-[#EFE9DD] text-[#1C1813]'
                         : isAccessible
-                          ? 'cursor-pointer border border-transparent text-[#5B5B5B] hover:border-[#D9CC9A] hover:bg-[#FBF2D6] hover:text-[#7A5A00]'
+                          ? 'cursor-pointer border border-transparent text-[#5B5B5B] hover:border-[#D8CFBF] hover:bg-[#F8F3EA] hover:text-[#1C1813]'
                           : 'cursor-not-allowed border border-transparent text-[#B7B7B7]'
                     }`}
                   >
@@ -972,12 +972,12 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                               onClick={() =>
                                 setNestedValue(currentConfig.category, question.key, option.value)
                               }
-                              className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40 ${
+                              className={`cursor-pointer w-full sm:w-auto rounded-full px-6 py-3 text-base md:text-lg font-semibold border-2 transition-all duration-300 hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-[#1C1813]/40 ${
                                 isSelected
                                   ? isRiskySelection
                                     ? 'bg-[#FEE2E2] border-[#DC2626] text-[#7F1D1D] focus:ring-red-600/40'
-                                    : 'border-[#D9CC9A] bg-[#F4E7C0] text-[#7A5A00]'
-                                  : 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
+                                    : 'border-[#D8CFBF] bg-[#EFE9DD] text-[#1C1813]'
+                                  : 'border-[#D8D1BE] bg-[#FFFFFF] text-[#2F2F2F] hover:border-[#D8CFBF] hover:text-[#1C1813] hover:bg-[#F8F3EA]'
                               }`}
                             >
                               {t(option.label)}
@@ -1015,8 +1015,8 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                   onClick={handleBack}
                   className={`rounded-xl px-5 py-3 text-base font-semibold transition-all duration-300 ${
                     currentScreen === 0
-                      ? 'cursor-pointer border border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
-                      : 'cursor-pointer border border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]'
+                      ? 'cursor-pointer border border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D8CFBF] hover:text-[#1C1813] hover:bg-[#F8F3EA]'
+                      : 'cursor-pointer border border-[#D8D1BE] text-[#4A4A4A] hover:border-[#D8CFBF] hover:text-[#1C1813] hover:bg-[#F8F3EA]'
                   }`}
                 >
                   {t('Back')}
@@ -1027,7 +1027,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                   disabled={!isCurrentScreenComplete}
                   className={`rounded-xl px-6 py-3 text-base font-bold transition-all duration-300 ${
                     isCurrentScreenComplete
-                      ? 'cursor-pointer border-2 border-[#D9CC9A] text-[#7A5A00] hover:bg-[#F4E7C0]'
+                      ? 'cursor-pointer border-2 border-[#D8CFBF] text-[#1C1813] hover:bg-[#EFE9DD]'
                       : 'cursor-not-allowed border-2 border-[#E8E2D2] text-[#B7B7B7]'
                   }`}
                 >
@@ -1108,7 +1108,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                                 <div className="mt-3">
                                   <button
                                     onClick={handleCopyForwarderMessage}
-                                    className="cursor-pointer rounded-md border border-[#D9CC9A] px-3 py-1 text-sm font-semibold text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0] focus:outline-none focus:ring-2 focus:ring-[#B8860B]/40"
+                                    className="cursor-pointer rounded-md border border-[#D8CFBF] px-3 py-1 text-sm font-semibold text-[#1C1813] transition-all duration-300 hover:bg-[#EFE9DD] focus:outline-none focus:ring-2 focus:ring-[#1C1813]/40"
                                   >
                                     {copiedForwarderMessage ? t('Copied') : t('Copy Message')}
                                   </button>
@@ -1122,7 +1122,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                                   event.stopPropagation();
                                   openCaseStudiesModal(flag.caseStudiesFlagKey, flag.title);
                                 }}
-                                className="mt-3 cursor-pointer rounded-md border border-[#D8D1BE] px-3 py-1.5 text-sm font-semibold text-[#4A4A4A] transition-colors duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
+                                className="mt-3 cursor-pointer rounded-md border border-[#D8D1BE] px-3 py-1.5 text-sm font-semibold text-[#4A4A4A] transition-colors duration-300 hover:border-[#D8CFBF] hover:text-[#1C1813] hover:bg-[#F8F3EA]"
                               >
                                 {t('📋 View Case Studies')}
                               </button>
@@ -1135,18 +1135,27 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                 </div>
               )}
 
+              <div className="mt-6">
+                <a
+                  href="/stories/"
+                  className="text-sm font-semibold text-[#5B5B5B] underline decoration-[#D8CFBF] underline-offset-4 transition-colors hover:text-[#1C1813]"
+                >
+                  {t('See real cases like this')}
+                </a>
+              </div>
+
               <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-3">
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handleBack}
-                    className="cursor-pointer rounded-xl px-5 py-3 text-base font-semibold border border-[#D8D1BE] text-[#4A4A4A] transition-all duration-300 hover:border-[#D9CC9A] hover:text-[#7A5A00] hover:bg-[#FBF2D6]"
+                    className="cursor-pointer rounded-xl px-5 py-3 text-base font-semibold border border-[#D8D1BE] text-[#4A4A4A] transition-all duration-300 hover:border-[#D8CFBF] hover:text-[#1C1813] hover:bg-[#F8F3EA]"
                   >
                     {t('Back')}
                   </button>
 
                   <button
                     onClick={handleStartOver}
-                    className="cursor-pointer rounded-xl px-7 py-3 text-base font-bold border-2 border-[#D9CC9A] text-[#7A5A00] transition-all duration-300 hover:bg-[#F4E7C0]"
+                    className="cursor-pointer rounded-xl px-7 py-3 text-base font-bold border-2 border-[#D8CFBF] text-[#1C1813] transition-all duration-300 hover:bg-[#EFE9DD]"
                   >
                     {t('Start Over')}
                   </button>

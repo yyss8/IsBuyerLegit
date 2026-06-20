@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StoryCard from '../components/StoryCard.astro';
+
+const title = 'Is your buyer legit? Free scam check for marketplace sellers';
+const description = 'Get a 60-second risk verdict on a suspicious marketplace buyer before you ship, with plain seller-focused guidance on what to verify next.';
+const stories = (await getCollection('stories', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'IsBuyerLegit',
+    url: 'https://isbuyerlegit.com/',
+    description,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'IsBuyerLegit',
+    url: 'https://isbuyerlegit.com/',
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonical="/" structuredData={structuredData}>
+  <main>
+    <section class="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-24">
+      <div class="max-w-3xl">
+        <h1 class="display-font text-5xl font-bold leading-[0.95] tracking-tight text-[var(--ink)] md:text-7xl">
+          Is your buyer legit?
+        </h1>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-[var(--muted)] md:text-xl">
+          Get a clear verdict on a suspicious buyer before you ship - in about a minute.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a class="inline-flex justify-center border border-[var(--ink)] bg-[var(--ink)] px-6 py-4 text-base font-bold text-[var(--paper)] transition hover:bg-transparent hover:text-[var(--ink)]" href="/check/">
+            Check an eBay buyer
+          </a>
+          <a class="inline-flex justify-center border border-[var(--ink)] px-6 py-4 text-base font-bold text-[var(--ink)] transition hover:bg-[var(--ink)] hover:text-[var(--paper)]" href="/local/">
+            Local buyer safety
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-[var(--rule)] bg-[var(--surface)]">
+      <div class="mx-auto max-w-6xl px-5 py-14 md:px-8">
+        <h2 class="display-font text-3xl font-bold tracking-tight md:text-4xl">What you'll get</h2>
+        <p class="mt-4 max-w-3xl leading-7 text-[var(--muted)]">
+          The check asks about the patterns sellers can actually see: account age, payment behavior, address changes,
+          forwarding addresses, and whether the story feels too clean.
+        </p>
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+          <article class="border border-[var(--rule)] border-l-[8px] border-l-[var(--danger)] bg-white/50 p-5">
+            <span class="rounded-full border border-[var(--danger)] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-[var(--danger)]">High risk</span>
+            <p class="mt-4 text-lg font-semibold leading-7 text-[var(--ink)]">
+              The danger signs stack up. Don't ship until you've protected yourself - here's how.
+            </p>
+          </article>
+          <article class="border border-[var(--rule)] border-l-[8px] border-l-[var(--caution)] bg-white/50 p-5">
+            <span class="rounded-full border border-[var(--caution)] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-[var(--caution)]">Proceed with caution</span>
+            <p class="mt-4 text-lg font-semibold leading-7 text-[var(--ink)]">
+              Something's off. Here's exactly what to verify before you decide.
+            </p>
+          </article>
+          <article class="border border-[var(--rule)] border-l-[8px] border-l-[var(--safe)] bg-white/50 p-5">
+            <span class="rounded-full border border-[var(--safe)] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-[var(--safe)]">Looks safe</span>
+            <p class="mt-4 text-lg font-semibold leading-7 text-[var(--ink)]">
+              No major red flags. Here's why you can likely go ahead.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-5 py-14 md:px-8">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <h2 class="display-font text-3xl font-bold tracking-tight md:text-4xl">Real scam stories - and how to read them</h2>
+          <p class="mt-4 max-w-3xl leading-7 text-[var(--muted)]">
+            Every story here is a real case with the red flags marked and what the seller could have done differently.
+            The thing the forums never give you: an ending.
+          </p>
+        </div>
+        <a class="text-sm font-bold text-[var(--ink)] underline decoration-[var(--ink)] underline-offset-4 hover:text-[var(--muted)]" href="/stories/">
+          View all stories
+        </a>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        {stories.map((story) => (
+          <StoryCard href={`/stories/${story.id.replace(/\.mdx?$/, '')}/`} story={story.data} />
+        ))}
+      </div>
+    </section>
+
+    <section class="border-t border-[var(--rule)]">
+      <div class="mx-auto max-w-6xl px-5 py-10 md:px-8">
+        <p class="display-font text-2xl font-bold leading-9 text-[var(--ink)]">
+          Built from 5 years and 1,000+ deals selling on eBay - including the $500 empty-box scam that started all this.
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">IsBuyerLegit risk verdict system</title>
+  <desc id="desc">Three marketplace buyer risk states: High risk, Proceed with caution, Looks safe.</desc>
+  <rect width="1200" height="630" fill="#EFE9DD"/>
+  <text x="90" y="145" fill="#1C1813" font-family="Arial, sans-serif" font-size="72" font-weight="800">IsBuyerLegit</text>
+  <text x="90" y="208" fill="#6B6358" font-family="Arial, sans-serif" font-size="34">A seller&apos;s second opinion before you ship.</text>
+  <g transform="translate(90 300)">
+    <rect width="300" height="150" rx="18" fill="#F8F3EA" stroke="#B23A2E" stroke-width="8"/>
+    <text x="30" y="70" fill="#B23A2E" font-family="Arial, sans-serif" font-size="34" font-weight="700">High risk</text>
+    <text x="30" y="112" fill="#1C1813" font-family="Arial, sans-serif" font-size="22">Don&apos;t ship yet.</text>
+  </g>
+  <g transform="translate(450 300)">
+    <rect width="300" height="150" rx="18" fill="#F8F3EA" stroke="#C8841C" stroke-width="8"/>
+    <text x="30" y="70" fill="#C8841C" font-family="Arial, sans-serif" font-size="34" font-weight="700">Caution</text>
+    <text x="30" y="112" fill="#1C1813" font-family="Arial, sans-serif" font-size="22">Verify first.</text>
+  </g>
+  <g transform="translate(810 300)">
+    <rect width="300" height="150" rx="18" fill="#F8F3EA" stroke="#3F7A52" stroke-width="8"/>
+    <text x="30" y="70" fill="#3F7A52" font-family="Arial, sans-serif" font-size="34" font-weight="700">Looks safe</text>
+    <text x="30" y="112" fill="#1C1813" font-family="Arial, sans-serif" font-size="22">No major flags.</text>
+  </g>
+</svg>
