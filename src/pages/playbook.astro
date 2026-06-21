@@ -4,6 +4,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const title = "Seller's playbook for buyer red flags";
 const description = 'Plain seller guidance for what buyer red flags usually mean, what to do next, and when each signal escalates.';
 
+const ebayPolicies = {
+  orderAddress: 'https://www.ebay.com/help/buying/resolving-issues/resolving-problems-buyer?id=4085',
+  moneyBackGuarantee: 'https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210',
+  signatureConfirmation: 'https://www.ebay.com/help/policies/member-behavior-policies/signature-confirmation-policy?id=5154',
+  sellerProtection: 'https://www.ebay.com/help/policies/selling-policies/seller-protection-policy?id=4345',
+  paymentDisputes: 'https://www.ebay.com/help/policies/selling-policies/payment-dispute-seller-protections?id=5293',
+  feedback: 'https://www.ebay.com/help/selling/feedback-policies/feedback-policy?id=4208',
+  returns: 'https://www.ebay.com/help/selling/managing-returns-refunds/handling-return-requests?id=4115',
+};
+
 const groups = [
   {
     label: 'Before You Ship',
@@ -19,6 +29,13 @@ const groups = [
           ['The zero-feedback shoe buyer', '/stories/zero-feedback-designer-shoes/'],
           ['The $500 empty-box case', '/stories/empty-box-500/'],
         ],
+        officialRefs: [
+          {
+            label: 'Official eBay policy',
+            summary: 'If a cancellation leads to feedback, eBay lists address-problem cancellations and post-payment change requests among cases that may qualify for removal through Seller Help.',
+            url: ebayPolicies.feedback,
+          },
+        ],
       },
       {
         title: 'Name / recipient mismatch',
@@ -30,6 +47,13 @@ const groups = [
           ["When a buyer's name doesn't match", '/stories/name-mismatch-ebay-gift/'],
           ['The $1,200 generated-username order', '/stories/system-name-mismatch-1200/'],
           ['The fake recipient name GPU order', '/stories/fake-recipient-name-gpu/'],
+        ],
+        officialRefs: [
+          {
+            label: 'Official eBay policy',
+            summary: 'If a cancellation is tied to a buyer address issue or a buyer-requested change after payment, eBay has a feedback-removal path to review negative feedback.',
+            url: ebayPolicies.feedback,
+          },
         ],
       },
       {
@@ -44,6 +68,18 @@ const groups = [
           ["When the buyer isn't the problem - your proof is", '/stories/freight-forwarder-delivery-proof/'],
           ['The freight-forwarder empty-box claim', '/stories/freight-forwarder-empty-box/'],
         ],
+        officialRefs: [
+          {
+            label: 'Official eBay policy',
+            summary: 'For US eBay.com orders, signature confirmation is required for seller-protection coverage when the order total is $750 or more; with eBay International Shipping, the seller does not need to add signature even above that threshold.',
+            url: ebayPolicies.signatureConfirmation,
+          },
+          {
+            label: 'Related eBay policy (no dedicated forwarder rule)',
+            summary: 'The Money Back Guarantee excludes items forwarded by a third party after original delivery, so I treat this as partial support for the delivery-proof distinction, not a standalone forwarder policy.',
+            url: ebayPolicies.moneyBackGuarantee,
+          },
+        ],
       },
       {
         title: "Address / location signals don't add up",
@@ -55,6 +91,13 @@ const groups = [
           ["When the address or location signals don't add up", '/stories/address-location-mismatch/'],
           ['The fake recipient name GPU order', '/stories/fake-recipient-name-gpu/'],
           ['When a buyer asks to change the address after paying', '/stories/address-change-after-payment/'],
+        ],
+        officialRefs: [
+          {
+            label: 'Official eBay policy',
+            summary: 'For item-not-received protection, eBay looks for integrated-carrier tracking uploaded to eBay that shows delivery with the city or ZIP matching the order, plus signature when the order total is $750 or more.',
+            url: ebayPolicies.moneyBackGuarantee,
+          },
         ],
       },
     ],
@@ -72,6 +115,13 @@ const groups = [
           ['When a buyer asks to change the address after paying', '/stories/address-change-after-payment/'],
           ['The $500 camera address change', '/stories/camera-address-change-delaware/'],
           ['The request from a different account', '/stories/different-account-address-change/'],
+        ],
+        officialRefs: [
+          {
+            label: 'Official eBay policy',
+            summary: "eBay's own guidance is to ship only to the checkout address; shipping somewhere else at the buyer's request can void Money Back Guarantee protection, so the safe path is cancellation and re-purchase with the correct address.",
+            url: ebayPolicies.orderAddress,
+          },
         ],
       },
       {
@@ -105,11 +155,27 @@ const groups = [
         title: 'Return / chargeback',
         signal: 'A buyer wants a return, even when the listing says no returns or the reason feels unfair.',
         usually: 'This is risk control, not "the customer is always right."',
-        action: 'I always accept the return so I can get the goods back into my hands first. Then I decide based on the returned condition and the buyer\'s good faith: full refund, partial refund, or none.',
-        escalates: 'No return does not mean I can refuse a determined buyer and walk away clean. On eBay, no return means that after the buyer is compensated, I am not required to get the item back. If I refuse, the buyer can go to their bank and file an INAD chargeback, where eBay no-return policy no longer protects me and banks favor the cardholder. That can mean losing the money, the item, and a fee.',
+        action: 'My wiser play is to accept the return so I can get the goods back into my hands first. Then I decide based on the returned condition and the buyer\'s good faith: full refund, partial refund, or none.',
+        escalates: "The official rule gives me a right to decline a pure buyer-remorse return on a no-returns listing. The risk is that a determined buyer can bypass that argument by filing an INAD chargeback with their bank, where eBay's no-return setting is no longer the whole battlefield and banks favor the cardholder. That can mean losing the money, the item, and a fee.",
         links: [
           ['Why I now accept every return', '/stories/accept-return-before-chargeback/'],
         ],
+        officialRefs: [
+          {
+            label: 'Official eBay rule',
+            summary: 'On a no-returns listing, eBay lets sellers decline pure change-of-mind returns, but not-as-described, damaged, or wrong-item claims still have to be handled under Money Back Guarantee.',
+            url: ebayPolicies.returns,
+          },
+          {
+            label: 'Official eBay payment-dispute rule',
+            summary: 'For chargebacks, the bank or payment institution makes the final call; eBay helps with evidence and can protect eligible sellers from the disputed amount and dispute fee.',
+            url: ebayPolicies.paymentDisputes,
+          },
+        ],
+        ownerLayer: {
+          label: "Owner's experience / wiser play",
+          text: 'The official rule is my right. The smarter choice in practice is to accept the return first, get the item back, and then decide the refund by condition so I do not turn a policy win into a chargeback loss.',
+        },
       },
       {
         title: 'When eBay protection saves you vs. when the system rules wrong',
@@ -120,6 +186,28 @@ const groups = [
         links: [
           ["When eBay's seller protection saved me", '/stories/ebay-protection-signature-forwarder/'],
           ['Why I now accept every return', '/stories/accept-return-before-chargeback/'],
+        ],
+        officialRefs: [
+          {
+            label: 'Official eBay policy',
+            summary: 'The general seller-protection policy is the baseline reference for what eBay says it can cover when sellers follow the required process.',
+            url: ebayPolicies.sellerProtection,
+          },
+          {
+            label: 'Official eBay policy',
+            summary: 'For item-not-received cases, delivery proof means integrated-carrier tracking uploaded to eBay with the city or ZIP matching the order.',
+            url: ebayPolicies.moneyBackGuarantee,
+          },
+          {
+            label: 'Official eBay policy',
+            summary: 'Signature confirmation is required for US eBay.com seller-protection coverage when the order total is $750 or more; with eBay International Shipping, the seller does not need to add signature even above that threshold.',
+            url: ebayPolicies.signatureConfirmation,
+          },
+          {
+            label: 'Official eBay payment-dispute rule',
+            summary: 'In payment disputes, the bank makes the final call, but eBay says eligible seller-protected transactions can avoid the disputed amount and dispute fee.',
+            url: ebayPolicies.paymentDisputes,
+          },
         ],
       },
     ],
@@ -176,6 +264,36 @@ const playbookGroups = groups.map((group) => ({
                   <p><strong>Action:</strong> {entry.action}</p>
                   <p><strong>When it escalates:</strong> {entry.escalates}</p>
                 </div>
+
+                {entry.officialRefs?.length ? (
+                  <div class="mt-5 border border-[var(--rule)] bg-[var(--paper)] p-4">
+                    <div class="grid gap-4 md:grid-cols-2">
+                      {entry.officialRefs.map((reference) => (
+                        <div>
+                          <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--muted)]">
+                            {reference.label}
+                          </p>
+                          <p class="mt-2 text-sm leading-6 text-[var(--ink)]">{reference.summary}</p>
+                          <a
+                            class="mt-2 inline-block text-sm font-bold text-[var(--ink)] underline underline-offset-4 hover:text-[var(--muted)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--ink)]"
+                            href={reference.url}
+                            target="_blank"
+                            rel="noopener"
+                          >
+                            Read the eBay reference
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {entry.ownerLayer ? (
+                  <div class="mt-4 border-l-4 border-[var(--ink)] bg-[var(--paper)] px-4 py-3">
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--muted)]">{entry.ownerLayer.label}</p>
+                    <p class="mt-2 text-sm leading-6 text-[var(--ink)]">{entry.ownerLayer.text}</p>
+                  </div>
+                ) : null}
 
                 <div class="mt-5 flex flex-wrap gap-3">
                   {entry.links.map(([label, href]) => (
