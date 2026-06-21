@@ -16,9 +16,12 @@ sources:
   - title: eBay Community discussion
     url: https://community.ebay.com/t5/Selling/eBay-Policy-Change-Seller-Protection-Change-when-Buyer-uses-a/td-p/30295666
 draft: false
-whatToDo: >-
-  Before shipping to a suspected forwarder, message the buyer on eBay and ask them to confirm that the address is a freight forwarder.
-  Do not rely on your own address research alone; build the message record before the label is created.
+whatToDo: |-
+  A freight-forwarder address is not automatically fraud. If the buyer has rich feedback, I usually treat it as a normal overseas buyer using a reshipper.
+
+  If the forwarder stacks with other risk, especially a new account or high value, I message through eBay and get the buyer to acknowledge that it is a reshipper address before shipping.
+
+  I do not expect eBay to void buyer protection just because I found a reshipper address. My protection comes from doing it right: ship only to the order address, add signature on high-value items, and keep the in-eBay acknowledgement.
 ---
 
 A seller noticed that freight-forwarder protection was not as simple as recognizing the address.

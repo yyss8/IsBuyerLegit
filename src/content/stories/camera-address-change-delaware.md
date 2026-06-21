@@ -16,9 +16,12 @@ sources:
   - title: eBay Community discussion
     url: https://community.ebay.com/t5/Selling/Different-Change-address-scam/td-p/33385850
 draft: false
-whatToDo: >-
-  Never ship to an address that is not on the eBay order. If the buyer made a real mistake, cancel and let them repurchase
-  with the correct address. If they refuse, that is useful information.
+whatToDo: |-
+  I do not hand-edit the shipping address after payment, no matter how reasonable the story sounds. I ship only to the address on the eBay order.
+
+  For a normal address mistake, I tell the buyer to cancel and re-buy with the correct address. I do not proactively cancel for them just to force the fix.
+
+  If the new address is a commercial or industrial location, or the story stacks with other red flags, I treat it as a stop signal and contact eBay rather than shipping.
 ---
 
 A seller sold a $500 camera. After payment, the buyer asked to change the destination from a house in Hawaii to an industrial-looking address in Delaware.

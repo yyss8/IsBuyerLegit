@@ -16,9 +16,12 @@ sources:
   - title: eBay Community discussion
     url: https://community.ebay.com/t5/Buying/Drop-shipping-Scam-Possibly-seller-uses-stolen-credit-card-to/td-p/32147649
 draft: false
-whatToDo: >-
-  When order identities do not line up, assume the payment path may be dirty. For sellers, mismatched buyer names,
-  strange shipping identities, and third-party fulfillment clues should trigger extra verification before shipment.
+whatToDo: |-
+  Triangulation is mainly a direct-card or own-store risk. For a pure eBay sale, I focus on staying inside seller protection: ship only to the eBay order address, use tracking, and add signature on high-value items.
+
+  If I am selling through my own store, the risk is different because there is no marketplace backstop. Mismatched identity, location, fulfillment, or payment signals need verification before shipment.
+
+  The point is not to panic over one odd detail. It is to avoid becoming the fulfillment leg of someone else's stolen-card transaction.
 ---
 
 A marketplace buyer ordered an item and received a package that did not appear to come from the marketplace seller.

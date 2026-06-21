@@ -19,9 +19,11 @@ sources:
 pinned: true
 draft: false
 whatToDo: |-
-  The protection is real, but it only works if you ship to the order address and add signature on high-value items.
+  The protection is real, but it only works if I ship to the eBay order address, use tracking, and add signature on high-value items.
 
-  If the automated system rules against you over a technicality like a city/sub-area tracking mismatch, do not give up. Call eBay and get a human to review it; that has reversed it for me.
+  I do not expect "it was a forwarder" to save me by itself. If the buyer is new or the order has other red flags, I get the reshipper acknowledgement in eBay messages before shipping.
+
+  If the automated system rules against me over a technicality like a city/sub-area tracking mismatch, I do not give up. I call eBay and get a human to review the order address, tracking, and signature; that has reversed it for me.
 ---
 
 I have had high-risk-looking eBay orders where seller protection actually worked.

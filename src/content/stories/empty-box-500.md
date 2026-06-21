@@ -22,11 +22,11 @@ sources:
 draft: false
 # OWNER: verify this INR-vs-SNAD framing matches your real experience, and rewrite the "What to do" in your own voice before publishing. This is a draft of the judgment, not final.
 whatToDo: |-
-  Item not received (INR) claims: tracking that shows delivery to the buyer's correct address is strong protection. eBay has repeatedly sided with sellers here, as in the two supporting cases above.
+  A zero-feedback buyer is not a red flag by itself, but a new account plus an above-market offer on a high-value item is a stack. I slow that order down before shipping.
 
-  Empty box / not as described (SNAD) claims: tracking does not protect you the same way, because delivery is not in dispute - the contents are. That is why the owner's $500 empty-box case was much harder and went the other way.
+  For item-not-received claims, tracking to the eBay order address is strong protection. For empty-box or not-as-described claims, tracking alone does not answer the contents dispute, so I protect myself before the label goes on: signature for high-value items, serial numbers, photos, and packing documentation.
 
-  Takeaway: a brand-new or zero-feedback account is the upstream red flag in both patterns. Protect yourself before shipping to one: use signature confirmation on high-value items, photograph or record serial numbers, and document the packed item before the label goes on.
+  If the stack feels wrong enough to cancel, I delist the item for a while so the same buyer cannot just make a new account and re-buy immediately.
 ---
 
 <!-- OWNER DRAFT: rewrite this in the owner's own voice before publishing more broadly. -->

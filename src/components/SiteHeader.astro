@@ -14,6 +14,7 @@ const { active = '' } = Astro.props;
 
     <nav class="flex items-center gap-4 text-sm font-semibold text-[var(--muted)] sm:gap-5" aria-label="Primary">
       <a class={active === 'stories' ? 'text-[var(--ink)]' : 'hover:text-[var(--ink)]'} href="/stories/">Stories</a>
+      <a class={active === 'playbook' ? 'text-[var(--ink)]' : 'hover:text-[var(--ink)]'} href="/playbook/">Playbook</a>
       <a class={active === 'local' ? 'text-[var(--ink)]' : 'hover:text-[var(--ink)]'} href="/local/">Local safety</a>
       <a class="rounded-full border border-[var(--ink)] px-3 py-1.5 text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--paper)]" href="/check/">Run check</a>
     </nav>

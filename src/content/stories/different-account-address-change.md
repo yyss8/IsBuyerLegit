@@ -16,9 +16,12 @@ sources:
   - title: eBay Community discussion
     url: https://community.ebay.com/t5/Shipping/Scam-in-progress-Received-request-to-change-shipping-address-to/td-p/32567698
 draft: false
-whatToDo: >-
-  Treat any address-change request from a different account as hostile. Only ship to the address on the order,
-  and do not let urgency or a convincing message move the package away from seller protection.
+whatToDo: |-
+  I ship only to the address on the eBay order. If the real buyer needs a different address, they need to cancel and re-buy with the correct address.
+
+  A request from an account that is not the buyer is different. I treat that as a scam attempt, keep everything in eBay messages, and escalate instead of shipping.
+
+  I do not let urgency or a convincing message move the package away from seller protection.
 ---
 
 A seller sold an $800 item and soon received a message asking for the shipping address to be changed.

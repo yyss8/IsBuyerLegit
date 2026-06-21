@@ -21,11 +21,11 @@ sources:
 draft: false
 # OWNER: confirm this matches your experience and the is_forwarder policy detail; rewrite in your voice.
 whatToDo: |-
-  The problem is not automatically the buyer. The problem is that a forwarder can break the "delivered to the correct address" evidence your protection depends on.
+  The problem is not automatically the buyer. Many freight-forwarder orders are legitimate, especially from buyers with rich feedback.
 
-  Before shipping to a forwarder, get the buyer to acknowledge in eBay messages that the destination is a forwarding address. Use signature confirmation on high-value items, and understand that a mismatched delivery ZIP can weaken or complicate your protection.
+  The risk is proof. eBay will not void buyer protection just because the address looks like a reshipper, so I do not rely on address research alone. If there are other red flags, I get the buyer to acknowledge the reshipper in eBay messages, ship only to the order address, and use signature on high-value items.
 
-  If eBay or PayPal cannot produce a label for the address, treat that as a stop sign. Do not ship outside the platform's address flow just to force the sale through.
+  If the platform cannot produce a label, or tracking starts showing a city or ZIP mismatch, I treat that as a protection problem and escalate to a human rep instead of assuming the automated system will understand it.
 ---
 
 A freight-forwarder address does not mean the buyer is a scammer. Many overseas buyers use U.S. reshippers because sellers do not ship directly to their country, or because duties and local delivery are easier through a forwarding service.

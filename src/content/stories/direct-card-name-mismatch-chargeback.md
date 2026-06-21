@@ -29,11 +29,11 @@ sources:
 draft: false
 # OWNER: verify/rewrite in your voice.
 whatToDo: |-
-  On your own store, a billing-vs-shipping mismatch is a genuine chargeback risk in a way it usually is not on eBay.
+  On my own store, a billing-vs-shipping or location mismatch is a genuine chargeback risk in a way it usually is not on eBay.
 
-  Verify high-value orders before shipping, especially when the mismatch stacks with repeat orders, reused card details, freight-forwarder addresses, changing IPs, or strange contact information.
+  I verify high-value orders before shipping, especially when the mismatch stacks with repeat orders, reused card details, freight-forwarder addresses, changing IPs, or strange contact information.
 
-  Know the dispute you are defending. Signature and delivery proof may not beat an unauthorized-transaction chargeback, because the question is who paid, not whether the parcel arrived.
+  Signature and delivery proof may not beat an unauthorized-transaction chargeback, because the question is who paid, not whether the parcel arrived. That is the direct-card difference: there is no eBay order-address protection backstop.
 ---
 
 This case is for sellers running their own store or taking card payments directly, such as Shopify or an independent checkout. It is not the same risk model as eBay, because the seller can carry chargeback liability without marketplace seller protection.

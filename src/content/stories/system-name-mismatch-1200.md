@@ -15,9 +15,12 @@ redFlags:
 sources:
   - title: The site owner's own experience
 draft: false
-whatToDo: >-
-  If a high-value order comes from a new account and the identity signals do not line up, cancel before shipping.
-  Use the closest accurate eBay cancellation reason, block the buyer if needed, and keep all messages on platform.
+whatToDo: |-
+  A name mismatch or odd username is not enough by itself. Gifts, family purchases, and work addresses happen all the time.
+
+  This became a cancel decision because the signals stacked: new account, high value, generated-looking username, recipient name mismatch, and phone/location details that did not line up. When the stack is that strong, I cancel before shipping rather than trying to force the order through.
+
+  I keep the conversation on eBay, use the closest accurate cancellation reason, block if needed, and accept that a possible negative feedback is cheaper than losing a high-value item.
 ---
 
 The seller listed a $1,200 item and received an order from a newly registered account.

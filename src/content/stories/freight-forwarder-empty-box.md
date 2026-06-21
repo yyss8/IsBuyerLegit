@@ -16,9 +16,12 @@ sources:
   - title: eBay Community discussion
     url: https://community.ebay.com/t5/Selling/Buyer-Using-Freight-Forwarder-Filed-a-SNAD/td-p/31996677
 draft: false
-whatToDo: >-
-  If a buyer uses a forwarder, get written confirmation in eBay messages before shipping and save any proof from the forwarder.
-  If a case opens, escalate for human review instead of relying on the automated case flow.
+whatToDo: |-
+  A freight forwarder does not automatically make the buyer a scammer, and eBay will not void buyer protection just because the address looks like a reshipper.
+
+  If I ship to a forwarder on a high-value order, I want the buyer's in-eBay acknowledgement before shipping, signature confirmation, and a shipment that matches the original eBay order address.
+
+  If a case opens and the automated system ignores the forwarder context, I escalate to a human rep. I do not assume the first automated decision is the final one.
 ---
 
 A seller shipped a computer part to a freight-forwarding address in Delaware.

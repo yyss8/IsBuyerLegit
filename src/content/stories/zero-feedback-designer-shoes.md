@@ -16,9 +16,12 @@ sources:
   - title: Seller personal blog post
     url: https://betweennapsontheporch.net/how-i-almost-got-scammed-as-a-seller-on-ebay/
 draft: false
-whatToDo: >-
-  Do not read the username as the feedback score. Click through to the buyer profile, check when the account was created,
-  and compare the shipping address against the order details before printing the label.
+whatToDo: |-
+  Zero feedback is not a reason to cancel by itself. Click into the buyer profile and confirm what is actually feedback versus just part of the username.
+
+  If the new account stacks with other signals, like a strange address format, high value, or details that do not line up, pause before printing the label and message through eBay.
+
+  I cancel only when the stacked risk is bigger than the cost of a possible negative feedback. If I do cancel, I delist the item for a while so it cannot be immediately re-bought by another new account.
 ---
 
 A seller received an immediate purchase on a designer-shoe listing.

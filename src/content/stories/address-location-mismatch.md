@@ -25,11 +25,11 @@ sources:
 draft: false
 # OWNER: confirm this matches your experience; rewrite in your voice.
 whatToDo: |-
-  Before shipping anything high-value, check the address on a map and Street View. Is it a real home, a normal business address, a forwarder, a vacant lot, or an impossible street?
+  The danger of a bad address is not just "lost in transit." It is getting stuck in a dead zone no eBay protection reaches: no delivered scan, no delivery attempt, no return-to-sender, and a buyer who stays quiet.
 
-  Treat impossible addresses, closed businesses, vacant lots, and freight forwarders as stop-and-verify signals. A single odd signal, like an out-of-state phone area code, can be innocent; several stacking together is different.
+  The action is before I ship. I check the map and Street View, but Street View can be outdated, so I do not rely on it alone. If anything is off, I message the buyer through eBay and confirm before shipping.
 
-  Only ever ship to the original eBay order address. Never redirect to an address supplied after payment; if the buyer needs a different address, use the cancel-and-rebuy path instead.
+  If I cannot confirm an address that looks wrong, incomplete, nonexistent, or suspiciously stacked with other signals, I do not ship. And I never redirect to an address supplied after payment; I only ship to the original eBay order address.
 ---
 
 Address and location signals are not proof by themselves. People ship to workplaces, forwarding services, family members, and old saved addresses all the time.

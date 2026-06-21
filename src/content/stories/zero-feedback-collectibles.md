@@ -16,10 +16,12 @@ sources:
   - title: eBay Community discussion
     url: https://community.ebay.com/t5/Selling/Potential-0-feedback-buyer-scam/td-p/31424532
 draft: false
-whatToDo: >-
-  One zero-feedback buyer is not automatically a scam. Two same-day accounts with the same naming pattern, nearby addresses,
-  and no message response should be treated as a stack of risk signals. Pause the shipment, contact the buyer through eBay,
-  and cancel if the order details do not look independently legitimate.
+whatToDo: |-
+  Zero feedback is not a red flag by itself. Everyone starts at zero, and I do not cancel just because the buyer is new.
+
+  What matters is the stack. Two same-day new accounts, similar usernames, nearby towns, high-value items, and no message response is no longer just "zero feedback." At that point I pause, message through eBay, and cancel only if the details do not look independently legitimate or the item value outweighs the risk of a negative feedback.
+
+  If I cancel a suspicious new-account order, I delist the item for a while so the same buyer cannot just make another account and re-buy immediately.
 ---
 
 A seller listed two expensive collectibles, one around $750 and another around $900.

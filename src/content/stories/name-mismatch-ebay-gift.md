@@ -20,11 +20,11 @@ sources:
 draft: false
 # OWNER: confirm this matches your experience and rewrite in your voice before publishing.
 whatToDo: |-
-  Ship to the address shown on the eBay order. That is the address seller protection is built around.
+  A name or recipient mismatch is usually innocent on eBay: gifts, family, work addresses, or a recent move. By itself it is a pay-attention signal, not a stop sign.
 
-  Use tracked shipping, and add signature confirmation for higher-value items. Treat a bare name mismatch as a pay-attention signal, not a stop sign.
+  The reason I do not panic is that seller protection is built around the address on the eBay order. If I ship to that address, use tracking, and add signature for high-value items, I am working inside the protection rules.
 
-  The real red line is a post-payment address-change request. That is when to slow down, because shipping somewhere other than the order address can break seller protection. Do not burn a legitimate sale and your feedback over a mismatch alone.
+  It escalates only when the mismatch stacks with another red flag: a new account, a forwarder, off-platform pressure, no response, or a post-payment address change. I do not burn a legitimate sale and my feedback over a mismatch alone.
 ---
 
 A seller noticed that the name and registered address in the auction-end email did not match the account name, and a forum reply described it as a known scam. The seller cancelled the roughly 100 sale; the buyer said the item was a gift for a friend and left negative feedback.

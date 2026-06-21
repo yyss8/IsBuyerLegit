@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Seller's playbook for buyer red flags";
+const description = 'Plain seller guidance for what buyer red flags usually mean, what to do next, and when each signal escalates.';
+
+const groups = [
+  {
+    label: 'Before You Ship',
+    entries: [
+      {
+        title: 'Zero feedback / brand-new account',
+        signal: 'A buyer has zero feedback or a newly created account.',
+        usually: "Not a red flag on its own. Everyone starts at zero, and I don't cancel just for this.",
+        action: "I slow down and look for the stack: item value, account age, payment behavior, address details, and whether the buyer responds normally. If I do cancel, I delist the item for a while so the buyer cannot just make a new account and re-buy.",
+        escalates: 'It becomes a cancel decision when it stacks with other red flags, or when the item value clearly outweighs the cost of a possible negative feedback.',
+        links: [
+          ['Two same-day zero-feedback buyers', '/stories/zero-feedback-collectibles/'],
+          ['The zero-feedback shoe buyer', '/stories/zero-feedback-designer-shoes/'],
+          ['The $500 empty-box case', '/stories/empty-box-500/'],
+        ],
+      },
+      {
+        title: 'Name / recipient mismatch',
+        signal: "The account name, recipient name, username, or shipping name doesn't line up.",
+        usually: "Usually innocent on eBay: gifts, family purchases, shipping to work, or a recent move. By itself it's a pay-attention signal, not a stop sign.",
+        action: "The reason I don't panic is simple: as long as I ship to the address on the eBay order, I am working inside seller protection. I keep the shipment on the order address and look for other signals.",
+        escalates: 'It becomes a cancel decision when the mismatch stacks with a new account, high value, a freight-forwarder address, off-platform pressure, no response, or a post-payment address change. I only cancel if the item value clearly outweighs the risk of a negative feedback.',
+        links: [
+          ["When a buyer's name doesn't match", '/stories/name-mismatch-ebay-gift/'],
+          ['The $1,200 generated-username order', '/stories/system-name-mismatch-1200/'],
+          ['The fake recipient name GPU order', '/stories/fake-recipient-name-gpu/'],
+        ],
+      },
+      {
+        title: 'Freight-forwarder / reshipper address',
+        signal: 'The order is going to a freight forwarder, warehouse, suite address, or other reshipper-looking destination.',
+        usually: 'If the buyer has rich feedback, these are usually legitimate overseas buyers and the shipment is low-risk. The address alone is not proof of fraud.',
+        action: "If there are other red flags, especially a new account, I message the buyer through eBay and have them acknowledge that it is a reshipper address. I still ship only to the order address, and I add signature on high-value items.",
+        escalates: "Important, and counter to what many sellers assume: eBay will not void buyer protection just because an address is a reshipper. eBay support explained this directly: there was a case where a reshipper's own employee bought an item and used the reshipper address, which caused a major dispute, and eBay changed its stance. So I do not expect 'it was a forwarder' to get me off the hook. My protection comes from doing it right: order address, signature, and in-eBay acknowledgement.",
+        links: [
+          ["When eBay's seller protection saved me", '/stories/ebay-protection-signature-forwarder/'],
+          ['The forwarder policy lesson', '/stories/freight-forwarder-confirmation/'],
+          ["When the buyer isn't the problem - your proof is", '/stories/freight-forwarder-delivery-proof/'],
+          ['The freight-forwarder empty-box claim', '/stories/freight-forwarder-empty-box/'],
+        ],
+      },
+      {
+        title: "Address / location signals don't add up",
+        signal: 'The address is incomplete, nonexistent, non-residential, a closed business, a forwarder, or the phone/IP/shipping locations point in different directions.',
+        usually: 'One odd signal can be innocent. Several stacked signals, or an impossible address, are different.',
+        action: 'The action is entirely before I ship: verify the address. I check the map and Street View, but Street View can be outdated, so I do not rely on it alone. If anything is off, I message the buyer to confirm before shipping. If I cannot confirm it, I do not ship.',
+        escalates: 'The real danger of a bad address is not lost in transit. It is getting stuck in a dead zone no eBay protection reaches: tracking never shows delivered, there is no delivery attempt, there is no return-to-sender, and the buyer stays quiet. That is exactly the zone where the seller eats it.',
+        links: [
+          ["When the address or location signals don't add up", '/stories/address-location-mismatch/'],
+          ['The fake recipient name GPU order', '/stories/fake-recipient-name-gpu/'],
+          ['When a buyer asks to change the address after paying', '/stories/address-change-after-payment/'],
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Payment / Communication',
+    entries: [
+      {
+        title: 'Address-change request after payment',
+        signal: 'The buyer asks you to edit, redirect, or ship to a different address after payment.',
+        usually: 'A real buyer can move or mistype an address, but I still do not hand-edit the label after payment.',
+        action: 'No matter what the buyer says or how they beg, I ship only to the address on the eBay order. I tell them to cancel and re-buy with the correct address. I do not proactively cancel the order myself for a normal buyer address mistake; I let them start that.',
+        escalates: "If the change request comes from an account that is not the buyer, I treat that as a scam and escalate. This ties directly to the forwarder and address/location rules: eBay will not save me just because an address looked suspicious if I moved the shipment away from the order address.",
+        links: [
+          ['When a buyer asks to change the address after paying', '/stories/address-change-after-payment/'],
+          ['The $500 camera address change', '/stories/camera-address-change-delaware/'],
+          ['The request from a different account', '/stories/different-account-address-change/'],
+        ],
+      },
+      {
+        title: 'Off-platform contact / payment',
+        signal: 'The buyer wants email, text, screenshots, tracking-to-release, or payment outside the normal flow.',
+        usually: 'On eBay, the buyer can already pay on-platform. Any "email me" or "contact me outside eBay to pay" request is itself fake; a real buyer never needs it.',
+        action: 'On eBay, I treat off-platform payment pressure as a cancel signal, especially from new accounts. If I ever deal off-platform for a local or peer-to-peer sale, I only take cash or Zelle and meet somewhere safe like a police station.',
+        escalates: 'The hard local/P2P rule: payment only counts when it shows fully settled in my bank or app. I never trust an emailed payment sent notice, a screenshot, or pending/in process status.',
+        links: [
+          ['When a buyer wants to take it off-platform', '/stories/off-platform-payment/'],
+          ['Local buyer safety', '/local/'],
+        ],
+      },
+      {
+        title: 'Triangulation / you used as the stolen-card fulfiller',
+        signal: 'The transaction path suggests someone used a stolen card or third-party fulfillment to make you part of the delivery chain.',
+        usually: 'This is mainly a concern for direct-card or own-store sellers, and less common for a pure eBay seller shipping through the order.',
+        action: 'For eBay, my baseline is still the same: ship only to the eBay order address, use tracking, and add signature on high-value items.',
+        escalates: 'For direct-card sellers, triangulation and location/payment identity mismatches are more dangerous because there is no marketplace protection backstop.',
+        links: [
+          ['The retail-store invoice triangulation case', '/stories/triangulation-retail-invoice/'],
+          ['Name mismatch when you take the card', '/stories/direct-card-name-mismatch-chargeback/'],
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Disputes / After The Sale',
+    entries: [
+      {
+        title: 'Return / chargeback',
+        signal: 'A buyer wants a return, even when the listing says no returns or the reason feels unfair.',
+        usually: 'This is risk control, not "the customer is always right."',
+        action: 'I always accept the return so I can get the goods back into my hands first. Then I decide based on the returned condition and the buyer\'s good faith: full refund, partial refund, or none.',
+        escalates: 'No return does not mean I can refuse a determined buyer and walk away clean. On eBay, no return means that after the buyer is compensated, I am not required to get the item back. If I refuse, the buyer can go to their bank and file an INAD chargeback, where eBay no-return policy no longer protects me and banks favor the cardholder. That can mean losing the money, the item, and a fee.',
+        links: [
+          ['Why I now accept every return', '/stories/accept-return-before-chargeback/'],
+        ],
+      },
+      {
+        title: 'When eBay protection saves you vs. when the system rules wrong',
+        signal: 'Tracking, signature, or city names do not line up cleanly enough for the automated decision.',
+        usually: "eBay's first ruling is automated and sometimes dumb.",
+        action: 'I do not accept a wrong automated decision. I dispute it and get a human rep to review it.',
+        escalates: 'Know in advance what protection actually covers: order address, signature, and tracking. If the system gets something wrong, like treating Doral as different from Miami, I call and point to the protection mechanics. That has reversed it for me.',
+        links: [
+          ["When eBay's seller protection saved me", '/stories/ebay-protection-signature-forwarder/'],
+          ['Why I now accept every return', '/stories/accept-return-before-chargeback/'],
+        ],
+      },
+    ],
+  },
+];
+
+const slugify = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+let playbookNumber = 0;
+const playbookGroups = groups.map((group) => ({
+  ...group,
+  slug: slugify(group.label),
+  entries: group.entries.map((entry) => ({
+    ...entry,
+    number: playbookNumber += 1,
+  })),
+}));
+---
+
+<BaseLayout title={title} description={description} canonical="/playbook/" active="playbook">
+  <main class="mx-auto max-w-6xl px-5 py-14 md:px-8">
+    <p class="text-sm font-bold uppercase tracking-[0.22em] text-[var(--ink-soft)]">Seller's playbook</p>
+    <h1 class="display-font mt-4 max-w-4xl text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+      What to do when a buyer feels off.
+    </h1>
+    <p class="mt-6 max-w-3xl text-lg leading-8 text-[var(--muted)]">
+      The same signal can mean nothing, or it can be the last piece of a bad stack. This is the decision guide I use before I ship, when payment gets weird, and after a dispute starts.
+    </p>
+
+    <div class="mt-10 grid gap-4 border-y border-[var(--rule)] py-6 md:grid-cols-3">
+      {playbookGroups.map((group) => (
+        <a class="font-bold text-[var(--ink)] underline underline-offset-4 hover:text-[var(--muted)]" href={`#${group.slug}`}>
+          {group.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-12 space-y-14">
+      {playbookGroups.map((group) => (
+        <section id={group.slug} class="scroll-mt-24">
+          <h2 class="display-font text-3xl font-bold tracking-tight md:text-4xl">{group.label}</h2>
+          <div class="mt-6 grid gap-5">
+            {group.entries.map((entry) => (
+              <article class="border border-[var(--rule)] bg-[var(--surface)] p-6">
+                <div class="flex flex-wrap items-start gap-3">
+                  <span class="rounded-full border border-[var(--rule)] px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-[var(--muted)]">
+                    {String(entry.number).padStart(2, '0')}
+                  </span>
+                  <h3 class="display-font text-2xl font-bold leading-tight">{entry.title}</h3>
+                </div>
+
+                <div class="mt-5 grid gap-4 leading-7 text-[var(--ink)] md:grid-cols-2">
+                  <p><strong>Signal:</strong> {entry.signal}</p>
+                  <p><strong>What it usually means:</strong> {entry.usually}</p>
+                  <p><strong>Action:</strong> {entry.action}</p>
+                  <p><strong>When it escalates:</strong> {entry.escalates}</p>
+                </div>
+
+                <div class="mt-5 flex flex-wrap gap-3">
+                  {entry.links.map(([label, href]) => (
+                    <a class="text-sm font-bold text-[var(--ink)] underline underline-offset-4 hover:text-[var(--muted)]" href={href}>
+                      {label}
+                    </a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+</BaseLayout>

@@ -28,11 +28,11 @@ sources:
 draft: false
 # OWNER: confirm this matches your experience; rewrite in your voice.
 whatToDo: |-
-  On eBay, never take communication or payment off-platform. Payment happens on eBay, so an outside-email or outside-text payment request is a cancel signal, especially from a new account.
+  On eBay, I never take communication or payment off-platform. Payment already happens on eBay, so an outside-email or outside-text payment request is a cancel signal, especially from a new account.
 
-  On local or peer-to-peer sales, only release the item when your own bank or payment app shows the payment fully settled. Ignore screenshots, emails, and "pending" or "in process" claims.
+  For local or peer-to-peer sales, I only take cash or Zelle and meet somewhere safe like a police station.
 
-  No legitimate payment asks for tracking to release funds, an unlock fee, a verification payment, or a business-account switch. A separate fake-payment-email scam pattern exists too, and it deserves its own checklist.
+  The hard rule is that payment only counts when it shows fully settled in my own bank or app. I ignore screenshots, emailed payment confirmations, tracking-to-release claims, business-account upgrade emails, and anything marked pending or in process.
 ---
 
 This pattern splits into two different situations. On eBay, the rule is simple because the platform already gives the buyer a normal way to pay. In local or peer-to-peer sales, the seller has to verify the payment directly because there may be no marketplace backstop.

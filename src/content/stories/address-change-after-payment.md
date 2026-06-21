@@ -23,11 +23,11 @@ sources:
 draft: false
 # OWNER: confirm this matches your experience; rewrite in your voice.
 whatToDo: |-
-  Never hand-edit the shipping address after payment. eBay protection depends on shipping to the address on the original order.
+  I never hand-edit the shipping address after payment. eBay protection depends on shipping to the address on the original order.
 
-  Tell the buyer to cancel and buy again with the correct address. Before doing anything with a new address, check it on a map and keep the conversation inside eBay messages.
+  If the buyer made a real mistake, I tell them to cancel and buy again with the correct address. I do not proactively cancel a normal address mistake for them; I let them start that.
 
-  If the request comes from a non-buyer account, the address shows scam signals, or the sale is high value, cancel and contact eBay rather than shipping. On high-value items, use signature confirmation and remember that some carrier-level redirects can happen after shipment.
+  If the request comes from a non-buyer account, I treat that as a scam and escalate. If a new address shows scam signals, I do not ship into it. This is the same mechanic as the forwarder and address/location rules: protection comes from the order address, signature on high-value items, and evidence inside eBay.
 ---
 
 Not every address-change request is a scam. People move, mistype, send gifts, or realize too late that an old address is still saved.

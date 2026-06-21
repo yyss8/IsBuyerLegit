@@ -18,9 +18,11 @@ sources:
 pinned: true
 draft: false
 whatToDo: |-
-  I accept the return first so I can get the goods back in my hands.
+  I always accept the return first so I can get the goods back in my hands.
 
-  After the item comes back, I decide the refund amount based on the condition, completeness, and whether the buyer acted in good faith. I do not try to win the policy argument so hard that it turns into a chargeback where I can lose the money, the item, and a fee.
+  No return does not mean I can refuse a determined buyer and walk away clean. It means that after the buyer is compensated, I may not be required to get the item back. If I refuse, the buyer can go to their bank and file an INAD chargeback, where eBay's no-return policy no longer protects me and banks favor the cardholder.
+
+  After the item comes back, I decide the refund amount based on the condition, completeness, and whether the buyer acted in good faith: full refund, partial refund, or none. I do not try to win the policy argument so hard that I lose the money, the item, and a fee.
 ---
 
 This is not "the customer is always right." It is risk control.
