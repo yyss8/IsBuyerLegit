@@ -73,14 +73,14 @@ const caseStudies = {
     {
       category: 'CATEGORY_WEB',
       summary:
-        "A seller shipped a computer part to a freight forwarder address in Delaware. The buyer later opened a 'significantly not as described' case claiming the box was empty. The seller contacted the freight forwarder directly and obtained written confirmation that the item had been forwarded overseas. Despite this evidence, eBay's automated system initially sided with the buyer. The seller had to escalate manually — eBay's own policy states MBG is voided when a freight forwarder is used, but the automated system does not recognize this. Human review was required.",
+        "A seller shipped a computer part to a freight forwarder address in Delaware. The buyer later opened a 'significantly not as described' case claiming the box was empty. The seller contacted the freight forwarder directly and obtained written confirmation that the item had been forwarded overseas. The seller still had to escalate manually: eBay does not void buyer protection simply because an address looks like a forwarder, and the real issue was proving what happened after original delivery.",
       url: 'https://community.ebay.com/t5/Selling/Buyer-Using-Freight-Forwarder-Filed-a-SNAD/td-p/31996677',
       linkLabel: 'eBay Community Discussion',
     },
     {
       category: 'CATEGORY_WEB',
       summary:
-        "A seller discovered that eBay's freight forwarder policy had quietly changed: eBay can now only void buyer protection if the buyer explicitly states in an eBay message that they used a forwarder. The address alone is no longer enough — eBay reps explained that buyers were claiming to 'work at' the freight forwarding company to bypass the exclusion. The practical solution confirmed by experienced sellers: message the buyer before shipping and get written acknowledgment, which creates the paper trail needed to win any future dispute.",
+        "A seller discovered the practical forwarder lesson: eBay will not void buyer protection simply because the address is a reshipper. The useful protection is doing the order correctly before shipping: ship only to the eBay order address, add signature on high-value items, and get an in-eBay acknowledgement from the buyer when other red flags are present.",
       url: 'https://community.ebay.com/t5/Selling/eBay-Policy-Change-Seller-Protection-Change-when-Buyer-uses-a/td-p/30295666',
       linkLabel: 'eBay Community Discussion',
     },
@@ -173,7 +173,7 @@ const screens = [
             level: 'red',
             badge: '🚨 RED FLAG',
             description:
-              "eBay requires that the actual shipping address matches the address on the order. Shipping to any other address — even at the buyer's request — voids your seller protection entirely. If a buyer 'item not received' case is opened, eBay will not cover you. Never agree to ship to a different address under any circumstances. If the address is genuinely wrong, the only safe option is to cancel the order and have the buyer repurchase with the correct address.",
+              "An address mistake can be innocent, but the safe rule does not change: ship only to the address on the eBay order. If the buyer needs a different address, have them cancel and re-buy with the correct address. If the change request comes from an account that is not the buyer, treat that as a scam signal and escalate.",
           },
         },
       },
@@ -196,7 +196,7 @@ const screens = [
             level: 'medium',
             badge: '⚠️ MEDIUM WARNING',
             description:
-              "Freight forwarder addresses are not automatically a scam — but eBay's buyer protection is only voided if the buyer explicitly confirms they used a forwarder in an eBay message. An address alone is no longer enough. Message the buyer before shipping to get written confirmation.",
+              "Freight forwarder addresses are not automatically a scam. eBay does not void buyer protection simply because an address looks like a reshipper. Stay protected by shipping only to the order address, adding signature on high-value items, and getting an in-eBay acknowledgement when other red flags are present.",
           },
         },
       },
@@ -212,7 +212,7 @@ const screens = [
             level: 'medium',
             badge: '⚠️ MEDIUM WARNING',
             description:
-              "We know you shouldn't judge a book by its cover — but if Street View is showing abandoned factories, streets full of beat-up cars, and rundown housing, I don't think shipping something worth $10,000 there would be a smart idea. It doesn't automatically mean it's a scam, but if other flags are also showing up, trust your gut.",
+              "Street View is not proof by itself, and it can be outdated. Use it as a reason to verify before shipping: if the address looks vacant, impossible, or stacked with other signals, message the buyer before printing the label. A bad address can leave the package in a dead zone where tracking never shows delivered or returned.",
           },
         },
       },
@@ -795,7 +795,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
         severity: 'medium',
         title: 'Delivery address appears to be a freight forwarder or warehouse',
         description:
-          "Freight forwarders are not automatically fraudulent — many legitimate international buyers use them. However, a critical eBay policy detail applies: eBay's Money Back Guarantee (buyer protection) is only voided if the buyer explicitly acknowledges using a freight forwarder in an eBay message. A freight forwarder address alone is no longer sufficient — buyers can claim they live or work at the address. This means a dispute can still go against you unless you have written confirmation from the buyer. Getting that confirmation before shipping is the most important protective step.",
+          "Freight forwarders are not automatically fraudulent — many legitimate international buyers use them. eBay does not void buyer protection simply because an address looks like a reshipper; the Money Back Guarantee exclusion is about forwarding or redirection after original delivery. Protection comes from doing it right before shipping: ship only to the order address, add signature on high-value items, and get an in-eBay acknowledgement when other red flags are present.",
         caseStudiesFlagKey: 'is_forwarder',
       },
       {
@@ -804,7 +804,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
         severity: 'medium',
         title: 'Neighborhood does not look legitimate',
         description:
-          "We know you shouldn't judge a book by its cover — but if Street View is showing abandoned factories, streets full of beat-up cars, and rundown housing, shipping something high-value there may not be a smart idea. It doesn't automatically mean it's a scam, but if other flags are also showing up, treat it as a serious warning.",
+          "Street View is not proof by itself, and it can be outdated. Use it as a reason to verify before shipping: if the address looks vacant, impossible, or stacked with other signals, message the buyer before printing the label. A bad address can leave the package in a dead zone where tracking never shows delivered or returned.",
       },
       {
         key: 'area_code_mismatch',
@@ -836,7 +836,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
         severity: 'red',
         title: 'Buyer requested post-payment shipping address change',
         description:
-          "Shipping to any address other than the one confirmed in the eBay order immediately voids your seller protection. If the buyer later opens an 'item not received' case, eBay will rule against you — regardless of whether you have tracking proof of delivery. This is one of the most common and most preventable ways sellers lose both item and money. A legitimate buyer who entered the wrong address will always be willing to cancel and repurchase. A scammer will not.",
+          "An address mistake can be innocent, but the safe rule does not change: ship only to the address on the eBay order. If the buyer needs a different address, have them cancel and re-buy with the correct address. If the change request comes from an account that is not the buyer, treat that as a scam signal and escalate.",
         caseStudiesFlagKey: 'address_change',
       },
     ];
@@ -1108,7 +1108,7 @@ const GuidedCheckEngine = ({ onReturnToMain }) => {
                                 <p className="text-sm font-bold tracking-wide text-[#1D4ED8]">{t('💡 SUGGESTED ACTION')}</p>
                                 <p className="mt-2 text-base font-bold text-[#1E3A8A]">{t('Get written confirmation before shipping')}</p>
                                 <p className="mt-2 text-sm md:text-base leading-relaxed text-[#1E3A8A]">
-                                  {t('If the address looks like a freight forwarder, message the buyer on eBay before shipping to confirm. Their reply creates the paper trail needed to void buyer protection if a dispute is opened later.')}
+                                  {t('If the address looks like a freight forwarder and other red flags are present, message the buyer on eBay before shipping. Their acknowledgement creates a useful paper trail, but your main protection is still shipping to the order address with signature on high-value items.')}
                                 </p>
 
                                 <div className="mt-3 rounded-lg border border-[#93C5FD] bg-[#EFF6FF] p-3">

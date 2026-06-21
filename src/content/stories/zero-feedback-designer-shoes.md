@@ -1,5 +1,5 @@
 ---
-title: The zero-feedback shoe buyer whose username looked like feedback
+title: Zero-feedback shoe buyer with a tricky username
 description: A designer-shoe order almost shipped before the seller noticed the account was brand new.
 type: Zero-feedback account pattern
 category: Zero-feedback account pattern

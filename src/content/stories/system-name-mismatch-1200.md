@@ -1,5 +1,5 @@
 ---
-title: The $1,200 order with a generated username and mismatched shipping name
+title: Generated username and mismatched shipping name
 description: A new account placed a high-value order with a username, recipient name, phone area code, and address that did not line up.
 type: Name mismatch / burner account
 category: Name mismatch / burner account

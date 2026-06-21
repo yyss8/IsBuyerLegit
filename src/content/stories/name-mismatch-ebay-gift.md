@@ -1,5 +1,5 @@
 ---
-title: "When a buyer's name doesn't match - and when it actually matters"
+title: "When a buyer's name doesn't match on eBay"
 description: A name or recipient mismatch on an eBay order can be innocent; the real danger is a post-payment address change.
 type: Buyer identity / name mismatch (eBay)
 category: Buyer identity / name mismatch (eBay)

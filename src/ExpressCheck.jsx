@@ -183,7 +183,7 @@ const ExpressCheck = ({ onSwitchToProfessional }) => {
         severity: 'medium',
         title: 'Delivery address appears to be a freight forwarder or warehouse',
         description:
-          "Freight forwarders are not automatically fraudulent — many legitimate international buyers use them. However, a critical eBay policy detail applies: eBay's Money Back Guarantee (buyer protection) is only voided if the buyer explicitly acknowledges using a freight forwarder in an eBay message. A freight forwarder address alone is no longer sufficient — buyers can claim they live or work at the address. This means a dispute can still go against you unless you have written confirmation from the buyer. Getting that confirmation before shipping is the most important protective step.",
+          "Freight forwarders are not automatically fraudulent — many legitimate international buyers use them. eBay does not void buyer protection simply because an address looks like a reshipper; the Money Back Guarantee exclusion is about forwarding or redirection after original delivery. Protection comes from doing it right before shipping: ship only to the order address, add signature on high-value items, and get an in-eBay acknowledgement when other red flags are present.",
       },
       {
         key: 'visual_mismatch',
@@ -191,7 +191,7 @@ const ExpressCheck = ({ onSwitchToProfessional }) => {
         severity: 'medium',
         title: 'Neighborhood does not look legitimate',
         description:
-          "We know you shouldn't judge a book by its cover — but if Street View is showing abandoned factories, streets full of beat-up cars, and rundown housing, shipping something high-value there may not be a smart idea. It doesn't automatically mean it's a scam, but if other flags are also showing up, treat it as a serious warning.",
+          "Street View is not proof by itself, and it can be outdated. Use it as a reason to verify before shipping: if the address looks vacant, impossible, or stacked with other signals, message the buyer before printing the label. A bad address can leave the package in a dead zone where tracking never shows delivered or returned.",
       },
       {
         key: 'area_code_mismatch',
@@ -223,7 +223,7 @@ const ExpressCheck = ({ onSwitchToProfessional }) => {
         severity: 'red',
         title: 'Buyer requested post-payment shipping address change',
         description:
-          "Shipping to any address other than the one confirmed in the eBay order immediately voids your seller protection. If the buyer later opens an 'item not received' case, eBay will rule against you — regardless of whether you have tracking proof of delivery. This is one of the most common and most preventable ways sellers lose both item and money. A legitimate buyer who entered the wrong address will always be willing to cancel and repurchase. A scammer will not.",
+          "An address mistake can be innocent, but the safe rule does not change: ship only to the address on the eBay order. If the buyer needs a different address, have them cancel and re-buy with the correct address. If the change request comes from an account that is not the buyer, treat that as a scam signal and escalate.",
       },
     ];
 

@@ -1,5 +1,5 @@
 ---
-title: "Freight-forwarder addresses: when the buyer isn't the problem - your proof is"
+title: "Freight-forwarder address: when proof breaks"
 description: A freight-forwarder address can be legitimate, but it can also break the delivery proof eBay seller protection depends on.
 type: Freight forwarder
 category: Freight forwarder

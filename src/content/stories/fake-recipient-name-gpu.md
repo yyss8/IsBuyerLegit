@@ -1,5 +1,5 @@
 ---
-title: The high-value GPU order with a fake recipient name and UPS Store address
+title: Fake recipient name on a high-value GPU order
 description: A zero-feedback buyer used a fake recipient name and a commercial shipping address on a valuable electronics order.
 type: Fake name / commercial address
 category: Fake name / commercial address

@@ -1,5 +1,5 @@
 ---
-title: The freight-forwarder order that turned into an empty-box claim
+title: Freight-forwarder order, empty-box claim
 description: A computer part shipped to a forwarding address, then the buyer opened a not-as-described case claiming the box was empty.
 type: Freight forwarder
 category: Freight forwarder

@@ -1,6 +1,6 @@
 ---
-title: "When eBay's seller protection actually saved me - and the one time it almost didn't"
-description: Freight-forwarder addresses and zero-feedback buyers can look risky, but seller protection can work when the shipment matches the order and has signature confirmation.
+title: "When eBay seller protection saved me"
+description: Seller protection can work on risky-looking eBay orders when the shipment matches the order, tracking is clean, and signature is added.
 type: Freight forwarder
 category: Freight forwarder
 platform: ebay
