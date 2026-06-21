@@ -21,6 +21,7 @@ const stories = defineCollection({
       title: z.string(),
       url: z.string().url().optional(),
     })).min(1),
+    pinned: z.boolean().default(false),
     draft: z.boolean().default(false),
     whatToDo: z.string(),
   }),

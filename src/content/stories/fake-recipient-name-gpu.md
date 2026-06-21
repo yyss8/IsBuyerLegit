@@ -1,6 +1,6 @@
 ---
-title: The high-value GPU order with a fictional name and UPS Store address
-description: A zero-feedback buyer used a fictional recipient name and a commercial shipping address on a valuable electronics order.
+title: The high-value GPU order with a fake recipient name and UPS Store address
+description: A zero-feedback buyer used a fake recipient name and a commercial shipping address on a valuable electronics order.
 type: Fake name / commercial address
 category: Fake name / commercial address
 platform: ebay
@@ -9,7 +9,7 @@ result: avoided
 date: 2026-02-24
 redFlags:
   - Zero-feedback buyer
-  - Fictional recipient name
+  - Fake recipient name
   - UPS Store shipping address
   - High-value electronics item
 sources:
@@ -23,7 +23,7 @@ whatToDo: >-
 
 A seller listed a high-value GPU and received a bid from a buyer with zero feedback.
 
-The recipient name was a fictional character name. The shipping destination was also a UPS Store, not a normal residential address.
+The recipient name appeared to be a comic-book character name. The shipping destination was also a UPS Store, not a normal residential address.
 
 Either detail could have an innocent explanation in isolation. Together, on an expensive electronics item, they pointed toward stolen-card or forwarding risk.
 
